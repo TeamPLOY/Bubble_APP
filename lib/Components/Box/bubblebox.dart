@@ -17,9 +17,9 @@ class _LaunduringBoxState extends State<LaunduringBox> {
   String formattime(int time) {
     return time.toString().padLeft(2, '0');
   }
-  void alramchange(){
+  void alramchange(){ 
     setState(() {
-      if(alram_onff==0){
+      if(alram_onff==0){ 
         alram_url='assets/images/alram_yes.svg';
         alram_onff=1;
       }
