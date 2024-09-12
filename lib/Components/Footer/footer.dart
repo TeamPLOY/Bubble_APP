@@ -29,7 +29,7 @@ class Footer extends StatelessWidget {
                 );
               },
               icon: SvgPicture.asset(
-                'assets/images/calendar.svg',
+                'assets/img/calendar.svg',
                 width: 24,
                 height: 24,
               ),
@@ -42,7 +42,7 @@ class Footer extends StatelessWidget {
                 );
               },
               icon: SvgPicture.asset(
-                'assets/images/home.svg',
+                'assets/img/home.svg',
                 width: 24,
                 height: 24,
               ),
@@ -55,7 +55,7 @@ class Footer extends StatelessWidget {
                 );
               },
               icon: SvgPicture.asset(
-                'assets/images/Me.svg',
+                'assets/img/Me.svg',
                 width: 24,
                 height: 24,
               ),

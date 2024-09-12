@@ -31,7 +31,7 @@ class MainHeader extends StatelessWidget {
                 );
               },
               child: SvgPicture.asset(
-                'assets/images/logo.svg',
+                'assets/img/logo.svg',
                 width: 8,
                 height: 18,
               ),

@@ -22,7 +22,7 @@ class Header extends StatelessWidget {
               onTap: () => {
                 Navigator.of(context).pop()
               },
-              child:SvgPicture.asset('assets/images/back.svg',width: 8,height: 18,)
+              child:SvgPicture.asset('assets/img/back.svg',width: 8,height: 18,)
             ),
           ),
           Expanded(

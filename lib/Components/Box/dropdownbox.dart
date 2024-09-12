@@ -122,7 +122,7 @@ class _DropdownboxState extends State<Dropdownbox> {
               Padding(
                 padding: const EdgeInsets.only(right: 15),
                 child: SvgPicture.asset(
-                  'assets/images/dropdown.svg',
+                  'assets/img/dropdown.svg',
                   width: 8,
                   height: 9,
                 )
