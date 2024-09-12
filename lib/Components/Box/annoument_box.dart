@@ -15,6 +15,11 @@ class AnnoumentBox extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width * (345 / 393),
       height: 84,
+      decoration: BoxDecoration(
+        color: white100,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(width: 1,color: gray300)
+      ),
       child: Padding(
         padding: EdgeInsets.only(left: 17,top: 27),
         child: Column(
