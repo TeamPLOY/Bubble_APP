@@ -91,3 +91,7 @@ const bold20 = TextStyle(
     fontFamily: 'PretendardSemiBold',
     fontSize: 20,
     fontWeight: FontWeight.w700);
+const bold28 = TextStyle(
+    fontFamily: 'PretendardSemiBold',
+    fontSize: 28,
+    fontWeight: FontWeight.w700);
