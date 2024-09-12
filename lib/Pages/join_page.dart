@@ -14,7 +14,7 @@ import 'package:bubble_app/Pages/Terms_Use.dart';
 
 class JoinPage extends StatefulWidget {
   JoinPage({super.key});
-
+  
   @override
   State<JoinPage> createState() => _JoinPageState();
 }
