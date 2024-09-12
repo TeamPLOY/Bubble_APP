@@ -10,6 +10,9 @@ class AnnoumentBox extends StatelessWidget {
       date.substring(4, 6) +
       '.' + 
       date.substring(6, 8);
+  const AnnoumentBox({required this.text,required this.date,super.key});
+  final String text;
+  final String date;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,6 +27,7 @@ class AnnoumentBox extends StatelessWidget {
             Text('${text}',style: semiBold14.copyWith(color: gray800),),
             SizedBox(height: 5,),
             Text('${ymd}',style: medium12.copyWith(color:gray600),)
+            Text('${date}',style: medium12.copyWith(color:gray600),)
           ],
         ),
       ),
