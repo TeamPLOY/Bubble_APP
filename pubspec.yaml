@@ -22,7 +22,7 @@ flutter:
 
   assets:
     - assets/
-    - assets/images/
+    - assets/img/
 
   fonts:
     - family: PretendardBold
