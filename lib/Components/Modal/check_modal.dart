@@ -24,7 +24,7 @@ class CheckModal extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.only(top: 39),
-            child: SvgPicture.asset('assets/images/checkicon.svg',width: 70,height: 70,)
+            child: SvgPicture.asset('assets/img/checkicon.svg',width: 70,height: 70,)
             ),
             Padding(
               padding: EdgeInsets.only(top: 25),
