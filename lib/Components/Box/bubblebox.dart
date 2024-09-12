@@ -21,7 +21,7 @@ class _LaunduringBoxState extends State<LaunduringBox> {
     setState(() {
       if(alram_onff==0){ 
         alram_url='assets/images/alram_yes.svg';
-        alram_onff=1;
+        alram_onff=1; 
       }
       else if(alram_onff==1){
         alram_url='assets/images/alram_no.svg';
