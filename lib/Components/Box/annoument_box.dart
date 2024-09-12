@@ -2,6 +2,14 @@ import 'package:bubble_app/theme.dart';
 import 'package:flutter/material.dart';
 
 class AnnoumentBox extends StatelessWidget {
+  AnnoumentBox({required this.text,required this.date,super.key});
+  final String text;
+  final String date;
+  late String ymd = date.substring(0,4) +
+      '.' +
+      date.substring(4, 6) +
+      '.' + 
+      date.substring(6, 8);
   const AnnoumentBox({required this.text,required this.date,super.key});
   final String text;
   final String date;
@@ -18,6 +26,7 @@ class AnnoumentBox extends StatelessWidget {
           children: [
             Text('${text}',style: semiBold14.copyWith(color: gray800),),
             SizedBox(height: 5,),
+            Text('${ymd}',style: medium12.copyWith(color:gray600),)
             Text('${date}',style: medium12.copyWith(color:gray600),)
           ],
         ),
