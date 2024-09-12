@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:bubble_app/theme.dart';
 
 class Cancel extends StatelessWidget {
-  final String dong, sex;
+  final String dong, gender;
   final int floor;
   final String machine;
 
-  Cancel(this.dong, this.floor, this.sex, this.machine, {Key? key})
+  Cancel(this.dong, this.floor, this.gender, this.machine, {Key? key})
       : super(key: key);
 
   @override
@@ -37,7 +37,7 @@ class Cancel extends StatelessWidget {
                   decoration: BoxDecoration(color: blue400),
                   alignment: Alignment.center,
                   child: Text(
-                    "${dong}동 ${floor}층 ${sex}",
+                    "${dong}동 ${floor}층 ${gender}",
                     style: medium10.copyWith(
                       color: white100,
                     ),
