@@ -5,7 +5,11 @@ class AnnoumentBox extends StatelessWidget {
   AnnoumentBox({required this.text,required this.date,super.key});
   final String text;
   final String date;
-  late String ymd=date.substring(0,3)+'.'+date.substring(4,5)+'.'+date.substring(6,7);
+  late String ymd = date.substring(0, 4) +
+      '.' +
+      date.substring(4, 6) +
+      '.' +
+      date.substring(6, 8);
   @override
   Widget build(BuildContext context) {
     return Container(
