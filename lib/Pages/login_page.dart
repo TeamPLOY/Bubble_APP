@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Header(text: '로그인'),
-              SizedBox(height: 153,),
+              SizedBox(height: 107,),
 
             ],
           ),  
@@ -41,15 +41,15 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Text('안녕하세요 : )',style: bold30.copyWith(color: gray800),),
                 Text('버블입니다. ',style: bold30.copyWith(color: gray800),),
-                SizedBox(height: 32,),
+                SizedBox(height: 30,),
                 Inputbox(wsize: 345, hsize: 40, text: '아이디 입력', controller: idController),
-                SizedBox(height: 20,),
+                SizedBox(height: 14,),
                 Inputbox(wsize: 345, hsize: 40, text: '비밀번호 입력', controller: passwordController),
                 SizedBox(height: pad,),
                 if(loginstate.every((element)=>element==true))Column(
                   children: [
                     Text('아이디 혹은 비밀번호가 일치하지 않습니다.',style: medium12.copyWith(color: red100),),
-                    SizedBox(height: 8,),
+                    SizedBox(height: 17,),
                   ],
                 ),
                 
@@ -61,17 +61,17 @@ class _LoginPageState extends State<LoginPage> {
                     setState(() {
                       loginstate=emailsearch.checkForm();
                       if(loginstate.every((element)=>element==true)){
-                        pad=13;
+                        pad=8;
                       }
                       else{
-                        pad=38;
+                        pad=44;
                       }
                     });
                 
                   },
                   child: Reservationbutton(text: '로그인 하기')
                 ),                
-                SizedBox(height: 9,),
+                SizedBox(height: 14,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
