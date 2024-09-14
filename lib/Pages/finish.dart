@@ -13,8 +13,8 @@ class Finish extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/img/finish.png',
+            SvgPicture.asset(
+              'assets/img/finish.svg',
               width: 150,
               height: 170,
             ),
