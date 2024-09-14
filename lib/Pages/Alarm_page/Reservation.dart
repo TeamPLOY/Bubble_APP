@@ -4,14 +4,14 @@ import 'package:bubble_app/components/Button/alarm.dart';
 import 'package:bubble_app/pages/Alarm_page/Notice_page.dart';
 import 'package:bubble_app/pages/Alarm_page/Alarm_page.dart';
 
-class Reservation_Page extends StatefulWidget {
-  const Reservation_Page({super.key});
+class Reservation extends StatefulWidget {
+  const Reservation({super.key});
 
   @override
-  _ReservationPageState createState() => _ReservationPageState();
+  _ReservationState createState() => _ReservationState();
 }
 
-class _ReservationPageState extends State<Reservation_Page> {
+class _ReservationState extends State<Reservation> {
   int _selectedButtonIndex = 2;
 
   void _handleButtonPress(int index) {

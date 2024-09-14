@@ -1,3 +1,4 @@
+import 'package:bubble_app/Components/Button/bluebutton.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/theme.dart';
 import 'package:bubble_app/Components/Header/header.dart';
@@ -69,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                     });
                 
                   },
-                  child: Reservationbutton(text: '로그인 하기')
+                  child: Bluebutton(text: '로그인 하기')
                 ),                
                 SizedBox(height: 14,),
                 Row(
@@ -118,7 +119,6 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           )
-          
         ],
       ),
     );

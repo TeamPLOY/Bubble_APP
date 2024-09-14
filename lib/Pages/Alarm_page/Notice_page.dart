@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bubble_app/components/Header/header.dart';
 import 'package:bubble_app/components/Button/alarm.dart';
 import 'package:bubble_app/pages/Alarm_page/Alarm_page.dart';
-import 'package:bubble_app/pages/Alarm_page/Reservation_page.dart';
+import 'package:bubble_app/pages/Alarm_page/Reservation.dart';
 import 'package:bubble_app/Components/Box/cancel.dart';
 
 class NoticePage extends StatefulWidget {
@@ -33,7 +33,7 @@ class _NoticePageState extends State<NoticePage> {
     } else if (index == 2) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Reservation_Page()),
+        MaterialPageRoute(builder: (context) => Reservation()),
       );
     }
   }

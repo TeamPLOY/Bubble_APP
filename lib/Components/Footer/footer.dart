@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // flutter_svg 패키지 import
 import 'package:bubble_app/theme.dart';
-import 'package:bubble_app/pages/Alarm_page/Reservation_page.dart';
 import 'package:bubble_app/Pages/main_page.dart';
 import 'package:bubble_app/pages/my_page.dart';
+import 'package:bubble_app/Pages/reservationpage.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -25,7 +25,7 @@ class Footer extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Reservation_Page()),
+                  MaterialPageRoute(builder: (context) => ReservationPage()),
                 );
               },
               icon: SvgPicture.asset(
