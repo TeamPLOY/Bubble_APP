@@ -39,20 +39,20 @@ class _ReservationPageState extends State<ReservationPage> {
               child: Header(text: "예약"),
             ),
             Positioned(
-              top: 120,
+              top: 60,
               left: 20,
               right: 20,
               child: Image.asset(
                 'assets/img/sun.png',
-                width: 20,
-                height: 20,
+                width: 200,
+                height: 200,
               ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 width: MediaQuery.of(context).size.width * (345 / 393),
-                height: 500,
+                height: 480,
                 decoration: BoxDecoration(
                   color: white100,
                   borderRadius: BorderRadius.only(
