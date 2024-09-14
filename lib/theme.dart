@@ -73,25 +73,39 @@ const semiBold16 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600);
 
+const semiBold18 = TextStyle(
+    fontFamily: 'PretendardSemiBold',
+    fontSize: 18,
+    fontWeight: FontWeight.w600);
+
 const semiBold24 = TextStyle(
     fontFamily: 'PretendardSemiBold',
     fontSize: 24,
     fontWeight: FontWeight.w600);
 
 // Bold
+const bold12 = TextStyle(
+    fontFamily: 'PretendardBold',
+    fontSize: 12,
+    fontWeight: FontWeight.w700);
 const bold14 = TextStyle(
-    fontFamily: 'PretendardSemiBold',
+    fontFamily: 'PretendardBold',
     fontSize: 14,
     fontWeight: FontWeight.w700);
 const bold16 = TextStyle(
-    fontFamily: 'PretendardSemiBold',
+    fontFamily: 'PretendardBold',
     fontSize: 16,
     fontWeight: FontWeight.w700);
 const bold20 = TextStyle(
-    fontFamily: 'PretendardSemiBold',
+    fontFamily: 'PretendardBold',
     fontSize: 20,
     fontWeight: FontWeight.w700);
 const bold28 = TextStyle(
-    fontFamily: 'PretendardSemiBold',
+    fontFamily: 'PretendardBold',
     fontSize: 28,
+    fontWeight: FontWeight.w700);
+
+const bold30 = TextStyle(
+    fontFamily: 'PretendardBold',
+    fontSize: 30,
     fontWeight: FontWeight.w700);
