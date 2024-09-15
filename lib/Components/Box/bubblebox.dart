@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/theme.dart';
 
-class LaunduringBox extends StatefulWidget {
+class Bubblebox extends StatefulWidget {
   late int hour, minute, place;
   late String device;
-  LaunduringBox(
+  Bubblebox(
       {required this.place,
       required this.hour,
       required this.minute,
@@ -13,10 +13,10 @@ class LaunduringBox extends StatefulWidget {
       super.key});
 
   @override
-  State<LaunduringBox> createState() => _LaunduringBoxState();
+  State<Bubblebox> createState() => _BubbleboxState();
 }
 
-class _LaunduringBoxState extends State<LaunduringBox> {
+class _BubbleboxState extends State<Bubblebox> {
   int alram_onff = 0;
   String alram_url = 'assets/img/alram_no.svg';
   String formattime(int time) {
