@@ -13,11 +13,12 @@ class Finish extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/img/finish.png',
-              width: 150,
-              height: 170,
-            ),
+            SvgPicture.asset('assets/img/finish.svg'),
+            // Image.asset(
+            //   'assets/img/finish.png',
+            //   width: 150,
+            //   height: 170,
+            // ),
             SizedBox(
               height: 20,
             ),

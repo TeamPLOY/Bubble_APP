@@ -10,11 +10,15 @@ import 'package:bubble_app/components/button/reservationButton.dart';
 import 'package:bubble_app/Functions/UnderlinedText.dart';
 import 'package:bubble_app/Functions/Formsearch.dart';
 import 'package:bubble_app/components/box/searchText.dart';
-import 'package:bubble_app/Pages/Terms_Use.dart';
+import 'package:bubble_app/pages/Terms_Use.dart';
+import 'package:bubble_app/Utils/join.dart';
+import 'package:bubble_app/Utils/email_post.dart';
+import 'package:bubble_app/Models/email_checkmodels.dart';
+import 'package:bubble_app/Utils/email_check.dart';
 
 class JoinPage extends StatefulWidget {
   JoinPage({super.key});
-  
+
   @override
   State<JoinPage> createState() => _JoinPageState();
 }
@@ -41,7 +45,56 @@ class _JoinPageState extends State<JoinPage> {
   final TextEditingController repasswordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController roomController = TextEditingController();
+  final TextEditingController BufferController = TextEditingController();
   
+  static const int Fiveminute=300;
+  int totalSecond = Fiveminute;
+  bool inRunining =false;
+  int totalp=0;
+  bool said_email=false;
+  late Timer timer;
+  late int gradenumber;
+  late String emails;
+  //late EmailGetModels email_checkCode;
+  bool openstate=false;
+
+  String format(int seconds){
+    var duration = Duration(seconds: seconds);
+
+    return duration.toString().split(".").first.substring(2,7);
+  }
+
+  void onStatePressed() {
+
+    if (inRunining) {
+      timer.cancel();
+    }
+
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      onTick(timer);
+    });
+
+    setState(() {
+      inRunining = true;
+      totalSecond = Fiveminute;
+    });
+  }
+
+  void onTick(Timer timer) {
+    if (totalSecond == 0) {
+      setState(() {
+        totalp = totalp + 1;
+        submitstate = false;
+        timer.cancel();
+        inRunining = false;
+      });
+    } else {
+      setState(() {
+        totalSecond = totalSecond - 1;
+      });
+    }
+  }
+
   @override
   void initState(){
     super.initState();
@@ -77,32 +130,101 @@ class _JoinPageState extends State<JoinPage> {
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: Text('@', style: medium14.copyWith(color: gray600)),
                         ),
-                        Inputbox(wsize: 98, hsize: 40, text: 'hssm.hs.kr', controller: comController),
+                        Inputbox(wsize: 98, hsize: 40, text: 'bssm.hs.kr', controller: comController),
                         SizedBox(width:10),
                         Expanded(
                           child: InkWell(
-                            onTap: () {
-                              final email = emailController.text + '@' + comController.text;
-                              print(email);
-                            },
                             splashColor: blue900,
                             borderRadius: BorderRadius.circular(5),
                             highlightColor: blue700,
                             splashFactory: InkRipple.splashFactory,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: blue400,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              width: MediaQuery.of(context).size.width * (95 / 393),
-                              height: 40,
-                              child: Center(
-                                child: Text('인증하기', style: semiBold14.copyWith(color: gray100)),
+                            child: GestureDetector(
+                              onTap: () async{
+                                Emailsearch emailsearch = Emailsearch(
+                                  comController: comController,
+                                  emailController: emailController,
+                                );
+                                emails = emailController.text + '@bssm.hs.kr';
+                                validationemailResults = emailsearch.checkForm();
+                                
+                                if(openstate==false){
+                                  if (!submitstate) {
+                                      onStatePressed();
+                                      setState(() {
+                                        submitstate = true;
+                                    });
+                                  }
+                                  if (validationemailResults.every((element) => element == false)) {
+                                    if (BufferController.text.length == 6) {
+                                      final int code = int.parse(BufferController.text);
+                                      EmailCheck emailCheck = EmailCheck(code: code, email: emails);
+                                      bool emailstate = await emailCheck.emailData_post();
+                                      setState(() {
+                                        if (emailstate) {
+                                          submitstate = false;
+                                          print('인증 성공 : $emailstate');
+                                          openstate=true;
+                                          said_email=false;
+                                        } else {
+                                          print('인증 실패');
+                                        }
+                                      });
+                                    } else {
+                                      Email_p email_post = Email_p(email: emails);
+                                      email_post.emailData_post();
+                                    }
+                                    
+                                  }
+                                }
+                              }, 
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: blue400,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                width: MediaQuery.of(context).size.width * (95 / 393),
+                                height: 40,
+                                child: Center(
+                                  child: Text('인증하기', style: semiBold14.copyWith(color: gray100)),
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ],
+                    ),
+                    if(validationemailResults[0]==true || validationemailResults[1]==true)
+                    const Searchtext(text: '이메일을 정확히 입력하세요.'),
+                    if(said_email==true)
+                    const Searchtext(text: '이메일을 인증을 받지않았습니다.'),
+                    
+                    if(submitstate==true)
+                      Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: Column(
+                        children: [
+                          Inputbox(wsize: 345, hsize: 40, text: '인증번호 6자리', controller: BufferController),
+                          SizedBox(height: 8,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                child: UnderlinedText(text:'재전송'),
+                                onTap: () {
+                                  if(emails!=null){
+                                    Email_p email_post = Email_p(email: emails);
+                                    email_post.emailData_post();
+                                  }
+                                  setState(() {
+                                    totalSecond=Fiveminute;
+                                  });
+                                },
+                              ),
+                              Text('${format(totalSecond)}',style: medium12.copyWith(color: red100),)
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 20),
                     const StartPrint(text: '비밀번호'),
@@ -157,11 +279,31 @@ class _JoinPageState extends State<JoinPage> {
                         validationResults = formsearch.checkForm();
                       });
                       print(validationResults);
-                      if(validationResults.every((element)=>element==false)){
+                      if(openstate==false){
+                        said_email=true;
+                      }
+                      if(validationResults.every((element)=>element==false) && openstate==true){
+                        gradenumber=(selectedgrade!=null ? int.parse(selectedgrade![0]):1 )*1000;
+                        gradenumber=gradenumber+(selectedclass_number!=null ? int.parse(selectedclass_number![0]):1 )*100;
+                        if(selectedstudent_number![1]=="번"){
+                          gradenumber=gradenumber+(selectedstudent_number!=null ? int.parse(selectedstudent_number![0]):1);
+                        }
+                        else{
+                          gradenumber=gradenumber+(selectedstudent_number!=null ? int.parse(selectedstudent_number![1]):1);
+                          gradenumber=gradenumber+(selectedstudent_number!=null ? int.parse(selectedstudent_number![0]):1)*10;
+                        }
+
+                        if (emails == null) {
+                          print("이메일을 입력하세요.");
+                          return;
+                        }
+                        String room_number =selectedroom![0]+roomController.text;
+                        Join join = Join(email: emails!, password: passwordController.text, name: nameController.text, stuNum:gradenumber, roomNum: room_number);
+                        
                         Navigator.push(
                           context,
                           PageRouteBuilder(
-                            pageBuilder: (context, animation, secondaryAnimation) => TermsUse(),
+                            pageBuilder: (context, animation, secondaryAnimation) => TermsUse(joins: join,),
                             transitionsBuilder: (context, animation, secondaryAnimation, child) {
                               return child; // 애니메이션 없이 바로 화면 전환
                             },
@@ -180,40 +322,6 @@ class _JoinPageState extends State<JoinPage> {
         ),
         ]
       ),
-    );
-  }
-}
-
-class UnderlinedText extends StatelessWidget {
-  final String text;
-
-  UnderlinedText({
-    required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final textSpan = TextSpan(
-      text: text,
-      style: medium12.copyWith(color: red100)
-    );
-
-    return Stack(
-      children: [
-        Text.rich(
-          textSpan,
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Container(
-            height: 1, // 밑줄의 두께를 설정합니다.
-            color: red100,
-            margin: EdgeInsets.only(top: 1),
-          ),
-        ),
-      ],
     );
   }
 }
