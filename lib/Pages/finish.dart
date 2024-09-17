@@ -52,20 +52,11 @@ class _FinishState extends State<Finish> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-<<<<<<< feat/#50
-            SvgPicture.asset('assets/img/finish.svg'),
-            // Image.asset(
-            //   'assets/img/finish.png',
-            //   width: 150,
-            //   height: 170,
-            // ),
-=======
             SvgPicture.asset(
               'assets/img/finish.svg',
               width: 84,
               height: 84,
             ),
->>>>>>> develop
             SizedBox(
               height: 20,
             ),

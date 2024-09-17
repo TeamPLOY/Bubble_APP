@@ -311,7 +311,7 @@ class _JoinPageState extends State<JoinPage> {
                         );
                       }
                       },
-                      child: Reservationbutton(text: '회원가입하기')
+                      child: Reservationbutton()
                     ),
                     SizedBox(height: 58,)
                   ],

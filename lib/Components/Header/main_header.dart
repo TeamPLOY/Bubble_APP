@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/theme.dart';
-import 'package:bubble_app/pages/main_page.dart';
+//import 'package:bubble_app/pages/main_page.dart';
 import 'package:bubble_app/pages/Alarm_page/Alarm_page.dart';
 
 class MainHeader extends StatelessWidget {
@@ -27,7 +27,7 @@ class MainHeader extends StatelessWidget {
               onTap: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => MainPage()),
+                  MaterialPageRoute(builder: (context) => AlarmPage()),
                 );
               },
               child: SvgPicture.asset(
