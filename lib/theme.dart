@@ -73,6 +73,11 @@ const semiBold16 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600);
 
+const semiBold18 = TextStyle(
+    fontFamily: 'PretendardSemiBold',
+    fontSize : 28,
+    fontWeight: FontWeight.w600);
+
 const semiBold24 = TextStyle(
     fontFamily: 'PretendardSemiBold',
     fontSize: 24,
