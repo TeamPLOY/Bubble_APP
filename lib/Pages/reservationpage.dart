@@ -105,6 +105,7 @@ class _ReservationPageState extends State<ReservationPage> {
                           SizedBox(height: 14),
                           Reservationbutton(
                             onPressed: _showCheckModal,
+                            text: '예약하기',
                           ),
                         ],
                       ),

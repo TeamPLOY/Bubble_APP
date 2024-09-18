@@ -1,3 +1,4 @@
+import 'package:bubble_app/Components/Button/go_button.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:bubble_app/components/header/header.dart';
@@ -311,7 +312,7 @@ class _JoinPageState extends State<JoinPage> {
                         );
                       }
                       },
-                      child: Reservationbutton()
+                      child: GoButton(text: '회원가입하기',),
                     ),
                     SizedBox(height: 58,)
                   ],
