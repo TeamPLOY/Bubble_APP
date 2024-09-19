@@ -32,8 +32,8 @@ class MainHeader extends StatelessWidget {
               },
               child: SvgPicture.asset(
                 'assets/img/logo.svg',
-                width: 8,
-                height: 18,
+                width: 71,
+                height: 14,
               ),
             ),
           ),
@@ -49,8 +49,8 @@ class MainHeader extends StatelessWidget {
                 },
                 child: SvgPicture.asset(
                   hasAlarm
-                      ? 'assets/images/alarm_yes.svg'
-                      : 'assets/images/alarm_no.svg',
+                      ? 'assets/img/alarm_yes.svg'
+                      : 'assets/img/alarm_no.svg',
                   width: 24,
                   height: 24,
                 ),
