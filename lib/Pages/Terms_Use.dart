@@ -1,18 +1,24 @@
+import 'package:bubble_app/Pages/my_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/components/button/reservationButton.dart';
 import 'package:bubble_app/components/header/header.dart';
 import 'package:bubble_app/theme.dart';
 import 'package:bubble_app/components/box/Textdown.dart';
+import 'package:bubble_app/Utils/join.dart';
+import 'package:bubble_app/Functions/use_text.dart';
 
 class TermsUse extends StatefulWidget {
-  const TermsUse({super.key});
+  final Join joins;
+  const TermsUse({required this.joins,super.key});
 
   @override
   State<TermsUse> createState() => _TermsUseState();
 }
 
 class _TermsUseState extends State<TermsUse> {
+  Color button_color1 = gray200;
+  Color button_color2 = gray500;
   bool allcheckstatus = false;
   Color color1 = gray700;
   Color color2 = gray200;
@@ -61,6 +67,8 @@ class _TermsUseState extends State<TermsUse> {
   void updatecheck() {
     if (option1 && option2) {
       setState(() {
+        button_color1=blue400;
+        button_color2=white100;
         allcheckstatus = true;
         color1 = white100;
         color2 = blue400;
@@ -69,6 +77,8 @@ class _TermsUseState extends State<TermsUse> {
     } else {
       setState(() {
         allcheckstatus = false;
+        button_color1=gray200;
+        button_color2=gray500;
         color1 = gray700;
         color2 = gray200;
         svg_url = 'assets/img/check.svg';
@@ -134,6 +144,8 @@ class _TermsUseState extends State<TermsUse> {
                   onTap: () {
                     if (allcheckstatus == false) {
                       setState(() {
+                        button_color1=blue400;
+                        button_color2=white100;
                         allcheckstatus = true;
                         color1 = white100;
                         color2 = blue400;
@@ -145,6 +157,8 @@ class _TermsUseState extends State<TermsUse> {
                       });
                     } else if (allcheckstatus == true) {
                       setState(() {
+                        button_color1= gray200;
+                        button_color2 = gray500;
                         allcheckstatus = false;
                         color1 = gray700;
                         color2 = gray200;
@@ -229,8 +243,8 @@ class _TermsUseState extends State<TermsUse> {
                   children: [
                     if (arrow_option1 == true)
                       Textdown(
-                          text:
-                              '이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당 ')
+                          text:first_text
+                      )
                   ],
                 ),
                 SizedBox(
@@ -280,8 +294,8 @@ class _TermsUseState extends State<TermsUse> {
                   children: [
                     if (arrow_option2 == true)
                       Textdown(
-                          text:
-                              '이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당함 이거 안읽고 누르면 나중에 사기당 ')
+                          text:second_text
+                               )
                   ],
                 ),
                 SizedBox(
@@ -311,8 +325,20 @@ class _TermsUseState extends State<TermsUse> {
                     onTap: () {
                       if (allcheckstatus == true) {
                         setState(() {
+                          widget.joins.joinpostData();
                           buttonstatus = true;
-                          //나중에 페이지 이동 할 때는 이거
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      MyPage(),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                return child; // 애니메이션 없이 바로 화면 전환
+                              },
+                            ),
+                          );
                         });
                       } else {
                         setState(() {
@@ -320,22 +346,17 @@ class _TermsUseState extends State<TermsUse> {
                         });
                       }
                     },
-                    child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      TermsUse(),
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                return child; // 애니메이션 없이 바로 화면 전환
-                              },
-                            ),
-                          );
-                        },
-                        child: Reservationbutton(text: '동의합니다')))
+                    child: Container(
+                      width: MediaQuery.of(context).size.width-48,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: button_color1
+                      ),
+                      child: Center(
+                        child: Text('동의합니다',style: bold16.copyWith(color: button_color2),),
+                      ),
+                ))
               ],
             ),
           ),
