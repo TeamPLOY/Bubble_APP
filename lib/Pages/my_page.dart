@@ -4,11 +4,42 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/theme.dart';
 import 'package:bubble_app/Components/Box/output_text.dart';
 import 'package:bubble_app/Components/Modal/logout_modal.dart';
+import 'package:bubble_app/Models/User.dart';
+import 'package:bubble_app/Utils/user_get.dart';
 
 const String svgsetimage = 'assets/img/setimage.svg';
 
-class MyPage extends StatelessWidget {
+class MyPage extends StatefulWidget {
+
+
   const MyPage({super.key});
+
+  @override
+  State<MyPage> createState() => _MyPageState();
+}
+
+class _MyPageState extends State<MyPage> {
+  User? userData;
+
+  @override
+  void initState(){
+    super.initState();
+    _fetchUserData();
+  }
+
+  Future<void> _fetchUserData() async{
+    UserGet users = UserGet();
+
+    try{
+      User fetchedUser = await users.fetchData();
+      setState(() {
+        userData=fetchedUser;
+      });
+    }
+    catch(e){
+      print('에러 ${e}');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +85,11 @@ class MyPage extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        '송윤서',
+                        '${userData!.name}',
                         style: semiBold16.copyWith(color: gray800),
                       ),
                       Text(
-                        '2106',
+                        '${userData!.studentNum}',
                         style: medium12.copyWith(color: gray600),
                       )
                     ],
@@ -78,7 +109,7 @@ class MyPage extends StatelessWidget {
                       '이메일',
                       style: medium14.copyWith(color: gray800),
                     ),
-                    OutputText(text_label: '2023035@bssm.hs.kr')
+                    OutputText(text_label: '${userData!.email}')
                   ],
                 ),
               )),
@@ -93,7 +124,7 @@ class MyPage extends StatelessWidget {
                       '호실',
                       style: medium14.copyWith(color: gray800),
                     ),
-                    OutputText(text_label: 'B동 225호')
+                    OutputText(text_label: '${userData!.roomNum}')
                   ],
                 ),
               )),
