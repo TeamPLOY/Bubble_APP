@@ -1,8 +1,8 @@
 import 'package:bubble_app/pages/Alarm_page/Alarm_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart'; // flutter_svg 패키지 import
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/theme.dart';
-import 'package:bubble_app/pages/my_page.dart';
+import 'package:bubble_app/Pages/main_page.dart';
 import 'package:bubble_app/Pages/reservationpage.dart';
 
 class Footer extends StatelessWidget {
