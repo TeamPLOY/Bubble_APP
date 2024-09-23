@@ -18,7 +18,7 @@ class EmailCheck{
     //print(code);
     //print(code.runtimeType);
 
-    final String url = 'https://port-0-laundering-server-v1-9zxht12blq9gr7pi.sel4.cloudtype.app/email/check';
+    final String url = 'http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/email/check';
     
     try{
       final response = await http.post(
@@ -28,8 +28,8 @@ class EmailCheck{
         },
         body: jsonEncode(postData),
       );
-      // print('응답 상태: ${response.statusCode}');
-      // print('응답 본문: ${response.body}');
+      print('응답 상태: ${response.statusCode}');
+      print('응답 본문: ${response.body}');
       if(response.statusCode == 200){
         var responseData = jsonDecode(response.body);
         //print('포스트 성공 : $responseData');
