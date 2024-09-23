@@ -17,7 +17,7 @@ class LoginPost {
       'password': password,
     };
     
-    final String url = 'https://port-0-laundering-server-v1-9zxht12blq9gr7pi.sel4.cloudtype.app/login';
+    final String url = 'http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/login';
     
     try {
       final response = await http.post(
@@ -35,7 +35,7 @@ class LoginPost {
         var refreshToken = tokens['refreshToken'];
         TokenModels Token = TokenModels(access_token: accessToken, refresh_token: refreshToken);
 
-        print('포스트 성공');
+        //print('포스트 성공');
         return Token;
       } else {
         print('실패 : ${response.statusCode}');

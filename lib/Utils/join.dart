@@ -33,7 +33,7 @@ class Join {
     print(stuNum);
     print(roomNum);
 
-    final String url = 'https://port-0-laundering-server-v1-9zxht12blq9gr7pi.sel4.cloudtype.app/signup';
+    final String url = 'http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/signup';
     
     try{
       final response = await http.post(

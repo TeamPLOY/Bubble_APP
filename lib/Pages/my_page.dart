@@ -6,6 +6,8 @@ import 'package:bubble_app/Components/Box/output_text.dart';
 import 'package:bubble_app/Components/Modal/logout_modal.dart';
 import 'package:bubble_app/Models/User.dart';
 import 'package:bubble_app/Utils/user_get.dart';
+import 'package:bubble_app/Utils/tokens.dart';
+
 
 const String svgsetimage = 'assets/img/setimage.svg';
 
@@ -28,7 +30,8 @@ class _MyPageState extends State<MyPage> {
   }
 
   Future<void> _fetchUserData() async{
-    UserGet users = UserGet();
+    
+    UserGet users = UserGet(access_token:  globalTokens?.access_token );
 
     try{
       User fetchedUser = await users.fetchData();
@@ -85,11 +88,11 @@ class _MyPageState extends State<MyPage> {
                   child: Column(
                     children: [
                       Text(
-                        '${userData!.name}',
+                        userData != null ? '${userData!.name}' : '이름 로딩 중...',
                         style: semiBold16.copyWith(color: gray800),
                       ),
                       Text(
-                        '${userData!.studentNum}',
+                        userData != null ? '${userData!.studentNum}' : '학생 번호 로딩 중...',
                         style: medium12.copyWith(color: gray600),
                       )
                     ],
@@ -99,35 +102,37 @@ class _MyPageState extends State<MyPage> {
             ),
           ),
           Padding(
-              padding: EdgeInsets.only(top: 15),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '이메일',
-                      style: medium14.copyWith(color: gray800),
-                    ),
-                    OutputText(text_label: '${userData!.email}')
-                  ],
-                ),
-              )),
+            padding: EdgeInsets.only(top: 15),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '이메일',
+                    style: medium14.copyWith(color: gray800),
+                  ),
+                  OutputText(text_label: userData != null ? '${userData!.email}' : '이메일 로딩 중...')
+                ],
+              ),
+            ),
+          ),
           Padding(
-              padding: EdgeInsets.only(top: 25),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '호실',
-                      style: medium14.copyWith(color: gray800),
-                    ),
-                    OutputText(text_label: '${userData!.roomNum}')
-                  ],
-                ),
-              )),
+            padding: EdgeInsets.only(top: 25),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '호실',
+                    style: medium14.copyWith(color: gray800),
+                  ),
+                  OutputText(text_label: userData != null ? '${userData!.roomNum}' : '호실 로딩 중...')
+                ],
+              ),
+            ),
+          ),
           Expanded(
             child: Align(
               alignment: Alignment.bottomCenter,
@@ -153,4 +158,5 @@ class _MyPageState extends State<MyPage> {
       ),
     );
   }
+
 }

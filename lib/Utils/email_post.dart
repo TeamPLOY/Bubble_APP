@@ -12,10 +12,8 @@ class Email_p{
       'email': email,
     };
 
-    //print(email);
+    final String url = 'http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/email';
 
-    final String url = 'https://port-0-laundering-server-v1-9zxht12blq9gr7pi.sel4.cloudtype.app/email';
-    
     try{
       final response = await http.post(
         Uri.parse(url),
@@ -24,19 +22,19 @@ class Email_p{
         },
         body: jsonEncode(postData),
       );
-      // print('응답 상태: ${response.statusCode}');
-      // print('응답 본문: ${response.body}');
+      print('응답 상태: ${response.statusCode}');
+      print('응답 본문: ${response.body}');
       if(response.statusCode == 204){
         var responseData = response.body;
-        //print('포스트 성공 : $responseData');
+        print('포스트 성공 : $responseData');
       }
 
       else{
-        //print('실패 :  ${response.statusCode}');
+        print('실패 :  ${response.statusCode}');
       }
     }
     catch(e){
-      //print('에러 : $e');
+      print('에러 : $e');
     }
   }
 }

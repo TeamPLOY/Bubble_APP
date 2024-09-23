@@ -1,40 +1,34 @@
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:bubble_app/Utils/tokens.dart';
 
-class Logout{
-  var access_token;
-  var refresh_token;
-  Logout(
-    {
-      required this.access_token,
-      required this.refresh_token,
-    }
-  );
 
-  Future<void> Logout_post() async{
-    final String url = 'https://port-0-laundering-server-v1-9zxht12blq9gr7pi.sel4.cloudtype.app/logout';
+class Logout {
+  Future<void> fetchData() async {
+    final String url = 'http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/logout';
+    var access_token=globalTokens?.access_token;
+    globalTokens?.access_token=null;
+    globalTokens?.refresh_token=null;
     
-    try{
+     try {
       final response = await http.post(
         Uri.parse(url),
         headers: {
-          'Authorization':access_token
-        }
+          'Content-Type': 'application/json',
+          'access_token':'${access_token}'
+        },
       );
-      print('응답 상태: ${response.statusCode}');
-      print('응답 본문: ${response.body}');
-      if(response.statusCode == 200){
-        var responseData = response.body;
-        print('포스트 성공 : $responseData');
-      }
 
-      else{
+      if (response.statusCode == 200) {
+        var responseData = jsonDecode(response.body);
+        print('포스트 성공 : $responseData');
+      } else {
+         
         print('실패 :  ${response.statusCode}');
+        print(response.body);
       }
-    }
-    catch(e){
-      print('에러 : $e');
+    } catch (e) {
+      print('에러: $e');
     }
   }
 }

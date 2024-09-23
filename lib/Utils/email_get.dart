@@ -5,7 +5,7 @@ import 'package:bubble_app/Models/email_get_models.dart';
 
 class Email_g{
   Future<EmailGetModels> fetchData() async{
-    final String url = 'https://port-0-laundering-server-v1-9zxht12blq9gr7pi.sel4.cloudtype.app/email';
+    final String url = 'http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/email';
     
     try{
       final response = await http.get(Uri.parse(url));
