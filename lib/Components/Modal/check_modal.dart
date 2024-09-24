@@ -70,9 +70,13 @@ class CheckModal extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => Finish(title: "예약"),
+                    Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) => Finish(title: "예약"),
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            return child; // 애니메이션 없이 바로 화면 전환
+                          },
                       ),
                     );
                   },

@@ -30,9 +30,14 @@ class _FinishState extends State<Finish> {
       } else {
         // 0초가 되면 알림 페이지로 이동
         timer.cancel(); // 타이머 취소
-        Navigator.pushReplacement(
+          Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AlarmPage()), // 알림 페이지로 이동
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => AlarmPage(),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                return child; // 애니메이션 없이 바로 화면 전환
+            },
+          ),
         );
       }
     });

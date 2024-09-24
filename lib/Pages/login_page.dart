@@ -7,8 +7,8 @@ import 'package:bubble_app/Components/Box/inputbox.dart';
 import 'package:bubble_app/Utils/login_post.dart';
 import 'package:bubble_app/Pages/join_page.dart';
 import 'package:bubble_app/Functions/emailsearch.dart';
-import 'package:bubble_app/Models/token_models.dart';
 import 'package:bubble_app/Utils/tokens.dart';
+import 'package:bubble_app/pages/main_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -89,6 +89,15 @@ class _LoginPageState extends State<LoginPage> {
                           print('로그인 성공');
                           pad = 42;
                           logcheck=true;
+                          Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation, secondaryAnimation) => MainPage(),
+                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                              return child; // 애니메이션 없이 바로 화면 전환
+                            },
+                          ),
+                        );
                         }
                       });
                     }

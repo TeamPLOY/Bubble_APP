@@ -25,9 +25,14 @@ class MainHeader extends StatelessWidget {
             padding: const EdgeInsets.only(left: 24),
             child: GestureDetector(
               onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => AlarmPage()),
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) => AlarmPage(),
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                        return child; // 애니메이션 없이 바로 화면 전환
+                      },
+                  ),
                 );
               },
               child: SvgPicture.asset(
@@ -42,9 +47,14 @@ class MainHeader extends StatelessWidget {
               padding: const EdgeInsets.only(left: 200),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => AlarmPage()),
+                  Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) => AlarmPage(),
+                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                          return child; // 애니메이션 없이 바로 화면 전환
+                        },
+                    ),
                   );
                 },
                 child: SvgPicture.asset(
