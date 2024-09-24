@@ -9,9 +9,9 @@ class GoButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width - 48,
-      height: 44,
+      height: 45,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(8),
         color: blue400,
       ),
       child: Center(
