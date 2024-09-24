@@ -12,27 +12,20 @@ import 'package:bubble_app/Utils/tokens.dart';
 const String svgsetimage = 'assets/img/setimage.svg';
 
 class MyPage extends StatefulWidget {
-
-
   const MyPage({super.key});
-
   @override
   State<MyPage> createState() => _MyPageState();
 }
 
 class _MyPageState extends State<MyPage> {
   User? userData;
-
   @override
   void initState(){
     super.initState();
     _fetchUserData();
   }
-
   Future<void> _fetchUserData() async{
-    
     UserGet users = UserGet(access_token:  globalTokens?.access_token );
-
     try{
       User fetchedUser = await users.fetchData();
       setState(() {

@@ -19,7 +19,7 @@ class Logout {
         },
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 204) {
         var responseData = jsonDecode(response.body);
         print('포스트 성공 : $responseData');
       } else {

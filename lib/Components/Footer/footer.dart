@@ -2,7 +2,8 @@ import 'package:bubble_app/pages/Alarm_page/Alarm_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/theme.dart';
-import 'package:bubble_app/Pages/main_page.dart';
+// import 'package:bubble_app/Pages/main_page.dart';
+import 'package:bubble_app/Pages/My_page.dart';
 import 'package:bubble_app/Pages/reservationpage.dart';
 
 class Footer extends StatelessWidget {
@@ -24,8 +25,13 @@ class Footer extends StatelessWidget {
             IconButton(
               onPressed: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ReservationPage()),
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) => ReservationPage(),
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                        return child; // 애니메이션 없이 바로 화면 전환
+                      },
+                  ),
                 );
               },
               icon: SvgPicture.asset(
@@ -37,8 +43,13 @@ class Footer extends StatelessWidget {
             IconButton(
               onPressed: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AlarmPage()),
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) => AlarmPage(),
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                        return child; // 애니메이션 없이 바로 화면 전환
+                      },
+                  ),
                 );
               },
               icon: SvgPicture.asset(
@@ -50,8 +61,13 @@ class Footer extends StatelessWidget {
             IconButton(
               onPressed: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MyPage()),
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) => MyPage(),
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                        return child; // 애니메이션 없이 바로 화면 전환
+                      },
+                  ),
                 );
               },
               icon: SvgPicture.asset(

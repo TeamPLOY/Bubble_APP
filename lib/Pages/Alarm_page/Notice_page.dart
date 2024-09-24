@@ -26,15 +26,20 @@ class _NoticePageState extends State<NoticePage> {
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) => AlarmPage(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return child;
+            return child; // 애니메이션 없이 바로 화면 전환
           },
-        ),
-      );
+      ),
+    );
     } else if (index == 2) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Reservation()),
-      );
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => Reservation(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return child; // 애니메이션 없이 바로 화면 전환
+          },
+      ),
+    );
     }
   }
 

@@ -22,13 +22,23 @@ class _ReservationState extends State<Reservation> {
     if (index == 0) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => AlarmPage()),
-      );
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => AlarmPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return child; // 애니메이션 없이 바로 화면 전환
+          },
+      ),
+    );
     } else if (index == 1) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => NoticePage()),
-      );
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => NoticePage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return child; // 애니메이션 없이 바로 화면 전환
+          },
+      ),
+    );
     }
   }
 
