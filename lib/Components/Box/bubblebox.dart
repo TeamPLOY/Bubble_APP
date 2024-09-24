@@ -18,7 +18,7 @@ class Bubblebox extends StatefulWidget {
 
 class _BubbleboxState extends State<Bubblebox> {
   int alram_onff = 0;
-  String alram_url = 'assets/img/alram_no.svg';
+  String alram_url = 'assets/img/alarm_no.svg';
   String formattime(int time) {
     return time.toString().padLeft(2, '0');
   }
@@ -26,10 +26,10 @@ class _BubbleboxState extends State<Bubblebox> {
   void alramchange() {
     setState(() {
       if (alram_onff == 0) {
-        alram_url = 'assets/img/alram_yes.svg';
+        alram_url = 'assets/img/alarm_no.svg';
         alram_onff = 1;
       } else if (alram_onff == 1) {
-        alram_url = 'assets/img/alram_no.svg';
+        alram_url = 'assets/img/alarm_x.svg';
         alram_onff = 0;
       }
     });
