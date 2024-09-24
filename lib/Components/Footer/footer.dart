@@ -25,12 +25,14 @@ class Footer extends StatelessWidget {
             IconButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) => ReservationPage(),
-                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                        return child; // 애니메이션 없이 바로 화면 전환
-                      },
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        ReservationPage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
                   ),
                 );
               },
@@ -43,12 +45,14 @@ class Footer extends StatelessWidget {
             IconButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) => AlarmPage(),
-                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                        return child; // 애니메이션 없이 바로 화면 전환
-                      },
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        AlarmPage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child; // 애니메이션 없이 바로 화면 전환
+                    },
                   ),
                 );
               },
@@ -61,12 +65,14 @@ class Footer extends StatelessWidget {
             IconButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) => MyPage(),
-                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                        return child; // 애니메이션 없이 바로 화면 전환
-                      },
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        MyPage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child; // 애니메이션 없이 바로 화면 전환
+                    },
                   ),
                 );
               },

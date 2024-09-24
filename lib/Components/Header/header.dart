@@ -1,3 +1,4 @@
+import 'package:bubble_app/Pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/theme.dart';
@@ -12,15 +13,21 @@ class Header extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: 54,
       decoration: BoxDecoration(
+          color: white100,
           border: Border(
-        bottom: BorderSide(width: 1.5, color: Color(0xffF2F5F7)),
-      )),
+            bottom: BorderSide(width: 1.5, color: Color(0xffF2F5F7)),
+          )),
       child: Row(
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 20),
             child: GestureDetector(
-                onTap: () => {Navigator.of(context).pop()},
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => MainPage()),
+                  );
+                },
                 child: SvgPicture.asset(
                   'assets/img/back.svg',
                   width: 8,
