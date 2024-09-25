@@ -21,8 +21,9 @@ class _MainPageState extends State<MainPage> {
     _futureMachineData();
   }
 
+
   Future<void> _futureMachineData() async {
-    MachineGet machine = MachineGet();
+    MachineGet machine = MachineGet(); 
     try {
       List<Machine> fetchedMachine = await machine.fetchData();
       setState(() {
