@@ -50,6 +50,7 @@ class _NoticePageState extends State<NoticePage> {
         child: Column(
           children: [
             Header(text: "공지사항"),
+            SizedBox(height: 30,),
             AlarmButton(
               selectedButtonIndex: _selectedButtonIndex,
               onButtonPressed: _handleButtonPress,

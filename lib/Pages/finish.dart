@@ -52,31 +52,33 @@ class _FinishState extends State<Finish> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              'assets/img/finish.svg',
-              width: 84,
-              height: 84,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              "${widget.title}이 완료되었습니다!",
-              style: bold28.copyWith(color: gray800),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Text(
-              "$count초 후 알림 페이지로 이동합니다.",
-              style: medium14.copyWith(color: gray500),
-            ),
-          ],
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                'assets/img/finish.svg',
+                width: 84,
+                height: 84,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "${widget.title}이 완료되었습니다!",
+                style: bold28.copyWith(color: gray800),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Text(
+                "$count초 후 알림 페이지로 이동합니다.",
+                style: medium14.copyWith(color: gray500),
+              ),
+            ],
+          ),
         ),
       ),
     );

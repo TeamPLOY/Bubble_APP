@@ -49,6 +49,9 @@ class _AlarmPageState extends State<AlarmPage> {
         child: Column(
           children: [
             Header(text: "알림"),
+            SizedBox(
+              height: 30,
+            ),
             AlarmButton(
               selectedButtonIndex: _selectedButtonIndex,
               onButtonPressed: _handleButtonPress,

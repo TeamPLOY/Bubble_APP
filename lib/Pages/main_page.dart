@@ -35,9 +35,9 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
           children: [
             MainHeader(hasAlarm: true),
             Expanded(
@@ -55,9 +55,9 @@ class _MainPageState extends State<MainPage> {
                         futureResult.data!.isEmpty) {
                       return Center(child: Text('시간이 날라오고 잇어욤'));
                     }
-
+            
                     final machines = futureResult.data!;
-
+            
                     return ListView.builder(
                       itemCount: (machines.length / 2).ceil(),
                       itemBuilder: (context, rowIndex) {
@@ -71,17 +71,17 @@ class _MainPageState extends State<MainPage> {
                             final machine = machines[index];
                             double machineTime =
                                 machine.time; // assuming time is in minutes
-
+            
                             final hours =
                                 (machineTime / 60).floor(); // Calculate hours
                             final minutes = (machineTime % 60)
                                 .toInt(); // Calculate remaining minutes
-
+            
                             final formattedHours =
                                 hours.toString().padLeft(2, '0');
                             final formattedMinutes =
                                 minutes.toString().padLeft(2, '0');
-
+            
                             return Column(
                               children: [
                                 Bubblebox(
