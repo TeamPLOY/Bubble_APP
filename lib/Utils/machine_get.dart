@@ -34,7 +34,7 @@ class MachineGet {
         }
       } else {
         print('실패 : ${response.statusCode}');
-        throw Exception('Fasd: ${response.statusCode}');
+        throw Exception('Fasd: ${response.body}');
       }
     } catch (e) {
       print('에러 : $e');

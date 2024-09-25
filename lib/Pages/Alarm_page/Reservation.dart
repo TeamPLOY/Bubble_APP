@@ -49,6 +49,7 @@ class _ReservationState extends State<Reservation> {
         child: Column(
           children: [
             Header(text: "예약 목록"),
+            SizedBox(height: 30,),
             AlarmButton(
               selectedButtonIndex: _selectedButtonIndex,
               onButtonPressed: _handleButtonPress,

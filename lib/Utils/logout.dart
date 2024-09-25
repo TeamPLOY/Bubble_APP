@@ -9,7 +9,6 @@ class Logout {
     var access_token=globalTokens?.access_token;
     globalTokens?.access_token=null;
     globalTokens?.refresh_token=null;
-    
      try {
       final response = await http.post(
         Uri.parse(url),
@@ -20,8 +19,8 @@ class Logout {
       );
 
       if (response.statusCode == 204) {
-        var responseData = jsonDecode(response.body);
-        print('포스트 성공 : $responseData');
+        // var responseData = jsonDecode(response.body);
+        print('포스트 성공');
       } else {
          
         print('실패 :  ${response.statusCode}');
