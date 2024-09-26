@@ -4,6 +4,8 @@ import 'package:bubble_app/theme.dart';
 import 'package:bubble_app/Components/Box/check_box.dart';
 import 'package:bubble_app/Components/Header/header.dart';
 import 'package:bubble_app/Components/Modal/check_modal.dart';
+import 'package:bubble_app/Models/reservation_models.dart';
+import 'package:bubble_app/Utils/join_reservation.dart';
 
 class ReservationPage extends StatefulWidget {
   const ReservationPage({super.key});
@@ -14,7 +16,27 @@ class ReservationPage extends StatefulWidget {
 
 class _ReservationPageState extends State<ReservationPage> {
   void _onStateChanged(int boxState) {}
+  late List<ReservationModels> Reservation_check;
 
+  @override
+  void initState(){
+    super.initState();
+    load_reservation_check();
+  }
+  Future<void> load_reservation_check() async{
+    JoinReservation fetchReservation=JoinReservation();
+    try{
+      List<ReservationModels> reservation_result = await fetchReservation.fetchReservation();
+      setState(() {
+        Reservation_check=reservation_result;
+      });
+    }
+    catch(e){
+        print('에러 ${e}');
+    }
+    
+    print(Reservation_check.last.date+Reservation_check.last.day);
+  }
   void _showCheckModal() {
     showDialog(
       context: context,

@@ -14,6 +14,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   Future<List<Machine>>? machineData;
+  
 
   @override
   void initState() {
