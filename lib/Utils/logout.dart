@@ -1,5 +1,4 @@
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:bubble_app/Utils/tokens.dart';
 
 
@@ -9,19 +8,18 @@ class Logout {
     var access_token=globalTokens?.access_token;
     globalTokens?.access_token=null;
     globalTokens?.refresh_token=null;
-    
      try {
       final response = await http.post(
         Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
-          'access_token':'${access_token}'
+          'Authorization' : 'Bearer ${access_token}'
         },
       );
 
       if (response.statusCode == 204) {
-        var responseData = jsonDecode(response.body);
-        print('포스트 성공 : $responseData');
+        // var responseData = jsonDecode(response.body);
+        print('포스트 성공');
       } else {
          
         print('실패 :  ${response.statusCode}');

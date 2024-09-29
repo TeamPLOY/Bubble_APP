@@ -22,25 +22,30 @@ class _AlarmButtonState extends State<AlarmButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          CustomButton(
-            text: '알림',
-            isSelected: widget.selectedButtonIndex == 0,
-            onPressed: () => widget.onButtonPressed(0),
-          ),
-          CustomButton(
-            text: '공지사항',
-            isSelected: widget.selectedButtonIndex == 1,
-            onPressed: () => widget.onButtonPressed(1),
-          ),
-          CustomButton(
-            text: '예약 목록',
-            isSelected: widget.selectedButtonIndex == 2,
-            onPressed: () => widget.onButtonPressed(2),
-          ),
-        ],
+      child: Padding(
+        padding: EdgeInsets.only(left: 24),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            CustomButton(
+              text: '알림',
+              isSelected: widget.selectedButtonIndex == 0,
+              onPressed: () => widget.onButtonPressed(0),
+            ),
+            SizedBox(width: 10,),
+            CustomButton(
+              text: '공지사항',
+              isSelected: widget.selectedButtonIndex == 1,
+              onPressed: () => widget.onButtonPressed(1),
+            ),
+            SizedBox(width: 10,),
+            CustomButton(
+              text: '예약 목록',
+              isSelected: widget.selectedButtonIndex == 2,
+              onPressed: () => widget.onButtonPressed(2),
+            ),
+          ],
+        ),
       ),
     );
   }

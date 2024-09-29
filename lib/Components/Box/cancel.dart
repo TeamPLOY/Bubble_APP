@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:bubble_app/theme.dart';
 
-class Cancel extends StatelessWidget {
-  final String dong, gender;
-  final int floor;
-  final String machine;
+class Cancel extends StatefulWidget {
+  final String date;
+  final String roomnumber;
+  final bool cancel;
+  final String washingRoom;
 
-  Cancel(this.dong, this.floor, this.gender, this.machine, {Key? key})
-      : super(key: key);
+  Cancel({required this.date,required this.roomnumber,required this.cancel,required this.washingRoom,Key? key});
 
+  @override
+  State<Cancel> createState() => _CancelState();
+}
+
+class _CancelState extends State<Cancel> {
+
+  String todate(String date){
+      late String ymd = date.substring(0,4) +
+      '년 ' +
+      date.substring(5, 7) +
+      '월 ' + 
+      date.substring(8, 10)+'일';
+
+      return ymd;
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 332,
-      height: 109,
+      width:  MediaQuery.of(context).size.width * (332 / 393),
+      height: 72,
       decoration: BoxDecoration(
         color: white100,
         borderRadius: BorderRadius.circular(8),
@@ -22,91 +37,66 @@ class Cancel extends StatelessWidget {
           color: gray300,
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 70,
-                  height: 16,
-                  decoration: BoxDecoration(color: blue400),
-                  alignment: Alignment.center,
-                  child: Text(
-                    "${dong}동 ${floor}층 ${gender}",
-                    style: medium10.copyWith(
-                      color: white100,
-                    ),
-                  ),
+      child: Padding(
+        padding: EdgeInsets.only(left: 16,top: 13),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              width: 70,
+              height: 16,
+              decoration: BoxDecoration(color: blue400,borderRadius: BorderRadius.circular(3)),
+              alignment: Alignment.center,
+              child: Text(
+                "${widget.roomnumber}",
+                style: medium10.copyWith(
+                  color: white100,
                 ),
-                SizedBox(height: 6),
-                Text(
-                  "${machine}",
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 12,top: 13),
+                  child: Text(
+                  "${todate(widget.date)} 예약",
                   style: medium14.copyWith(
                     color: gray800,
                   ),
-                ),
-                SizedBox(height: 24),
-                Text(
-                  "${machine}를 취소하시겠습니까?",
-                  style: medium8.copyWith(
-                    color: gray500,
                   ),
                 ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(right: 14, top: 63),
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context, false);
-                  },
-                  child: Container(
+                Padding(
+                  padding: const EdgeInsets.only(right: 17),
+                  child: widget.cancel==false?Container(
                     width: 70,
                     height: 26,
                     decoration: BoxDecoration(
+                      color: gray200,
                       borderRadius: BorderRadius.circular(10),
-                      color: gray100,
                     ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "아니요",
-                      style: medium14.copyWith(
-                        color: gray500,
-                      ),
+                    child: Center(
+                      child: Text('사용 완료',style: medium14.copyWith(color: gray500),),
                     ),
-                  ),
-                ),
-                SizedBox(width: 4),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    width: 76,
+                  ):
+                  Container(
+                    width: 70,
                     height: 26,
                     decoration: BoxDecoration(
+                      color: gray200,
                       borderRadius: BorderRadius.circular(10),
-                      color: gray100,
                     ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "네",
-                      style: medium14.copyWith(
-                        color: gray500,
-                      ),
+                    child: Center(
+                      child: Text('예약 취소',style: semiBold14.copyWith(color: blue400),),
                     ),
                   ),
-                ),
+                )
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
