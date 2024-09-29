@@ -1,9 +1,6 @@
-import 'package:bubble_app/Components/Button/login.dart';
 import 'package:bubble_app/Pages/login_page.dart';
-import 'package:bubble_app/Pages/my_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:bubble_app/components/button/reservationButton.dart';
 import 'package:bubble_app/components/header/header.dart';
 import 'package:bubble_app/theme.dart';
 import 'package:bubble_app/components/box/Textdown.dart';

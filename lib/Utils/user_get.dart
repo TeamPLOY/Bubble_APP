@@ -1,7 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'dart:io';
 import 'package:bubble_app/Models/User.dart';
 
 class UserGet {
@@ -17,8 +16,6 @@ class UserGet {
         Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
-          // HttpHeaders.authorizationHeader: '${access_token}',
-          // // 'Authorization' : 'Bearer ${access_token},'
           'Authorization' : 'Bearer ${access_token}'
         },
       );

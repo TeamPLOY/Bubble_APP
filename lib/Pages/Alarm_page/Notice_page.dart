@@ -94,7 +94,7 @@ class _NoticePageState extends State<NoticePage> {
               selectedButtonIndex: _selectedButtonIndex,
               onButtonPressed: _handleButtonPress,
             ),
-            SizedBox(height: 26),
+            SizedBox(height: 46),
             Expanded(
               child:ListView.separated(
                       itemBuilder: (context, index) {

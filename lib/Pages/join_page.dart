@@ -7,14 +7,12 @@ import 'package:bubble_app/theme.dart';
 import 'package:bubble_app/components/box/start_print.dart';
 import 'package:bubble_app/components/box/inputbox.dart';
 import 'package:bubble_app/components/box/dropdownbox.dart';
-import 'package:bubble_app/components/button/reservationButton.dart';
 import 'package:bubble_app/Functions/UnderlinedText.dart';
 import 'package:bubble_app/Functions/Formsearch.dart';
 import 'package:bubble_app/components/box/searchText.dart';
 import 'package:bubble_app/pages/Terms_Use.dart';
 import 'package:bubble_app/Utils/join.dart';
 import 'package:bubble_app/Utils/email_post.dart';
-import 'package:bubble_app/Models/email_checkmodels.dart';
 import 'package:bubble_app/Utils/email_check.dart';
 
 class JoinPage extends StatefulWidget {
