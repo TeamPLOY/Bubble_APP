@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:bubble_app/Models/email_checkmodels.dart';
+
 
 class EmailCheck{
   late int code;

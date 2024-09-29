@@ -1,45 +1,25 @@
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:bubble_app/Utils/tokens.dart';
 
-class Join {
-  late String email;
-  final String password;
-  final String name;
-  final int stuNum;
-  final String roomNum;
+class CancelPost {
+  late String date;
+  var access_token=globalTokens?.access_token;
+  CancelPost({required this.date});
 
-  
-  Join({
-    required this.email,
-    required this.password,
-    required this.name,
-    required this.stuNum,
-    required this.roomNum,
-  });
-
-  Future<void> joinpostData() async {
+  Future<void> fetchCancel() async{
     Map<String, dynamic> postData= {
-      'email': email,
-      'password': password,
-      'name': name,
-      'stuNum': stuNum,
-      'roomNum': roomNum,
+      'date': date,
     };
-    
-    print(email);
-    print(password);
-    print(name);
-    print(stuNum);
-    print(roomNum);
 
-    final String url = 'http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/signup';
-    
+    final String url = 'http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/reservation/cancel';
+
     try{
       final response = await http.post(
         Uri.parse(url),
         headers: <String,String>{
           'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization' : 'Bearer ${access_token}'
         },
         body: jsonEncode(postData),
       );
@@ -59,4 +39,3 @@ class Join {
     }
   }
 }
-

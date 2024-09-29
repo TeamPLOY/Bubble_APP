@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'dart:io';
 import 'package:bubble_app/Models/machine_model.dart';
 import 'package:bubble_app/Utils/tokens.dart';
 
@@ -18,7 +17,7 @@ class MachineGet {
         Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
-          'access_token': '$access_token',
+          'Authorization' : 'Bearer ${access_token}'
         },
       );
 

@@ -1,5 +1,4 @@
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:bubble_app/Utils/tokens.dart';
 
 
@@ -14,7 +13,7 @@ class Logout {
         Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
-          'access_token':'${access_token}'
+          'Authorization' : 'Bearer ${access_token}'
         },
       );
 

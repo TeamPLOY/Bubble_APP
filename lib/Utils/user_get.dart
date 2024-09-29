@@ -19,7 +19,7 @@ class UserGet {
           'Content-Type': 'application/json',
           // HttpHeaders.authorizationHeader: '${access_token}',
           // // 'Authorization' : 'Bearer ${access_token},'
-          'access_token':'${access_token}'
+          'Authorization' : 'Bearer ${access_token}'
         },
       );
 

@@ -7,9 +7,9 @@ class AnnoumentBox extends StatelessWidget {
   final String date;
   late String ymd = date.substring(0,4) +
       '.' +
-      date.substring(4, 6) +
+      date.substring(5, 7) +
       '.' + 
-      date.substring(6, 8);
+      date.substring(8, 10);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +21,7 @@ class AnnoumentBox extends StatelessWidget {
         border: Border.all(width: 1,color: gray300)
       ),
       child: Padding(
-        padding: EdgeInsets.only(left: 17,top: 27),
+        padding: EdgeInsets.only(left: 17,top: 21),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
