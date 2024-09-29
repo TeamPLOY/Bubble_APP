@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:bubble_app/theme.dart';
 
+
 class Reservationbutton extends StatelessWidget {
-  final VoidCallback onPressed;
-  final String text;
-  const Reservationbutton({super.key, required this.text,required this.onPressed});
+  final VoidCallback? onPressed;
+
+  const Reservationbutton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class Reservationbutton extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            "${text}",
+            "예약하기",
             style: bold16.copyWith(color: white100),
           ),
         ),
@@ -27,3 +28,5 @@ class Reservationbutton extends StatelessWidget {
     );
   }
 }
+
+
