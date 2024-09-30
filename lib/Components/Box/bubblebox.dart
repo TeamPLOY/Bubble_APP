@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/theme.dart';
+import 'dart:async';
+
 
 class Bubblebox extends StatefulWidget {
   late int hour, minute, place;
@@ -17,6 +19,38 @@ class Bubblebox extends StatefulWidget {
 }
 
 class _BubbleboxState extends State<Bubblebox> {
+    late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(Duration(minutes: 1), (timer) {
+      setState(() {
+        if (widget.minute > 0) {
+          widget.minute--;
+        } else {
+          if (widget.hour > 0) {
+            widget.hour--;
+            widget.minute = 59;
+          } else {
+            _timer.cancel(); // 타이머 종료
+          }
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // 위젯이 제거될 때 타이머를 취소
+    super.dispose();
+  }
+
+  // 기존 build 메서드는 그대로 사용
   int alram_onff = 0;
   String alram_url = 'assets/img/alarm_no.svg';
   String formattime(int time) {

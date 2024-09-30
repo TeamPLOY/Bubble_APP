@@ -6,12 +6,12 @@ class CancelPost {
   late String date;
   var access_token=globalTokens?.access_token;
   CancelPost({required this.date});
-
+  
   Future<void> fetchCancel() async{
     Map<String, dynamic> postData= {
       'date': date,
     };
-
+    print(date);
     final String url = 'http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/reservation/cancel';
 
     try{
@@ -25,7 +25,7 @@ class CancelPost {
       );
       print('응답 상태: ${response.statusCode}');
       print('응답 본문: ${response.body}');
-      if(response.statusCode == 200){
+      if(response.statusCode == 204){
         var responseData = response.body;
         print('포스트 성공 : $responseData');
       }

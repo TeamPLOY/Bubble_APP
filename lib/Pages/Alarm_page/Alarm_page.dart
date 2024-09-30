@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/Pages/Alarm_page/Alarm_page.dart';
 import 'package:bubble_app/Pages/Alarm_page/Notice_page.dart';
 import 'package:bubble_app/Pages/Alarm_page/Reservation.dart';
 import 'package:bubble_app/Components/Header/header.dart';
-import 'package:bubble_app/Components/Footer/footer.dart';
 import 'package:bubble_app/Components/Button/Alarm.dart';
 
 class AlarmPage extends StatefulWidget {
