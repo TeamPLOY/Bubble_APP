@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:bubble_app/theme.dart';
 import 'package:bubble_app/Components/Modal/cancel_modal.dart';
 class Cancel extends StatefulWidget {
-  final String date;
   final String resDate;
   final String roomnumber;
   final bool cancel;
   final String washingRoom;
 
-  Cancel({required this.date, required this.resDate, required this.roomnumber, required this.cancel, required this.washingRoom, Key? key}) : super(key: key);
+  Cancel({required this.resDate, required this.roomnumber, required this.cancel, required this.washingRoom, Key? key}) : super(key: key);
 
   @override
   State<Cancel> createState() => _CancelState();
@@ -71,7 +70,7 @@ class _CancelState extends State<Cancel> {
                 Padding(
                   padding: EdgeInsets.only(left: 12, top: 13),
                   child: Text(
-                    "${todate(widget.date)} 예약",
+                    "${todate(widget.resDate)} 예약",
                     style: medium14.copyWith(
                       color: gray800,
                     ),
@@ -101,7 +100,7 @@ class _CancelState extends State<Cancel> {
                               builder: (context) {
                                 return CancelModal(
                                   roomnumber: widget.roomnumber,
-                                  date: widget.date,
+                                  date: widget.resDate,
                                   cancel: widget.cancel,
                                 );
                               },

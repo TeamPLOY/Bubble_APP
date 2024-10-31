@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/Models/check_model.dart';
-import 'package:bubble_app/Utils/check_get.dart';
+//import 'package:bubble_app/Models/check_model.dart';
+// import 'package:bubble_app/Utils/checkGet.dart';
 import 'package:bubble_app/Components/Button/reservationButton.dart';
 import 'package:bubble_app/theme.dart';
 import 'package:bubble_app/Components/Box/check_box.dart';
@@ -11,6 +11,7 @@ import 'dart:async';
 import 'package:bubble_app/Models/reservation_models.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:bubble_app/Utils/tokens.dart';
 
 class ReservationPage extends StatefulWidget {
   const ReservationPage({super.key});
@@ -20,13 +21,14 @@ class ReservationPage extends StatefulWidget {
 }
 
 class _ReservationPageState extends State<ReservationPage> {
+  var access_token=globalTokens?.access_token;
   late String ReservationDay = '';
   int? selectedBoxIndex;
   late DateTime now;
   late Timer _timer;
-  late Future<CheckGetModel> futureCheckData;
-  final CheckGet checkGet = CheckGet();
-  late Future<List<Reservation>> futureReservationData;
+  //late Future<CheckGetModel> futureCheckData;
+  // final CheckGet checkGet = CheckGet();
+  late Future<List<ReservationModels>> futureReservationData;
   final ReservationGet reservationGet = ReservationGet();
   String serverResponse = '';
   bool isLoading = false;
@@ -36,7 +38,7 @@ class _ReservationPageState extends State<ReservationPage> {
     super.initState();
     now = DateTime.now();
 
-    futureCheckData = checkGet.fetchData();
+    //futureCheckData = checkGet.fetchData();
     futureReservationData = reservationGet.fetchData();
 
     _timer = Timer.periodic(Duration(minutes: 1), (Timer timer) {
@@ -44,9 +46,9 @@ class _ReservationPageState extends State<ReservationPage> {
       if (currentTime.weekday == DateTime.sunday &&
           currentTime.hour == 10 &&
           currentTime.minute == 0) {
-        setState(() {
-          futureCheckData = checkGet.fetchData();
-        });
+        // setState(() {
+        //   futureCheckData = checkGet.fetchData();
+        // });
       }
     });
   }
@@ -95,7 +97,7 @@ class _ReservationPageState extends State<ReservationPage> {
     final url = Uri.parse('https://your-server-url.com/reservations');
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer your-token-here'
+      'Authorization' : 'Bearer ${access_token}'
     };
     final body = jsonEncode({
       'date': ReservationDay,
@@ -185,7 +187,7 @@ class _ReservationPageState extends State<ReservationPage> {
                   ),
                 ),
                 padding: EdgeInsets.only(left: 23, top: 30, right: 23),
-                child: FutureBuilder<List<Reservation>>(
+                child: FutureBuilder<List<ReservationModels>>(
                   future: futureReservationData,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -193,7 +195,7 @@ class _ReservationPageState extends State<ReservationPage> {
                     } else if (snapshot.hasError) {
                       return Center(child: Text('오류: ${snapshot.error}'));
                     } else if (snapshot.hasData) {
-                      List<Reservation> reservations = snapshot.data!;
+                      List<ReservationModels> reservations = snapshot.data!;
 
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -208,35 +210,34 @@ class _ReservationPageState extends State<ReservationPage> {
                             style: medium12.copyWith(color: gray500),
                           ),
                           SizedBox(height: 30),
-                          Expanded(
-                            child: GridView.builder(
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 1.3,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
-                              ),
-                              itemCount: reservations.length,
-                              itemBuilder: (context, index) {
-                                Reservation reservation = reservations[index];
-                                return GestureDetector(
-                                  onTap: () {
-                                    _onStateChanged(index, true);
-                                  },
-                                  child: CheckBox(
-                                    onStateChanged: (isSelected) {
-                                      _onStateChanged(index, isSelected);
-                                    },
-                                    today: DateTime.parse(reservation.date),
-                                    userCount: reservation.userCount,
-                                    isSelected: selectedBoxIndex == index,
-                                  ),
-                                );
-                              },
+                          GridView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: MediaQuery.of(context).size.width>=700?3.5:MediaQuery.of(context).size.width>=400?2.5:1.3,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
                             ),
+                            itemCount: reservations.length,
+                            itemBuilder: (context, index) {
+                              ReservationModels reservation = reservations[index];
+                              return GestureDetector(
+                                onTap: () {
+                                  _onStateChanged(index, true);
+                                },
+                                child: CheckBox(
+                                  onStateChanged: (isSelected) {
+                                    _onStateChanged(index, isSelected);
+                                  },
+                                  today: DateTime.parse(reservation.date),
+                                  userCount: reservation.userCount,
+                                  isSelected: selectedBoxIndex == index,
+                                ),
+                              );
+                            },
                           ),
-                          SizedBox(height: 45),
+                          SizedBox(height: MediaQuery.of(context).size.height*(45/835)),
                           Align(
                             alignment: Alignment.center,
                             child: Column(

@@ -1,15 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'dart:io';
 import 'package:bubble_app/Models/reservation_models.dart';
 import 'package:bubble_app/Utils/tokens.dart';
 
 class ReservationGet {
   var access_token = globalTokens?.access_token ?? '';
 
-  Future<List<Reservation>> fetchData() async {
+  Future<List<ReservationModels>> fetchData() async {
     final String url =
         "http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/reservation";
 
@@ -28,7 +26,7 @@ class ReservationGet {
 
         if (responseData is List) {
           return responseData
-              .map((machine) => Reservation.fromJson(machine))
+              .map((machine) => ReservationModels.fromJson(machine))
               .toList();
         } else {
           throw Exception('응답이 리스트가 아닙니다.');

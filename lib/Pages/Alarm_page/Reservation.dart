@@ -90,9 +90,7 @@ class _ReservationState extends State<Reservation> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
-                          
-                        Cancel(cancel: reservationStateList[index].cancel,resDate: reservationStateList[index].date,date: reservationStateList[index].resDate,roomnumber: reservationStateList[index].washingRoom,washingRoom: reservationStateList[index].washingRoom,),  // 여기에 맞게 Cancel 위젯 사용
+                        Cancel(cancel: reservationStateList[index].cancel,resDate: reservationStateList[index].date,roomnumber: reservationStateList[index].washingRoom,washingRoom: reservationStateList[index].washingRoom,),  // 여기에 맞게 Cancel 위젯 사용
                       ],
                     );
                   },
