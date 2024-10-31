@@ -18,6 +18,7 @@ class _LogoutModalState extends State<LogoutModal> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
+        color: white100,
         width: 360,
         height: 80,
         child: Column(
@@ -25,47 +26,52 @@ class _LogoutModalState extends State<LogoutModal> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 17,left: 18),
-              child: Text('정말 로그아웃 하시겠습니까?',style: medium16.copyWith(color: gray800),),
+              padding: EdgeInsets.only(top: 17, left: 18),
+              child: Text(
+                '정말 로그아웃 하시겠습니까?',
+                style: medium16.copyWith(color: gray800),
+              ),
             ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 14,right: 21),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () => {
-                        Navigator.of(context).pop()
-                      },
-                      child: Text('취소',style: semiBold12.copyWith(color: gray600),)
-                    ),
-                    SizedBox(width: 12,),
-                    GestureDetector(
-                      onTap: (){
-                        Logout logout= Logout();
+                child: Padding(
+              padding: const EdgeInsets.only(bottom: 14, right: 21),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                      onTap: () => {Navigator.of(context).pop()},
+                      child: Text(
+                        '취소',
+                        style: semiBold12.copyWith(color: gray600),
+                      )),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  GestureDetector(
+                      onTap: () {
+                        Logout logout = Logout();
                         logout.fetchData();
 
-
                         Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      LoginPage(),
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                return child; // 애니메이션 없이 바로 화면 전환
-                              },
-                            ),
-                          );
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    LoginPage(),
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              return child; // 애니메이션 없이 바로 화면 전환
+                            },
+                          ),
+                        );
                       },
-                      child: Text('로그아웃',style: semiBold12.copyWith(color: Color(0xff1C4EFF)),)
-                    )
-                  ],
-                ),
-              )
-            )
+                      child: Text(
+                        '로그아웃',
+                        style: semiBold12.copyWith(color: Color(0xff1C4EFF)),
+                      ))
+                ],
+              ),
+            ))
           ],
         ),
       ),

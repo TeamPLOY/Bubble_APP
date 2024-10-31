@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/theme.dart';
 import 'dart:async';
 
-
 class Bubblebox extends StatefulWidget {
   late int hour, minute, place;
   late String device;
@@ -19,7 +18,7 @@ class Bubblebox extends StatefulWidget {
 }
 
 class _BubbleboxState extends State<Bubblebox> {
-    late Timer _timer;
+  late Timer _timer;
 
   @override
   void initState() {
@@ -71,9 +70,19 @@ class _BubbleboxState extends State<Bubblebox> {
 
   @override
   Widget build(BuildContext context) {
+    // 화면 크기 가져오기
+    final size = MediaQuery.of(context).size;
+    final width = size.width * 0.4; // 40% 너비로 설정
+    final height = size.height * 0.15; // 15% 높이로 설정
+
+    // 글자 크기 설정 (비율에 따라 조정)
+    final titleSize = width * 0.05; // 제목 글자 크기
+    final subtitleSize = width * 0.04; // 부제목 글자 크기
+    final timeSize = width * 0.04; // 시간 글자 크기
+
     return Container(
-      width: 160,
-      height: 113,
+      width: width,
+      height: height,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
           border: Border.all(width: 1, color: gray300)),
@@ -92,7 +101,8 @@ class _BubbleboxState extends State<Bubblebox> {
                     children: [
                       Text(
                         '${widget.device}',
-                        style: medium14.copyWith(color: gray800),
+                        style: medium14.copyWith(
+                            color: gray800, fontSize: titleSize),
                       ),
                       Lightbox(selectedIndex: widget.place),
                     ],
@@ -113,7 +123,8 @@ class _BubbleboxState extends State<Bubblebox> {
                   children: [
                     Text(
                       '${widget.device}',
-                      style: medium10.copyWith(color: gray800),
+                      style: medium10.copyWith(
+                          color: gray800, fontSize: subtitleSize),
                     ),
                     SizedBox(
                       width: 3,
@@ -134,7 +145,7 @@ class _BubbleboxState extends State<Bubblebox> {
               child: Row(
                 children: [
                   Container(
-                    width: 132,
+                    width: width * 0.83, // 너비의 83%로 설정
                     height: 26,
                     decoration: BoxDecoration(
                         color: gray200, borderRadius: BorderRadius.circular(5)),
@@ -146,7 +157,8 @@ class _BubbleboxState extends State<Bubblebox> {
                           padding: EdgeInsets.only(left: 7),
                           child: Text(
                             '${formattime(widget.hour)}:${formattime(widget.minute)}',
-                            style: medium12.copyWith(color: gray400),
+                            style: medium12.copyWith(
+                                color: gray400, fontSize: timeSize),
                           ),
                         ),
                       ],
@@ -187,9 +199,7 @@ class Lightbox extends StatelessWidget {
                     width: 5,
                     height: 5,
                     decoration: BoxDecoration(
-                      color: selectedIndex == number
-                          ? blue400
-                          : blue100, // 조건에 따라 색상 변경
+                      color: selectedIndex == number ? blue400 : blue100,
                     ),
                   ),
                 );
@@ -198,7 +208,7 @@ class Lightbox extends StatelessWidget {
           ),
           Row(
             children: List.generate(4, (index) {
-              int number = index + 3;
+              int number = index - 3;
               return Padding(
                 padding: const EdgeInsets.only(right: 1, top: 1),
                 child: Container(
