@@ -29,6 +29,7 @@ class _NotificationDetailState extends State<NotificationDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white100,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -8,7 +8,6 @@ import 'package:bubble_app/Models/User.dart';
 import 'package:bubble_app/Utils/user_get.dart';
 import 'package:bubble_app/Utils/tokens.dart';
 
-
 const String svgsetimage = 'assets/img/setimage.svg';
 
 class MyPage extends StatefulWidget {
@@ -20,19 +19,19 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   User? userData;
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _fetchUserData();
   }
-  Future<void> _fetchUserData() async{
-    UserGet users = UserGet(access_token:  globalTokens?.access_token );
-    try{
+
+  Future<void> _fetchUserData() async {
+    UserGet users = UserGet(access_token: globalTokens?.access_token);
+    try {
       User fetchedUser = await users.fetchData();
       setState(() {
-        userData=fetchedUser;
+        userData = fetchedUser;
       });
-    }
-    catch(e){
+    } catch (e) {
       print('에러 ${e}');
     }
   }
@@ -40,6 +39,7 @@ class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white100,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +86,9 @@ class _MyPageState extends State<MyPage> {
                           style: semiBold16.copyWith(color: gray800),
                         ),
                         Text(
-                          userData != null ? '${userData!.studentNum}' : '학생 번호 로딩 중...',
+                          userData != null
+                              ? '${userData!.studentNum}'
+                              : '학생 번호 로딩 중...',
                           style: medium12.copyWith(color: gray600),
                         )
                       ],
@@ -106,7 +108,10 @@ class _MyPageState extends State<MyPage> {
                       '이메일',
                       style: medium14.copyWith(color: gray800),
                     ),
-                    OutputText(text_label: userData != null ? '${userData!.email}' : '이메일 로딩 중...')
+                    OutputText(
+                        text_label: userData != null
+                            ? '${userData!.email}'
+                            : '이메일 로딩 중...')
                   ],
                 ),
               ),
@@ -122,7 +127,10 @@ class _MyPageState extends State<MyPage> {
                       '호실',
                       style: medium14.copyWith(color: gray800),
                     ),
-                    OutputText(text_label: userData != null ? '${userData!.roomNum}' : '호실 로딩 중...')
+                    OutputText(
+                        text_label: userData != null
+                            ? '${userData!.roomNum}'
+                            : '호실 로딩 중...')
                   ],
                 ),
               ),
@@ -153,5 +161,4 @@ class _MyPageState extends State<MyPage> {
       ),
     );
   }
-
 }

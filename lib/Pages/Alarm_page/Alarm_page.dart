@@ -3,6 +3,7 @@ import 'package:bubble_app/Pages/Alarm_page/Notice_page.dart';
 import 'package:bubble_app/Pages/Alarm_page/Reservation.dart';
 import 'package:bubble_app/Components/Header/header.dart';
 import 'package:bubble_app/Components/Button/Alarm.dart';
+import 'package:bubble_app/theme.dart';
 
 class AlarmPage extends StatefulWidget {
   @override
@@ -25,24 +26,26 @@ class _AlarmPageState extends State<AlarmPage> {
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return child; // 애니메이션 없이 바로 화면 전환
           },
-      ),
-    );
+        ),
+      );
     } else if (index == 2) {
       Navigator.push(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => Reservation(),
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              Reservation(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return child; // 애니메이션 없이 바로 화면 전환
           },
-      ),
-    );
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white100,
       body: SafeArea(
         child: Column(
           children: [

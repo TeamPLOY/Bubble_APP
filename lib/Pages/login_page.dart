@@ -16,16 +16,18 @@ class LoginPage extends StatefulWidget {
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
+
 class _LoginPageState extends State<LoginPage> {
   TextEditingController idController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  
+
   List<bool> loginstate = [false, false];
   double pad = 42;
-  bool logcheck=true;
+  bool logcheck = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white100,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,7 +36,9 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Header(text: '로그인'),
-                SizedBox(height: 107,),
+                SizedBox(
+                  height: 107,
+                ),
               ],
             ),
             Padding(
@@ -42,29 +46,65 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('안녕하세요 : )', style: bold30.copyWith(color: gray800),),
-                  Text('버블입니다. ', style: bold30.copyWith(color: gray800),),
-                  SizedBox(height: 30,),
-                  Inputbox(wsize: 345, hsize: 40, text: '아이디 입력', controller: idController),
-                  SizedBox(height: 14,),
-                  Inputbox(wsize: 345, hsize: 40, text: '비밀번호 입력', controller: passwordController,password: true,),
-                  SizedBox(height: pad,),
-                  if (loginstate[0]==true || loginstate[1]==true) Column(
-                    children: [
-                      Text('이메일 혹은 비밀번호가 비어있습니다.', style: medium12.copyWith(color: red100),),
-                      SizedBox(height: 17,),
-                    ],
+                  Text(
+                    '안녕하세요 : )',
+                    style: bold30.copyWith(color: gray800),
                   ),
-                  if (logcheck==false) Column(
-                    children: [
-                      Text('이메일 혹은 비밀번호가 일치하지 않습니다.', style: medium12.copyWith(color: red100),),
-                      SizedBox(height: 17,),
-                    ],
+                  Text(
+                    '버블입니다. ',
+                    style: bold30.copyWith(color: gray800),
                   ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Inputbox(
+                      wsize: 345,
+                      hsize: 40,
+                      text: '아이디 입력',
+                      controller: idController),
+                  SizedBox(
+                    height: 14,
+                  ),
+                  Inputbox(
+                    wsize: 345,
+                    hsize: 40,
+                    text: '비밀번호 입력',
+                    controller: passwordController,
+                    password: true,
+                  ),
+                  SizedBox(
+                    height: pad,
+                  ),
+                  if (loginstate[0] == true || loginstate[1] == true)
+                    Column(
+                      children: [
+                        Text(
+                          '이메일 혹은 비밀번호가 비어있습니다.',
+                          style: medium12.copyWith(color: red100),
+                        ),
+                        SizedBox(
+                          height: 17,
+                        ),
+                      ],
+                    ),
+                  if (logcheck == false)
+                    Column(
+                      children: [
+                        Text(
+                          '이메일 혹은 비밀번호가 일치하지 않습니다.',
+                          style: medium12.copyWith(color: red100),
+                        ),
+                        SizedBox(
+                          height: 17,
+                        ),
+                      ],
+                    ),
                   GestureDetector(
                     onTap: () async {
-                      Emailsearch emailsearch = Emailsearch(emailController: idController, comController: passwordController);
-                      
+                      Emailsearch emailsearch = Emailsearch(
+                          emailController: idController,
+                          comController: passwordController);
+
                       setState(() {
                         loginstate = emailsearch.checkForm();
                         if (loginstate[0] || loginstate[1]) {
@@ -73,84 +113,102 @@ class _LoginPageState extends State<LoginPage> {
                           pad = 42;
                         }
                       });
-        
+
                       if (!loginstate[0] && !loginstate[1]) {
                         // 비동기 작업을 setState 밖에서 수행
-                        LoginPost login = LoginPost(email: idController.text, password: passwordController.text);
+                        LoginPost login = LoginPost(
+                            email: idController.text,
+                            password: passwordController.text);
                         globalTokens = await login.loginpostData();
-        
+
                         // 비동기 작업 후 state를 업데이트
                         setState(() {
-                          if (globalTokens?.access_token == null || globalTokens?.refresh_token == null) {
+                          if (globalTokens?.access_token == null ||
+                              globalTokens?.refresh_token == null) {
                             print("로그인 실패");
                             pad = 8;
-                            logcheck=false;
-                          }
-                          else{
+                            logcheck = false;
+                          } else {
                             print('로그인 성공');
                             pad = 42;
-                            logcheck=true;
+                            logcheck = true;
                             Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder: (context, animation, secondaryAnimation) => MainPage(),
-                              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                return child; // 애니메이션 없이 바로 화면 전환
-                              },
-                            ),
-                          );
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) =>
+                                        MainPage(),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  return child; // 애니메이션 없이 바로 화면 전환
+                                },
+                              ),
+                            );
                           }
                         });
                       }
                     },
                     child: Bluebutton(text: '로그인 하기'),
                   ),
-        
-                  SizedBox(height: 14,),
+                  SizedBox(
+                    height: 14,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
                         onTap: () {
-                          
                           Navigator.push(
                             context,
                             PageRouteBuilder(
-                              pageBuilder: (context, animation, secondaryAnimation) => MyPage(),
-                              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      MyPage(),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
                                 return child; // 애니메이션 없이 바로 화면 전환
                               },
                             ),
                           );
                         },
-                        child: Text('비밀번호 찾기', style: bold12.copyWith(color: gray800),),
+                        child: Text(
+                          '비밀번호 찾기',
+                          style: bold12.copyWith(color: gray800),
+                        ),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(
+                        width: 10,
+                      ),
                       Container(
                         width: 1,
                         height: 13.5,
-                        decoration: BoxDecoration(
-                          color: gray500
-                        ),
+                        decoration: BoxDecoration(color: gray500),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(
+                        width: 10,
+                      ),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             PageRouteBuilder(
-                              pageBuilder: (context, animation, secondaryAnimation) => JoinPage(),
-                              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      JoinPage(),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
                                 return child; // 애니메이션 없이 바로 화면 전환
                               },
                             ),
                           );
                         },
-                        child: Text('회원가입', style: bold12.copyWith(color: gray800),),
+                        child: Text(
+                          '회원가입',
+                          style: bold12.copyWith(color: gray800),
+                        ),
                       ),
                     ],
                   ),
-                 
                 ],
               ),
             )

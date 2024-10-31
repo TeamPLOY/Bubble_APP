@@ -11,3 +11,4 @@ class Reservation {
       userCount: json["userCount"],
     );
   }
+}

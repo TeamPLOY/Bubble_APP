@@ -24,7 +24,7 @@ class UnderlinedText extends StatelessWidget {
           left: 0,
           right: 0,
           child: Container(
-            height: 1, // 밑줄의 두께를 설정합니다.
+            height: 1,
             color: red100,
             margin: EdgeInsets.only(top: 1),
           ),

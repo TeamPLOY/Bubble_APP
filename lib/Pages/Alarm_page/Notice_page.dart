@@ -7,6 +7,7 @@ import 'package:bubble_app/Components/Box/annoument_box.dart';
 import 'package:bubble_app/Utils/notification.dart';
 import 'package:bubble_app/Models/notificationmodels.dart';
 import 'package:bubble_app/Pages/Alarm_page/notification_detail.dart';
+import 'package:bubble_app/theme.dart';
 
 class NoticePage extends StatefulWidget {
   const NoticePage({super.key});
@@ -14,6 +15,7 @@ class NoticePage extends StatefulWidget {
   @override
   _NoticePageState createState() => _NoticePageState();
 }
+
 class _NoticePageState extends State<NoticePage> {
   int _selectedButtonIndex = 1;
   late List<Notificationmodels> notifilist = [];
@@ -50,7 +52,8 @@ class _NoticePageState extends State<NoticePage> {
       Navigator.push(
         context,
         PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => Reservation(),
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              Reservation(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return child; // 애니메이션 없이 바로 화면 전환
           },
@@ -58,7 +61,7 @@ class _NoticePageState extends State<NoticePage> {
       );
     }
   }
-  
+
   // 공지사항 클릭 시 로딩 상태를 처리한 후 페이지 전환
   void _onItemTap(int indexs) async {
     setState(() {
@@ -74,7 +77,10 @@ class _NoticePageState extends State<NoticePage> {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => NotificationDetail(items: indexs,),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            NotificationDetail(
+          items: indexs,
+        ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return child; // 애니메이션 없이 바로 화면 전환
         },
@@ -85,6 +91,7 @@ class _NoticePageState extends State<NoticePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white100,
       body: SafeArea(
         child: Column(
           children: [
@@ -96,26 +103,27 @@ class _NoticePageState extends State<NoticePage> {
             ),
             SizedBox(height: 46),
             Expanded(
-              child:ListView.separated(
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24),
-                          child: GestureDetector(
-                            onTap: (){_onItemTap(index);}, // 공지사항 클릭 시 로딩 후 페이지 이동
-                            child: AnnoumentBox(
-                              date: notifilist[index].date,
-                              text: notifilist[index].title,
-                            ),
-                          ), 
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return SizedBox(height: 16);
-                      },
-                      itemCount: notifilist.length,
+              child: ListView.separated(
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    child: GestureDetector(
+                      onTap: () {
+                        _onItemTap(index);
+                      }, // 공지사항 클릭 시 로딩 후 페이지 이동
+                      child: AnnoumentBox(
+                        date: notifilist[index].date,
+                        text: notifilist[index].title,
+                      ),
                     ),
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return SizedBox(height: 16);
+                },
+                itemCount: notifilist.length,
+              ),
             ),
-            
           ],
         ),
       ),
