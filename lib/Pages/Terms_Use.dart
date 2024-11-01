@@ -299,7 +299,7 @@ class _TermsUseState extends State<TermsUse> {
                     ],
                   ),
                   SizedBox(
-                    height: pad,
+                    height: MediaQuery.of(context).size.height*(pad/1100),
                   ),
                   buttonstatus == false
                       ? Column(
@@ -356,7 +356,7 @@ class _TermsUseState extends State<TermsUse> {
                         child: Center(
                           child: Text('동의합니다',style: bold16.copyWith(color: button_color2),),
                         ),
-                  ))
+                                        ))
                 ],
               ),
             ),

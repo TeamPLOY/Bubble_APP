@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/theme.dart';
 import 'package:bubble_app/Pages/finish.dart';
-import 'package:bubble_app/Utils/reservation_post.dart';
 
 class CheckModal extends StatelessWidget {
   final Function onConfirm;
@@ -14,8 +13,8 @@ class CheckModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 210,
-      height: 251,
+      width: MediaQuery.of(context).size.width>=450?MediaQuery.of(context).size.width*(210/393):210,
+      height: MediaQuery.of(context).size.width>=700?350:250,
       decoration: BoxDecoration(
         color: white100,
         borderRadius: BorderRadius.circular(15),
@@ -25,14 +24,15 @@ class CheckModal extends StatelessWidget {
         ),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
             padding: EdgeInsets.only(top: 39),
             child: SvgPicture.asset(
               'assets/img/checkicon.svg',
-              width: 70,
-              height: 70,
+              width: MediaQuery.of(context).size.width>=700?100 : 70,
+              height: MediaQuery.of(context).size.width>=700?100 : 70,
             ),
           ),
           Padding(
@@ -43,14 +43,15 @@ class CheckModal extends StatelessWidget {
                   '이대로 진행 하시겠습니까?',
                   style: TextStyle(
                     fontFamily: "PretendardMedium",
-                    fontSize: 12,
+                    fontSize: MediaQuery.of(context).size.width>=700?24 : 12,
                   ),
                 ),
               ],
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 25),
+            padding: EdgeInsets.only(top: 25
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -59,8 +60,8 @@ class CheckModal extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                   child: Container(
-                    width: 55,
-                    height: 25,
+                    width: MediaQuery.of(context).size.width>=393?MediaQuery.of(context).size.width*(55/393) : 55,
+                    height: MediaQuery.of(context).size.width>=700?MediaQuery.of(context).size.height*(50/893) : 25,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(3),
                       border: Border.all(width: 1, color: gray400),
@@ -74,7 +75,7 @@ class CheckModal extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: 19,
+                  width: MediaQuery.of(context).size.width>=600?MediaQuery.of(context).size.height*(38/893) : 19,
                 ),
                 GestureDetector(
                   onTap: () async {
@@ -95,8 +96,8 @@ class CheckModal extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    width: 55,
-                    height: 25,
+                    width: MediaQuery.of(context).size.width>=393?MediaQuery.of(context).size.width*(55/393) : 55,
+                    height: MediaQuery.of(context).size.width>=700?MediaQuery.of(context).size.height*(50/893) : 25,
                     decoration: BoxDecoration(
                       color: blue400,
                       borderRadius: BorderRadius.circular(3),

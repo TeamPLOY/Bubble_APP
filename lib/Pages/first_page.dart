@@ -33,9 +33,10 @@ class  FirstPage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * (207 / 852),
+                height: MediaQuery.of(context).size.width>=500?MediaQuery.of(context).size.height * (100 / 852): MediaQuery.of(context).size.height * (207 / 852),
               ),
-              Image.asset('assets/img/kuma.png',width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height * (258 / 852),fit: BoxFit.fill,),
+              Image.asset('assets/img/kuma.png',width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.width>=500?MediaQuery.of(context).size.height*(400/852): MediaQuery.of(context).size.height*(258/852),fit: BoxFit.fill
+              ,),
               Expanded(
                 child: GestureDetector(
                   onTap: (){
@@ -56,7 +57,7 @@ class  FirstPage extends StatelessWidget {
                       color: gray100
                     ),
                     child: Center(
-                      child: Text('버블 시작',style: semiBold24.copyWith(color: blue400),),
+                      child: Text('버블 시작',style:  semiBold24.copyWith(color: blue400,fontSize: MediaQuery.of(context).size.height * (24 / 852)),),
                     ),
                   ),  
                 ),

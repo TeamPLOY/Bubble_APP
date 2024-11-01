@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/Models/check_model.dart';
-import 'package:bubble_app/Utils/check_get.dart';
+//import 'package:bubble_app/Models/check_model.dart';
+// import 'package:bubble_app/Utils/checkGet.dart';
 import 'package:bubble_app/Components/Button/reservationButton.dart';
 import 'package:bubble_app/theme.dart';
 import 'package:bubble_app/Components/Box/check_box.dart';
@@ -9,7 +9,9 @@ import 'package:bubble_app/Components/Modal/check_modal.dart';
 import 'package:bubble_app/Utils/reservation_get.dart';
 import 'dart:async';
 import 'package:bubble_app/Models/reservation_models.dart';
-import 'package:bubble_app/Utils/reservation_post.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:bubble_app/Utils/tokens.dart';
 
 class ReservationPage extends StatefulWidget {
   const ReservationPage({super.key});
@@ -19,12 +21,14 @@ class ReservationPage extends StatefulWidget {
 }
 
 class _ReservationPageState extends State<ReservationPage> {
+  var access_token=globalTokens?.access_token;
   late String ReservationDay = '';
   int? selectedBoxIndex;
   late DateTime now;
-  late Future<bool?> futureCheckData;
-  final CheckGet checkGet = CheckGet();
-  late Future<List<Reservation>> futureReservationData;
+  late Timer _timer;
+  //late Future<CheckGetModel> futureCheckData;
+  // final CheckGet checkGet = CheckGet();
+  late Future<List<ReservationModels>> futureReservationData;
   final ReservationGet reservationGet = ReservationGet();
   String serverResponse = '';
   bool hasReservation = false; // 추가된 필드
@@ -33,10 +37,18 @@ class _ReservationPageState extends State<ReservationPage> {
   void initState() {
     super.initState();
     now = DateTime.now();
-    futureCheckData = checkGet.fetchData().then((value) {
-      setState(() {
-        hasReservation = value ?? false;
-      });
+    //futureCheckData = checkGet.fetchData();
+    futureReservationData = reservationGet.fetchData();
+
+    _timer = Timer.periodic(Duration(minutes: 1), (Timer timer) {
+      DateTime currentTime = DateTime.now();
+      if (currentTime.weekday == DateTime.sunday &&
+          currentTime.hour == 10 &&
+          currentTime.minute == 0) {
+        // setState(() {
+        //   futureCheckData = checkGet.fetchData();
+        // });
+      }
     });
     futureReservationData = reservationGet.fetchData();
   }
@@ -71,6 +83,52 @@ class _ReservationPageState extends State<ReservationPage> {
     );
   }
 
+  Future<void> sendReservation() async {
+    if (ReservationDay.isEmpty) {
+      setState(() {
+        serverResponse = '날짜를 선택해주세요.';
+      });
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    final url = Uri.parse('https://your-server-url.com/reservations');
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization' : 'Bearer ${access_token}'
+    };
+    final body = jsonEncode({
+      'date': ReservationDay,
+    });
+
+    try {
+      final response = await http.post(url, headers: headers, body: body);
+      print('서버 응답 받음: ${response.statusCode}'); // 로그 추가
+
+      if (response.statusCode == 200) {
+        setState(() {
+          serverResponse = '예약이 성공적으로 완료되었습니다.';
+        });
+      } else {
+        setState(() {
+          serverResponse = '예약에 실패했습니다. 다시 시도해주세요.';
+        });
+      }
+    } catch (error) {
+      setState(() {
+        serverResponse = '서버 오류가 발생했습니다: $error';
+      });
+      print('에러 발생: $error'); // 로그 추가
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   void _onStateChanged(int index, bool isSelected) {
     setState(() {
       selectedBoxIndex = isSelected ? index : null;
@@ -102,107 +160,71 @@ class _ReservationPageState extends State<ReservationPage> {
                     bottomRight: Radius.circular(40),
                   ),
                 ),
-                height: 320,
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: MediaQuery.of(context).size.width * (350 / 393),
-                  height: 480,
-                  decoration: BoxDecoration(
-                    color: white100,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
-                  ),
-                  padding: EdgeInsets.only(left: 23, top: 30, right: 23),
-                  child: FutureBuilder<List<Reservation>>(
-                    future: futureReservationData,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return Center(child: Text('오류: ${snapshot.error}'));
-                      } else if (snapshot.hasData) {
-                        List<Reservation> reservations = snapshot.data!;
+                padding: EdgeInsets.only(left: 23, top: 30, right: 23),
+                child: FutureBuilder<List<ReservationModels>>(
+                  future: futureReservationData,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('오류: ${snapshot.error}'));
+                    } else if (snapshot.hasData) {
+                      List<ReservationModels> reservations = snapshot.data!;
 
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "세탁실을 이용할 날짜 선택해주세요",
-                              style: semiBold18.copyWith(color: gray800),
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "세탁실을 이용할 날짜 선택해주세요",
+                            style: semiBold18.copyWith(color: gray800),
+                          ),
+                          SizedBox(height: 6),
+                          Text(
+                            "하나만 선택해주세요",
+                            style: medium12.copyWith(color: gray500),
+                          ),
+                          SizedBox(height: 30),
+                          GridView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: MediaQuery.of(context).size.width>=700?3.5:MediaQuery.of(context).size.width>=400?2.5:1.3,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
                             ),
-                            SizedBox(
-                              height: (MediaQuery.of(context).size.height -
-                                      MediaQuery.of(context).padding.top) *
-                                  0.006,
-                            ),
-                            Text(
-                              "하나만 선택해주세요",
-                              style: medium12.copyWith(color: gray500),
-                            ),
-                            SizedBox(
-                              height: (MediaQuery.of(context).size.height -
-                                      MediaQuery.of(context).padding.top) *
-                                  0.025,
-                            ),
-                            GridView.builder(
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 1.3,
-                                mainAxisSpacing: 19,
-                                crossAxisSpacing: 19,
-                              ),
-                              itemCount: reservations.length,
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                Reservation reservation = reservations[index];
-                                return GestureDetector(
-                                  onTap: () {
-                                    _onStateChanged(index, true);
+                            itemCount: reservations.length,
+                            itemBuilder: (context, index) {
+                              ReservationModels reservation = reservations[index];
+                              return GestureDetector(
+                                onTap: () {
+                                  _onStateChanged(index, true);
+                                },
+                                child: CheckBox(
+                                  onStateChanged: (isSelected) {
+                                    _onStateChanged(index, isSelected);
                                   },
-                                  child: CheckBox(
-                                    onStateChanged: (isSelected) {
-                                      _onStateChanged(index, isSelected);
-                                    },
-                                    today: DateTime.parse(reservation.date),
-                                    userCount: reservation.userCount,
-                                    isSelected: selectedBoxIndex == index,
-                                  ),
-                                );
-                              },
-                            ),
-                            SizedBox(
-                              height: (MediaQuery.of(context).size.height -
-                                      MediaQuery.of(context).padding.top) *
-                                  0.05,
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: Column(
-                                children: [
-                                  Text(
-                                    hasReservation
-                                        ? "예약이 있습니다."
-                                        : "빨간색은 선택이 불가능합니다.",
-                                    style: medium12.copyWith(color: red100),
-                                  ),
-                                  SizedBox(
-                                    height:
-                                        (MediaQuery.of(context).size.height -
-                                                MediaQuery.of(context)
-                                                    .padding
-                                                    .top) *
-                                            0.005,
-                                  ),
-                                  Center(
-                                    child: Reservationbutton(
-                                      onPressed: _showCheckModal,
-                                    ),
+                                  today: DateTime.parse(reservation.date),
+                                  userCount: reservation.userCount,
+                                  isSelected: selectedBoxIndex == index,
+                                ),
+                              );
+                            },
+                          ),
+                          SizedBox(height: MediaQuery.of(context).size.height*(45/835)),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "빨간색은 선택이 불가능합니다.",
+                                  style: medium12.copyWith(color: red100),
+                                ),
+                                SizedBox(height: 14),
+                                Center(
+                                  child: Reservationbutton(
+                                    onPressed: _showCheckModal,
                                   ),
                                   if (serverResponse.isNotEmpty)
                                     Text(

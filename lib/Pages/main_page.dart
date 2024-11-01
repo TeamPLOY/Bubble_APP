@@ -46,96 +46,125 @@ class _MainPageState extends State<MainPage> {
       body: SafeArea(
         child: Stack(
           children: [
-            Column(
-              children: [
-                MainHeader(hasAlarm: true),
-                Padding(
-                  padding: EdgeInsets.only(left: 24, top: 40),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "B 여자 세탁실",
-                        style: medium22.copyWith(color: gray800),
-                      ),
-                      SizedBox(height: screenHeight * 0.005),
-                      Text(
-                        "남은 시간을 확인해보세요!",
-                        style: medium16.copyWith(color: gray800),
-                      ),
-                      SizedBox(height: screenHeight * 0.012),
-                      Noticebox(),
-                      SizedBox(height: screenHeight * 0.025),
-                      Check_Box(),
-                      SizedBox(height: screenHeight * 0.016),
-                      FutureBuilder<List<Machine>>(
-                        future: machineData,
-                        builder: (context, futureResult) {
-                          if (futureResult.connectionState ==
-                              ConnectionState.waiting) {
-                            return Center(child: CircularProgressIndicator());
-                          } else if (futureResult.hasError) {
-                            return Center(
-                                child: Text('에러: ${futureResult.error}'));
-                          } else if (futureResult.data == null ||
-                              futureResult.data!.isEmpty) {
-                            return Center(child: Text('시간이 날라오고 있어요.'));
-                          }
 
-                          final machines = futureResult.data!;
+            MainHeader(hasAlarm: true),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, top: 40),
+                child: FutureBuilder<List<Machine>>(
+                  future: machineData,
+                  builder: (context, futureResult) {
+                    if (futureResult.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (futureResult.hasError) {
+                      return Center(child: Text('에러: ${futureResult.error}'));
+                    } else if (futureResult.data == null || futureResult.data!.isEmpty) {
+                      return Center(child: Text('시간이 날라오고 잇어욤'));
+                    }
 
-                          return LayoutBuilder(
-                            builder: (context, constraints) {
-                              int columns = constraints.maxWidth > 600 ? 2 : 1;
-                              double boxWidth =
-                                  constraints.maxWidth / columns - 20;
+                    final machines = futureResult.data!;
 
-                              return GridView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: machines.length,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: columns,
-                                  mainAxisSpacing: screenHeight * 0.02,
-                                  crossAxisSpacing: 20.0,
-                                  childAspectRatio: 3 / 2,
-                                ),
-                                itemBuilder: (context, index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text('B동 남자 세탁실',style: semiBold18.copyWith(color: gray800),),
+                                  Text('남은 시간을 확인해보세요!',style: medium14.copyWith(color: gray800),),
+                                  SizedBox(height: 16,),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width*(335/393),
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: gray200
+                                    ),
+                                    child: Center(
+                                      child: Text('세탁기 섬유유연제는 두통을 유발하니 자제해주세요.',style: medium12.copyWith(color: gray600),),
+                                    ),
+                                  ),
+                                  SizedBox(height: 10,),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: blue400,
+                                          borderRadius: BorderRadius.circular(10)
+                                        ),
+                                        width: 50,
+                                        height: 20,
+                                        child: Center(child: Text('세탁기',style: regular12.copyWith(color: white100),)),
+                                      ),
+                                      SizedBox(width: 5,),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: blue400,
+                                          borderRadius: BorderRadius.circular(10)
+                                        ),
+                                        width: 50,
+                                        height: 20,
+                                        child: Center(child: Text('건조기',style: regular12.copyWith(color: white100),)),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: 20,),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: (machines.length / 2).ceil(),
+                            itemBuilder: (context, rowIndex) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: List.generate(2, (colIndex) {
+                                  int index = rowIndex * 2 + colIndex;
+                                  if (index >= machines.length) {
+                                    return Container();
+                                  }
                                   final machine = machines[index];
-                                  double machineTime = machine.time;
-                                  final hours = (machineTime / 60).floor();
-                                  final minutes = (machineTime % 60).toInt();
+                                  double machineTime = machine.time; // assuming time is in minutes
 
-                                  final formattedHours =
-                                      hours.toString().padLeft(2, '0');
-                                  final formattedMinutes =
-                                      minutes.toString().padLeft(2, '0');
+                                  final hours = (machineTime / 60).floor(); // Calculate hours
+                                  final minutes = (machineTime % 60).toInt(); // Calculate remaining minutes
 
-                                  return Container(
-                                    width: boxWidth,
-                                    child: Column(
-                                      children: [
-                                        Bubblebox(
-                                          place: index - 3,
+                                  final formattedHours = hours.toString().padLeft(2, '0');
+                                  final formattedMinutes = minutes.toString().padLeft(2, '0');
+
+                                  return Column (
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * (20 / 393)),
+                                        child:  Bubblebox(
+                                          place: index + 1,
+\
                                           hour: int.parse(formattedHours),
                                           minute: int.parse(formattedMinutes),
                                           device: machine.name,
                                         ),
-                                        SizedBox(
-                                          height: screenHeight * 0.016,
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                      SizedBox(
+                                        height: 16,
+                                      ),
+                                    ],
                                   );
-                                },
+                                }),
                               );
                             },
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ],
             ),

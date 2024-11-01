@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/theme.dart';
 import 'dart:async';
+import 'package:bubble_app/Utils/maching_check.dart';
+import 'package:bubble_app/Utils/machine_save.dart';
 
 class Bubblebox extends StatefulWidget {
   late int hour, minute, place;
   late String device;
+  
   Bubblebox(
       {required this.place,
       required this.hour,
@@ -18,12 +21,22 @@ class Bubblebox extends StatefulWidget {
 }
 
 class _BubbleboxState extends State<Bubblebox> {
+  late bool alram_onff;
+  late String alram_url='assets/img/alarm_no.svg';
   late Timer _timer;
+  late MachineSave machineSave=MachineSave(machine: widget.device);
 
   @override
   void initState() {
     super.initState();
+    setcheck();
     _startTimer();
+  }
+  void setcheck() async{
+    MachingCheck machingCheck = MachingCheck(machine: widget.device);
+    alram_onff = await machingCheck.checkpostData();
+    alram_url = alram_onff ? 'assets/img/alarm_no.svg' : 'assets/img/alarm_x.svg';
+    setState(() {}); // 값을 가져온 후 UI 업데이트
   }
 
   void _startTimer() {
@@ -50,22 +63,23 @@ class _BubbleboxState extends State<Bubblebox> {
   }
 
   // 기존 build 메서드는 그대로 사용
-  int alram_onff = 0;
-  String alram_url = 'assets/img/alarm_no.svg';
+
   String formattime(int time) {
     return time.toString().padLeft(2, '0');
   }
 
-  void alramchange() {
+  void alramchange() async {
     setState(() {
-      if (alram_onff == 0) {
+      if (alram_onff == false) {
         alram_url = 'assets/img/alarm_no.svg';
-        alram_onff = 1;
-      } else if (alram_onff == 1) {
+        alram_onff = true;
+      } else if (alram_onff == true) {
         alram_url = 'assets/img/alarm_x.svg';
-        alram_onff = 0;
+        alram_onff = false;
       }
     });
+    await machineSave.savepostData();
+    print("끝");
   }
 
   @override
@@ -81,19 +95,19 @@ class _BubbleboxState extends State<Bubblebox> {
     final timeSize = width * 0.04; // 시간 글자 크기
 
     return Container(
-      width: width,
-      height: height,
+      width: MediaQuery.of(context).size.width*(160/393),
+      height: 113,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
           border: Border.all(width: 1, color: gray300)),
       child: Padding(
-        padding: const EdgeInsets.only(left: 14),
+        padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*(14/393)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 11, right: 15.5),
+              padding: EdgeInsets.only(top: 11, right: MediaQuery.of(context).size.width*(15.5/393)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -145,7 +159,7 @@ class _BubbleboxState extends State<Bubblebox> {
               child: Row(
                 children: [
                   Container(
-                    width: width * 0.83, // 너비의 83%로 설정
+                    width: MediaQuery.of(context).size.width*(132/393),
                     height: 26,
                     decoration: BoxDecoration(
                         color: gray200, borderRadius: BorderRadius.circular(5)),
