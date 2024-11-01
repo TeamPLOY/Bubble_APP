@@ -1,3 +1,4 @@
+import 'package:bubble_app/Components/Box/checkbox.dart';
 import 'package:bubble_app/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/Components/Box/bubblebox.dart';
@@ -5,6 +6,7 @@ import 'package:bubble_app/Components/Footer/footer.dart';
 import 'package:bubble_app/Components/Header/main_header.dart';
 import 'package:bubble_app/Models/machine_model.dart';
 import 'package:bubble_app/Utils/machine_get.dart';
+import 'package:bubble_app/Components/Box/noticebox.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -30,16 +32,21 @@ class _MainPageState extends State<MainPage> {
         machineData = Future.value(fetchedMachine);
       });
     } catch (e) {
-      print('에러 ${e}');
+      print('에러 $e');
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
+      backgroundColor: white100,
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
+
             MainHeader(hasAlarm: true),
             Expanded(
               child: Padding(
@@ -139,6 +146,7 @@ class _MainPageState extends State<MainPage> {
                                         padding: EdgeInsets.only(right: MediaQuery.of(context).size.width * (20 / 393)),
                                         child:  Bubblebox(
                                           place: index + 1,
+\
                                           hour: int.parse(formattedHours),
                                           minute: int.parse(formattedMinutes),
                                           device: machine.name,
@@ -158,9 +166,12 @@ class _MainPageState extends State<MainPage> {
                     );
                   },
                 ),
-              ),
+              ],
             ),
-            Footer(),
+            const Align(
+              alignment: Alignment.bottomCenter,
+              child: Footer(),
+            ),
           ],
         ),
       ),

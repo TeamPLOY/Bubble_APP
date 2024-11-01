@@ -9,9 +9,8 @@ class Formsearch {
 
   Formsearch({required this.passwordController,required this.repasswordController,required this.nameController,required this.roomController,});
   List<bool> isState=[false,false,false,false];
-  // password의 에러 , name의 오류, room의 오류, password와 repasswrod의 일치 여부,email
   bool containsKorean(String text) {
-    RegExp koreanRegex = RegExp(r'[\uac00-\ud7af]'); // 한글 범위의 유니코드
+    RegExp koreanRegex = RegExp(r'[\uac00-\ud7af]');
     return koreanRegex.hasMatch(text);
   }
 

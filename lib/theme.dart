@@ -52,14 +52,16 @@ const medium14 = TextStyle(
 
 const medium16 = TextStyle(
     fontFamily: 'PretendardMedium', fontSize: 16, fontWeight: FontWeight.w500);
+
 const medium18 = TextStyle(
     fontFamily: 'PretendardMedium', fontSize: 18, fontWeight: FontWeight.w500);
 
+const medium22 = TextStyle(
+    fontFamily: 'PretendardMedium', fontSize: 22, fontWeight: FontWeight.w500);
+
 // Semi-Bold
 const semiBold8 = TextStyle(
-    fontFamily: 'PretendardSemiBold',
-    fontSize: 8,
-    fontWeight: FontWeight.w600);
+    fontFamily: 'PretendardSemiBold', fontSize: 8, fontWeight: FontWeight.w600);
 
 const semiBold10 = TextStyle(
     fontFamily: 'PretendardSemiBold',

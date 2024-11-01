@@ -25,10 +25,9 @@ class _FinishState extends State<Finish> {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (count > 1) {
         setState(() {
-          count--; // 매 초마다 남은 시간을 1씩 줄임
+          count--; 
         });
       } else {
-        // 0초가 되면 알림 페이지로 이동
         timer.cancel(); // 타이머 취소
           Navigator.push(
           context,

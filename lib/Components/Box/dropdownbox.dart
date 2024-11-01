@@ -3,9 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/theme.dart';
 
 class Dropdownbox extends StatefulWidget {
-  final double wsize, hsize; 
+  final double wsize, hsize;
   final List<String> index_list;
-  final ValueChanged<String?> onChanged; 
+  final ValueChanged<String?> onChanged;
 
   Dropdownbox({
     required this.wsize,
@@ -24,12 +24,12 @@ class _DropdownboxState extends State<Dropdownbox> {
   final LayerLink _layerLink = LayerLink();
   OverlayEntry? _overlayEntry;
   String? dropdownValue;
-  bool _isDropdownOpen = false; 
+  bool _isDropdownOpen = false;
 
   @override
   void initState() {
     super.initState();
-    if (widget.index_list.isNotEmpty) { 
+    if (widget.index_list.isNotEmpty) {
       dropdownValue = widget.index_list.first;
     }
   }
@@ -61,7 +61,8 @@ class _DropdownboxState extends State<Dropdownbox> {
                 shrinkWrap: true,
                 children: widget.index_list
                     .map((item) => ListTile(
-                          title: Text(item, style: regular14.copyWith(color: gray800)),
+                          title: Text(item,
+                              style: regular14.copyWith(color: gray800)),
                           onTap: () {
                             setState(() {
                               dropdownValue = item;
@@ -120,13 +121,12 @@ class _DropdownboxState extends State<Dropdownbox> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: SvgPicture.asset(
-                  'assets/img/dropdown.svg',
-                  width: 8,
-                  height: 9,
-                )
-              ),
+                  padding: const EdgeInsets.only(right: 15),
+                  child: SvgPicture.asset(
+                    'assets/img/dropdown.svg',
+                    width: 8,
+                    height: 9,
+                  )),
             ],
           ),
         ),

@@ -31,13 +31,12 @@ class _ReservationPageState extends State<ReservationPage> {
   late Future<List<ReservationModels>> futureReservationData;
   final ReservationGet reservationGet = ReservationGet();
   String serverResponse = '';
-  bool isLoading = false;
+  bool hasReservation = false; // 추가된 필드
 
   @override
   void initState() {
     super.initState();
     now = DateTime.now();
-
     //futureCheckData = checkGet.fetchData();
     futureReservationData = reservationGet.fetchData();
 
@@ -51,11 +50,11 @@ class _ReservationPageState extends State<ReservationPage> {
         // });
       }
     });
+    futureReservationData = reservationGet.fetchData();
   }
 
   @override
   void dispose() {
-    _timer.cancel();
     super.dispose();
   }
 
@@ -72,8 +71,10 @@ class _ReservationPageState extends State<ReservationPage> {
           child: CheckModal(
             date: ReservationDay,
             onConfirm: () async {
-              print('예약 요청 중...'); // 로그 추가
-              await sendReservation(); // 서버 요청 함수 호출
+              print('예약 요청');
+              ReservationPost reservationPost =
+                  ReservationPost(date: DateTime.parse(ReservationDay));
+              await reservationPost.reservationDate();
               Navigator.of(context).pop();
             },
           ),
@@ -132,9 +133,9 @@ class _ReservationPageState extends State<ReservationPage> {
     setState(() {
       selectedBoxIndex = isSelected ? index : null;
 
-      if (isSelected && futureReservationData != null) {
+      if (isSelected) {
         futureReservationData.then((reservations) {
-          ReservationDay = reservations[index].date; // 선택된 날짜 저장
+          ReservationDay = reservations[index].date;
           print(ReservationDay);
         });
       }
@@ -145,45 +146,18 @@ class _ReservationPageState extends State<ReservationPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Stack(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 320,
-              decoration: BoxDecoration(
-                color: blue400,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40),
-                  bottomRight: Radius.circular(40),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: Header(text: "예약"),
-            ),
-            Positioned(
-              top: 60,
-              left: 20,
-              right: 20,
-              child: Image.asset(
-                'assets/img/sun.png',
-                width: 200,
-                height: 200,
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                width: MediaQuery.of(context).size.width * (350 / 393),
-                height: 480,
+        backgroundColor: white100,
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Stack(
+            children: [
+              Container(
                 decoration: BoxDecoration(
-                  color: white100,
+                  color: blue400,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40),
                   ),
                 ),
                 padding: EdgeInsets.only(left: 23, top: 30, right: 23),
@@ -252,28 +226,41 @@ class _ReservationPageState extends State<ReservationPage> {
                                   child: Reservationbutton(
                                     onPressed: _showCheckModal,
                                   ),
-                                ),
-                                if (serverResponse.isNotEmpty)
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 20),
-                                    child: Text(
+                                  if (serverResponse.isNotEmpty)
+                                    Text(
                                       serverResponse,
                                       style: TextStyle(color: Colors.red),
                                     ),
-                                  ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      );
-                    } else {
-                      return Center(child: Text('예약 데이터가 없습니다.'));
-                    }
-                  },
+                          ],
+                        );
+                      } else {
+                        return Center(child: Text('예약 데이터가 없습니다.'));
+                      }
+                    },
+                  ),
                 ),
               ),
-            ),
-          ],
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Header(text: "예약"),
+              ),
+              Positioned(
+                top: 60,
+                left: 20,
+                right: 20,
+                child: Image.asset(
+                  'assets/img/sun.png',
+                  width: 200,
+                  height: 200,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

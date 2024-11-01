@@ -21,7 +21,6 @@ class ReservationGet {
       );
 
       if (response.statusCode == 200) {
-        print("윤서왔당");
         var responseData = jsonDecode(utf8.decode(response.bodyBytes));
 
         if (responseData is List) {

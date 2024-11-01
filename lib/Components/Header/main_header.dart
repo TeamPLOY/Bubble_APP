@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/theme.dart';
-//import 'package:bubble_app/pages/main_page.dart';
 import 'package:bubble_app/pages/Alarm_page/Alarm_page.dart';
 
 class MainHeader extends StatelessWidget {
@@ -15,6 +14,7 @@ class MainHeader extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: 54,
       decoration: BoxDecoration(
+        color: white100,
         border: Border(
           bottom: BorderSide(width: 1.5, color: Color(0xffF2F5F7)),
         ),
@@ -25,13 +25,15 @@ class MainHeader extends StatelessWidget {
             padding: const EdgeInsets.only(left: 24),
             child: GestureDetector(
               onTap: () {
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) => AlarmPage(),
-                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                        return child; // 애니메이션 없이 바로 화면 전환
-                      },
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        AlarmPage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
                   ),
                 );
               },
@@ -42,28 +44,29 @@ class MainHeader extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 200),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) => AlarmPage(),
-                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                          return child; // 애니메이션 없이 바로 화면 전환
-                        },
-                    ),
-                  );
-                },
-                child: SvgPicture.asset(
-                  hasAlarm
-                      ? 'assets/img/alarm_yes.svg'
-                      : 'assets/img/alarm_no.svg',
-                  width: 24,
-                  height: 24,
-                ),
+          Spacer(),
+          Padding(
+            padding: EdgeInsets.only(right: 24),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        AlarmPage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ),
+                );
+              },
+              child: SvgPicture.asset(
+                hasAlarm
+                    ? 'assets/img/alarm_yes.svg'
+                    : 'assets/img/alarm_no.svg',
+                width: 24,
+                height: 24,
               ),
             ),
           ),
