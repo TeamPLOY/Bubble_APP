@@ -7,7 +7,7 @@ class JoinReservation {
   var access_token = globalTokens?.access_token;
   String url =
       'http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/reservation';
-  Future<List<Reservation>> fetchReservation() async {
+  Future<List<ReservationModels>> fetchReservation() async {
     final response = await http.get(
       Uri.parse(url),
       headers: <String, String>{
@@ -18,8 +18,9 @@ class JoinReservation {
 
     if (response.statusCode == 200) {
       List jsonResponse = jsonDecode(utf8.decode(response.bodyBytes));
-      List<Reservation> reservation_result =
-          jsonResponse.map((model) => Reservation.fromJson(model)).toList();
+      List<ReservationModels> reservation_result = jsonResponse
+          .map((model) => ReservationModels.fromJson(model))
+          .toList();
       return reservation_result;
     } else {
       print('실수 : ${response.body}');
