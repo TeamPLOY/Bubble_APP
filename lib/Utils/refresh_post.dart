@@ -1,3 +1,4 @@
+import 'package:bubble_app/Utils/api_urls.dart';
 import 'package:bubble_app/Utils/tokens.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -9,10 +10,10 @@ class RefreshPost {
   var refresh_token=globalTokens?.refresh_token;
 
   Future<void> get_tokens() async{
-    final String url='http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/refresh-token';
+    
     try{
       final response = await http.post(
-        Uri.parse(url),
+        Uri.parse(ApiUrls.refresh_post_url),
         headers: {
           'Content-Type': 'application/json',
           'refresh_token':'${refresh_token}'

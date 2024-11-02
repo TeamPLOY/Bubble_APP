@@ -1,4 +1,5 @@
 
+import 'package:bubble_app/Utils/api_urls.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -27,17 +28,9 @@ class Join {
       'roomNum': roomNum,
     };
     
-    print(email);
-    print(password);
-    print(name);
-    print(stuNum);
-    print(roomNum);
-
-    final String url = 'http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/signup';
-    
     try{
       final response = await http.post(
-        Uri.parse(url),
+        Uri.parse(ApiUrls.join_url),
         headers: <String,String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
