@@ -1,4 +1,5 @@
 
+import 'package:bubble_app/Utils/api_urls.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:bubble_app/Utils/tokens.dart';
@@ -14,12 +15,9 @@ class ReservationPost {
       'date': date.toIso8601String(),
     };
 
-    final String url =
-        'http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/reservation';
-
     try {
       final response = await http.post(
-        Uri.parse(url),
+        Uri.parse(ApiUrls.reservation_post_url),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer $access_token',

@@ -1,3 +1,4 @@
+import 'package:bubble_app/Utils/api_urls.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
@@ -9,11 +10,10 @@ class UserGet {
   UserGet({required this.access_token});
 
   Future<User> fetchData() async {
-    final String url = 'http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/user'; 
 
     try {
       final response = await http.get(
-        Uri.parse(url),
+        Uri.parse(ApiUrls.user_get_url),
         headers: {
           'Content-Type': 'application/json',
           'Authorization' : 'Bearer ${access_token}'

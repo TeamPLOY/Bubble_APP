@@ -1,12 +1,10 @@
+import 'package:bubble_app/Utils/api_urls.dart';
 import 'package:http/http.dart' as http;
 
 class CheckGet {
   Future<bool?> fetchData() async {
-    final String url =
-        'http://ec2-3-39-164-144.ap-northeast-2.compute.amazonaws.com:5000/isReserved';
-
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await http.get(Uri.parse(ApiUrls.check_get_url));
 
       print('서버 응답: ${response.body}');
 
