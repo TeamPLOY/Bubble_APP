@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:async';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/pages/alarm/alarm_page.dart';
 
 class FinishPage extends StatefulWidget {
   final String title;
   const FinishPage({required this.title, Key? key})
-      : super(key: key); // 수정: title과 Key 설정
+      : super(key: key); // title과 Key 설정
 
   @override
   State<FinishPage> createState() => _FinishState();
@@ -69,14 +70,16 @@ class _FinishState extends State<FinishPage> {
               ),
               Text(
                 "${widget.title}이 완료되었습니다!",
-                style: bold28.copyWith(color: gray800),
+                style: AppTextStyles.bold28
+                    .copyWith(color: AppColor.gray800), // 색상 수정
               ),
               SizedBox(
                 height: 8,
               ),
               Text(
                 "$count초 후 알림 페이지로 이동합니다.",
-                style: medium14.copyWith(color: gray500),
+                style: AppTextStyles.medium14
+                    .copyWith(color: AppColor.gray600), // 색상 수정
               ),
             ],
           ),

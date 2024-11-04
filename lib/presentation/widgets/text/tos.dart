@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 
 class Tos extends StatelessWidget {
   const Tos({required this.text, super.key});
@@ -16,7 +17,7 @@ class Tos extends StatelessWidget {
           height: 150,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: gray100,
+            color:AppColor.gray100,
           ),
           child: Padding(
             padding: EdgeInsets.all(15),
@@ -24,7 +25,7 @@ class Tos extends StatelessWidget {
               children: [
                 Text(
                   '${text}',
-                  style: semiBold14.copyWith(color: gray600),
+                  style: AppTextStyles.semiBold14.copyWith(color: AppColor.gray600),
                 )
               ],
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/widgets/button/next_button.dart';
 import 'package:bubble_app/data/providers/network/apis/email/email_post_api.dart';
 import 'package:bubble_app/data/providers/network/apis/email/email_check_api.dart';
@@ -11,10 +12,9 @@ import 'package:bubble_app/presentation/widgets/text/message.dart';
 import 'package:bubble_app/presentation/widgets/box/input_box.dart';
 import 'package:bubble_app/presentation/widgets/box/dropdown_box.dart';
 import 'package:bubble_app/presentation/pages/signup/tos_page.dart';
-import 'package:bubble_app/Functions/emailsearch.dart';
-import 'package:bubble_app/Functions/UnderlinedText.dart';
-import 'package:bubble_app/Functions/Formsearch.dart';
-
+import 'package:bubble_app/data/Functions/emailsearch.dart';
+import 'package:bubble_app/data/Functions/UnderlinedText.dart';
+import 'package:bubble_app/data/Functions/Formsearch.dart';
 
 class SignupPage extends StatefulWidget {
   SignupPage({super.key});
@@ -123,7 +123,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white100,
+      backgroundColor: AppColor.white100,
       body: SafeArea(
         child: ListView(children: [
           Column(
@@ -137,11 +137,21 @@ class _SignupPageState extends State<SignupPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('반가워요!', style: bold20.copyWith(color: gray700)),
-                      Text('회원정보를 입력해주세요.',
-                          style: bold20.copyWith(color: gray700)),
-                      Text('원활한 서비스 제공을 위해 회원정보가 사용됩니다.',
-                          style: medium14.copyWith(color: gray600)),
+                      Text(
+                        '반가워요!',
+                        style: AppTextStyles.bold20
+                            .copyWith(color: AppColor.gray700),
+                      ),
+                      Text(
+                        '회원정보를 입력해주세요.',
+                        style: AppTextStyles.bold20
+                            .copyWith(color: AppColor.gray700),
+                      ),
+                      Text(
+                        '원활한 서비스 제공을 위해 회원정보가 사용됩니다.',
+                        style: AppTextStyles.medium14
+                            .copyWith(color: AppColor.gray600),
+                      ),
                       SizedBox(height: 23),
                       InputTitle(text: '이메일'),
                       Row(
@@ -153,8 +163,11 @@ class _SignupPageState extends State<SignupPage> {
                               controller: emailController),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 4),
-                            child: Text('@',
-                                style: medium14.copyWith(color: gray600)),
+                            child: Text(
+                              '@',
+                              style: AppTextStyles.medium14
+                                  .copyWith(color: AppColor.gray600),
+                            ),
                           ),
                           Inputbox(
                               wsize: 98,
@@ -164,9 +177,9 @@ class _SignupPageState extends State<SignupPage> {
                           SizedBox(width: 10),
                           Expanded(
                             child: InkWell(
-                              splashColor: blue900,
+                              splashColor: AppColor.blue900,
                               borderRadius: BorderRadius.circular(5),
-                              highlightColor: blue700,
+                              highlightColor: AppColor.blue700,
                               splashFactory: InkRipple.splashFactory,
                               child: GestureDetector(
                                 onTap: () async {
@@ -215,16 +228,18 @@ class _SignupPageState extends State<SignupPage> {
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: blue400,
+                                    color: AppColor.blue400,
                                     borderRadius: BorderRadius.circular(5),
                                   ),
                                   width: MediaQuery.of(context).size.width *
                                       (95 / 393),
                                   height: 40,
                                   child: Center(
-                                    child: Text('인증하기',
-                                        style: semiBold14.copyWith(
-                                            color: gray100)),
+                                    child: Text(
+                                      '인증하기',
+                                      style: AppTextStyles.semiBold14
+                                          .copyWith(color: AppColor.gray100),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -269,7 +284,8 @@ class _SignupPageState extends State<SignupPage> {
                                   ),
                                   Text(
                                     '${format(totalSecond)}',
-                                    style: medium12.copyWith(color: red100),
+                                    style: AppTextStyles.medium12
+                                        .copyWith(color: AppColor.red100),
                                   )
                                 ],
                               )
@@ -399,7 +415,8 @@ class _SignupPageState extends State<SignupPage> {
                       Align(
                           child: Text(
                         '빈 칸을 모두 작성해주세요',
-                        style: medium12.copyWith(color: red100),
+                         style: AppTextStyles.medium12
+                            .copyWith(color: AppColor.red100),
                       )),
                       SizedBox(
                         height: 2,

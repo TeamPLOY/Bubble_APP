@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/presentation/pages/profile/profile_page.dart';
 import 'package:bubble_app/presentation/pages/reservation/reservation_page.dart';
 import 'package:bubble_app/presentation/pages/alarm/alarm_page.dart';
@@ -14,7 +14,7 @@ class Bottom extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: 50,
       decoration: BoxDecoration(
-        color: white100,
+        color: AppColor.white100,
       ),
       child: Padding(
         padding: EdgeInsets.only(left: 40, right: 40),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'dart:async';
 import 'package:bubble_app/data/providers/network/apis/machine/machine_check_api.dart';
 import 'package:bubble_app/data/providers/network/apis/machine/machine_alarm_api.dart';
@@ -99,7 +100,7 @@ class _MachineBoxState extends State<MachineBox> {
       height: size.height * 0.15, // 높이도 반응형으로 설정
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
-          border: Border.all(width: 1, color: gray300)),
+          border: Border.all(width: 1, color: AppColor.gray300)),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: width * 0.05),
         child: Column(
@@ -115,8 +116,8 @@ class _MachineBoxState extends State<MachineBox> {
                     children: [
                       Text(
                         '${widget.device}',
-                        style: medium14.copyWith(
-                            color: gray800, fontSize: titleSize),
+                        style: AppTextStyles.medium14.copyWith(
+                            color: AppColor.gray800, fontSize: titleSize),
                       ),
                       Lightbox(selectedIndex: widget.place),
                     ],
@@ -137,8 +138,8 @@ class _MachineBoxState extends State<MachineBox> {
                   children: [
                     Text(
                       '${widget.device}',
-                      style: medium10.copyWith(
-                          color: gray800, fontSize: subtitleSize),
+                      style: AppTextStyles.medium10.copyWith(
+                          color: AppColor.gray800, fontSize: subtitleSize),
                     ),
                     SizedBox(
                       width: width * 0.01,
@@ -149,8 +150,8 @@ class _MachineBoxState extends State<MachineBox> {
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: widget.hour == 0 && widget.minute == 0
-                              ? gray300
-                              : red100),
+                              ? AppColor.gray300
+                              : AppColor.red100),
                     )
                   ],
                 )),
@@ -162,7 +163,8 @@ class _MachineBoxState extends State<MachineBox> {
                     width: width * 0.8,
                     height: height * 0.25,
                     decoration: BoxDecoration(
-                        color: gray200, borderRadius: BorderRadius.circular(5)),
+                        color: AppColor.gray200,
+                        borderRadius: BorderRadius.circular(5)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -171,8 +173,8 @@ class _MachineBoxState extends State<MachineBox> {
                           padding: EdgeInsets.only(left: width * 0.05),
                           child: Text(
                             '${formattime(widget.hour)}:${formattime(widget.minute)}',
-                            style: medium12.copyWith(
-                                color: gray400, fontSize: timeSize),
+                            style: AppTextStyles.medium12.copyWith(
+                                color: AppColor.gray400, fontSize: timeSize),
                           ),
                         ),
                       ],
@@ -216,7 +218,9 @@ class Lightbox extends StatelessWidget {
                     width: dotSize,
                     height: dotSize,
                     decoration: BoxDecoration(
-                      color: selectedIndex == number ? blue400 : blue100,
+                      color: selectedIndex == number
+                          ? AppColor.blue400
+                          : AppColor.blue100,
                     ),
                   ),
                 );
@@ -232,7 +236,9 @@ class Lightbox extends StatelessWidget {
                   width: dotSize,
                   height: dotSize,
                   decoration: BoxDecoration(
-                    color: selectedIndex == number ? blue400 : blue100,
+                    color: selectedIndex == number
+                        ? AppColor.blue400
+                        : AppColor.blue100,
                   ),
                 ),
               );

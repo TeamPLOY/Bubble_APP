@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/pages/alarm/notice_page.dart';
 import 'package:bubble_app/presentation/widgets/header/side_header.dart';
 import 'package:bubble_app/presentation/pages/alarm/reservation_page.dart';
@@ -45,101 +46,44 @@ class _AlarmPageState extends State<AlarmPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white100,
+      backgroundColor: AppColor.white100, // AppColor에서 색상 가져오기
       body: SafeArea(
         child: Column(
           children: [
             SideHeader(text: "알림"),
-            SizedBox(
-              height: 30,
-            ),
+            SizedBox(height: 30),
             AlarmButton(
               selectedButtonIndex: _selectedButtonIndex,
               onButtonPressed: _handleButtonPress,
             ),
-            SizedBox(
-              height: 26,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '2024년 09월 30일',
-                  style: medium14.copyWith(color: gray800),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * (345 / 393),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: white100,
-                      border: Border.all(color: gray300, width: 1)),
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 16.0, top: 10, right: 8),
-                    child: Text(
-                      '한태영님, 세탁기가 완료되었습니다. 어서 건조기를 돌리세요!',
-                      style: medium12.copyWith(color: gray800),
+            SizedBox(height: 26),
+            Expanded(
+              // Expand로 공간을 확보
+              child: ListView.builder(
+                itemCount: 5, // 원하는 알림 개수 설정
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 5.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * (345 / 393),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: AppColor.white100,
+                        border: Border.all(color: AppColor.gray300, width: 1),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 16.0, top: 10, right: 8),
+                        child: Text(
+                          '한태영님, 세탁기가 완료되었습니다. 어서 건조기를 돌리세요!',
+                          style: AppTextStyles.medium12
+                              .copyWith(color: AppColor.gray800),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * (345 / 393),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: white100,
-                      border: Border.all(color: gray300, width: 1)),
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 16.0, top: 10, right: 8),
-                    child: Text(
-                      '한태영님, 세탁기가 완료되었습니다. 어서 건조기를 돌리세요!',
-                      style: medium12.copyWith(color: gray800),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * (345 / 393),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: white100,
-                      border: Border.all(color: gray300, width: 1)),
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 16.0, top: 10, right: 8),
-                    child: Text(
-                      '한태영님, 세탁기가 완료되었습니다. 어서 건조기를 돌리세요!',
-                      style: medium12.copyWith(color: gray800),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * (345 / 393),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: white100,
-                      border: Border.all(color: gray300, width: 1)),
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 16.0, top: 10, right: 8),
-                    child: Text(
-                      '한태영님, 세탁기가 완료되었습니다. 어서 건조기를 돌리세요!',
-                      style: medium12.copyWith(color: gray800),
-                    ),
-                  ),
-                ),
-              ],
+                  );
+                },
+              ),
             ),
           ],
         ),

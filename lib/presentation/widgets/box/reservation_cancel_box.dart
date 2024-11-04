@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
 import 'package:bubble_app/presentation/widgets/modal/reservation_cancel_modal.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 
 class Cancel extends StatefulWidget {
   final String resDate;
@@ -46,11 +47,11 @@ class _CancelState extends State<Cancel> {
       width: MediaQuery.of(context).size.width * (332 / 393),
       height: 72,
       decoration: BoxDecoration(
-        color: white100,
+        color: AppColor.white100,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
           width: 1,
-          color: gray300,
+          color: AppColor.gray300,
         ),
       ),
       child: Padding(
@@ -63,12 +64,12 @@ class _CancelState extends State<Cancel> {
               width: 70,
               height: 16,
               decoration: BoxDecoration(
-                  color: blue400, borderRadius: BorderRadius.circular(3)),
+                  color: AppColor.blue400, borderRadius: BorderRadius.circular(3)),
               alignment: Alignment.center,
               child: Text(
                 "${widget.roomnumber}",
-                style: medium10.copyWith(
-                  color: white100,
+                style: AppTextStyles.medium10.copyWith(
+                  color: AppColor.white100,
                 ),
               ),
             ),
@@ -80,8 +81,8 @@ class _CancelState extends State<Cancel> {
                   padding: EdgeInsets.only(left: 12, top: 13),
                   child: Text(
                     "${todate(widget.resDate)} 예약",
-                    style: medium14.copyWith(
-                      color: gray800,
+                    style: AppTextStyles.medium14.copyWith(
+                      color: AppColor.gray800,
                     ),
                   ),
                 ),
@@ -92,13 +93,13 @@ class _CancelState extends State<Cancel> {
                           width: 70,
                           height: 26,
                           decoration: BoxDecoration(
-                            color: gray200,
+                            color: AppColor.gray200,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Center(
                             child: Text(
                               '사용 완료',
-                              style: medium14.copyWith(color: gray500),
+                              style: AppTextStyles.medium14.copyWith(color: AppColor.gray500),
                             ),
                           ),
                         )
@@ -126,13 +127,13 @@ class _CancelState extends State<Cancel> {
                             width: 70,
                             height: 26,
                             decoration: BoxDecoration(
-                              color: gray200,
+                              color: AppColor.gray200,
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Center(
                               child: Text(
                                 '예약 취소',
-                                style: semiBold14.copyWith(color: blue400),
+                                style: AppTextStyles.semiBold14.copyWith(color: AppColor.blue400),
                               ),
                             ),
                           ),

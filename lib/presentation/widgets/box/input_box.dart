@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 
 class Inputbox extends StatelessWidget {
   Inputbox(
@@ -21,17 +22,17 @@ class Inputbox extends StatelessWidget {
       height: hsize,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        border: Border.all(width: 1, color: gray300),
+        border: Border.all(width: 1, color:AppColor.gray300),
       ),
       child: TextFormField(
         obscureText: password == true ? true : false,
         controller: controller,
-        cursorColor: gray600,
-        style: medium14.copyWith(color: gray800),
+        cursorColor: AppColor.gray600,
+        style: AppTextStyles.medium14.copyWith(color: AppColor.gray800),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(bottom: 11, left: 11),
           hintText: text,
-          hintStyle: medium14.copyWith(color: gray400),
+          hintStyle: AppTextStyles.medium14.copyWith(color: AppColor.gray400),
           border: InputBorder.none,
         ),
       ),

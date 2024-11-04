@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 
 class InputTitle extends StatelessWidget {
   final String text;
@@ -13,11 +14,11 @@ class InputTitle extends StatelessWidget {
         children: [
           Text(
             '${text} ',
-            style: medium16.copyWith(color: gray700),
+            style: AppTextStyles.medium16.copyWith(color: AppColor.gray700),
           ),
           Text(
             '*',
-            style: medium16.copyWith(color: red300),
+            style: AppTextStyles.medium16.copyWith(color: AppColor.red300),
           ),
         ],
       ),

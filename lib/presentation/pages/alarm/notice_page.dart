@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/data/providers/network/apis/notice/notice_api.dart';
 import 'package:bubble_app/presentation/pages/reservation/reservation_page.dart';
 import 'package:bubble_app/presentation/widgets/header/side_header.dart';
@@ -7,10 +8,9 @@ import 'package:bubble_app/presentation/widgets/box/notice_box.dart';
 import 'package:bubble_app/data/models/notice_model.dart';
 import 'package:bubble_app/presentation/pages/alarm/alarm_page.dart';
 import 'package:bubble_app/presentation/pages/alarm/notice_detail_page.dart';
-import 'package:bubble_app/theme.dart';
 
 class NoticePage extends StatefulWidget {
-  const NoticePage({super.key});
+  const NoticePage({Key? key}) : super(key: key);
 
   @override
   _NoticePageState createState() => _NoticePageState();
@@ -18,8 +18,8 @@ class NoticePage extends StatefulWidget {
 
 class _NoticePageState extends State<NoticePage> {
   int _selectedButtonIndex = 1;
-  late List<Noticemodel> noticelist = [];
-  bool isLoading = false;
+  List<Noticemodel> noticelist = [];
+  bool isLoading = true; // 초기 로딩 상태
 
   @override
   void initState() {
@@ -30,7 +30,9 @@ class _NoticePageState extends State<NoticePage> {
   void getnotice() async {
     NoticeApi notice = NoticeApi();
     noticelist = await notice.fetchNotice();
-    setState(() {});
+    setState(() {
+      isLoading = false; // 데이터 로드 완료 후 상태 변경
+    });
   }
 
   void _handleButtonPress(int index) {
@@ -41,49 +43,22 @@ class _NoticePageState extends State<NoticePage> {
     if (index == 0) {
       Navigator.push(
         context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => AlarmPage(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return child; // 애니메이션 없이 바로 화면 전환
-          },
-        ),
+        MaterialPageRoute(builder: (context) => AlarmPage()),
       );
     } else if (index == 2) {
       Navigator.push(
         context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              ReservationPage(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return child; // 애니메이션 없이 바로 화면 전환
-          },
-        ),
+        MaterialPageRoute(builder: (context) => ReservationPage()),
       );
     }
   }
 
-  // 공지사항 클릭 시 로딩 상태를 처리한 후 페이지 전환
-  void _onItemTap(int indexs) async {
-    setState(() {
-      isLoading = true; // 로딩 시작
-    });
-
-    await Future.delayed(Duration(seconds: 1)); // 페이지 이동 전 임의로 지연 추가
-
-    setState(() {
-      isLoading = false; // 로딩 완료
-    });
-
+  // 공지사항 클릭 시 페이지 전환
+  void _onItemTap(int index) {
     Navigator.push(
       context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            NoticeDetailPage(
-          items: indexs,
-        ),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return child; // 애니메이션 없이 바로 화면 전환
-        },
+      MaterialPageRoute(
+        builder: (context) => NoticeDetailPage(items: index),
       ),
     );
   }
@@ -91,7 +66,7 @@ class _NoticePageState extends State<NoticePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white100,
+      backgroundColor: AppColor.white100,
       body: SafeArea(
         child: Column(
           children: [
@@ -103,26 +78,26 @@ class _NoticePageState extends State<NoticePage> {
             ),
             SizedBox(height: 46),
             Expanded(
-              child: ListView.separated(
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24),
-                    child: GestureDetector(
-                      onTap: () {
-                        _onItemTap(index);
-                      }, // 공지사항 클릭 시 로딩 후 페이지 이동
-                      child: NoticeBox(
-                        date: noticelist[index].date,
-                        text: noticelist[index].title,
-                      ),
+              child: isLoading // 로딩 상태에 따라 UI 변경
+                  ? Center(child: CircularProgressIndicator())
+                  : ListView.separated(
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 24),
+                          child: GestureDetector(
+                            onTap: () => _onItemTap(index), // 공지사항 클릭 시 페이지 이동
+                            child: NoticeBox(
+                              date: noticelist[index].date,
+                              text: noticelist[index].title,
+                            ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return SizedBox(height: 16);
+                      },
+                      itemCount: noticelist.length,
                     ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return SizedBox(height: 16);
-                },
-                itemCount: noticelist.length,
-              ),
             ),
           ],
         ),

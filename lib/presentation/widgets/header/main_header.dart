@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/presentation/pages/alarm/alarm_page.dart';
 
 class MainHeader extends StatelessWidget {
@@ -14,7 +14,7 @@ class MainHeader extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: 54,
       decoration: BoxDecoration(
-        color: white100,
+        color: AppColor.white100,
         border: Border(
           bottom: BorderSide(width: 1.5, color: Color(0xffF2F5F7)),
         ),

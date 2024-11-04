@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/widgets/box/machine_box.dart';
 import 'package:bubble_app/data/models/machine_model.dart';
 import 'package:bubble_app/data/providers/network/apis/machine/machine_get_api.dart';
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
     double paddingValue = screenWidth * 0.05; // 화면 너비의 5%를 패딩으로 설정
 
     return Scaffold(
-      backgroundColor: white100,
+      backgroundColor: AppColor.white100,
       body: SafeArea(
         child: Stack(
           children: [
@@ -60,12 +61,14 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Text(
                         "B 여자 세탁실",
-                        style: medium22.copyWith(color: gray800),
+                        style: AppTextStyles.medium22
+                            .copyWith(color: AppColor.gray800),
                       ),
                       SizedBox(height: screenHeight * 0.005),
                       Text(
                         "남은 시간을 확인해보세요!",
-                        style: medium16.copyWith(color: gray800),
+                        style: AppTextStyles.medium16
+                            .copyWith(color: AppColor.gray800),
                       ),
                       SizedBox(height: screenHeight * 0.012),
                       MainNoticeBox(),
@@ -80,10 +83,15 @@ class _HomePageState extends State<HomePage> {
                             return Center(child: CircularProgressIndicator());
                           } else if (futureResult.hasError) {
                             return Center(
-                                child: Text('에러: ${futureResult.error}'));
+                                child: Text('에러: ${futureResult.error}',
+                                    style: AppTextStyles.regular14
+                                        .copyWith(color: AppColor.red300)));
                           } else if (futureResult.data == null ||
                               futureResult.data!.isEmpty) {
-                            return Center(child: Text('시간이 날라오고 있어요.'));
+                            return Center(
+                                child: Text('시간이 날라오고 있어요.',
+                                    style: AppTextStyles.regular14
+                                        .copyWith(color: AppColor.gray500)));
                           }
 
                           final machines = futureResult.data!;

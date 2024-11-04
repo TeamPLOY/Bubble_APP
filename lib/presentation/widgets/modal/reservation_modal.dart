@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 
 class ReservationModal extends StatelessWidget {
   final String dong, sex;
@@ -16,11 +17,11 @@ class ReservationModal extends StatelessWidget {
       width: MediaQuery.of(context).size.width * (width / 345),
       height: 72,
       decoration: BoxDecoration(
-        color: white100,
+        color: AppColor.white100,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
           width: 1,
-          color: gray300,
+          color: AppColor.gray300,
         ),
       ),
       child: Row(
@@ -35,20 +36,20 @@ class ReservationModal extends StatelessWidget {
                 Container(
                   width: 70,
                   height: 16,
-                  decoration: BoxDecoration(color: blue400),
+                  decoration: BoxDecoration(color: AppColor.blue400),
                   alignment: Alignment.center,
                   child: Text(
                     "${dong}동 ${floor}층 ${sex}",
-                    style: medium10.copyWith(
-                      color: white100,
+                    style: AppTextStyles.medium10.copyWith(
+                      color: AppColor.white100,
                     ),
                   ),
                 ),
                 SizedBox(height: 13),
                 Text(
                   "오른쪽 워시타워",
-                  style: medium14.copyWith(
-                    color: gray800,
+                  style: AppTextStyles.medium14.copyWith(
+                    color: AppColor.gray800,
                   ),
                 ),
               ],
@@ -61,13 +62,13 @@ class ReservationModal extends StatelessWidget {
               height: 26,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: gray100,
+                color: AppColor.gray100,
               ),
               alignment: Alignment.center, // 중앙 정렬 추가
               child: Text(
                 "사용 완료",
-                style: medium14.copyWith(
-                  color: gray500,
+                style: AppTextStyles.medium14.copyWith(
+                  color: AppColor.gray500,
                 ),
               ),
             ),
