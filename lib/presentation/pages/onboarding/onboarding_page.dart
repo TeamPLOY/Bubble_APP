@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/pages/login/login_page.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -12,7 +13,7 @@ class OnboardingPage extends StatelessWidget {
         child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(color: blue400),
+          decoration: BoxDecoration(color: AppColor.blue400), // AppColor 사용
           child: Column(
             children: [
               Padding(
@@ -27,11 +28,13 @@ class OnboardingPage extends StatelessWidget {
                     Image.asset('assets/img/BUBBLE.png'),
                     Text(
                       '한 번의 터치로 세탁 알림과 예약,',
-                      style: medium18.copyWith(color: gray100),
+                      style: AppTextStyles.medium18.copyWith(
+                          color: AppColor.gray100), // AppTextStyles 사용
                     ),
                     Text(
                       '버블에서 시작하세요',
-                      style: medium18.copyWith(color: gray100),
+                      style: AppTextStyles.medium18.copyWith(
+                          color: AppColor.gray100), // AppTextStyles 사용
                     ),
                   ],
                 ),
@@ -67,12 +70,13 @@ class OnboardingPage extends StatelessWidget {
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
-                    decoration: BoxDecoration(color: gray100),
+                    decoration:
+                        BoxDecoration(color: AppColor.gray100), // AppColor 사용
                     child: Center(
                       child: Text(
                         '버블 시작',
-                        style: semiBold24.copyWith(
-                            color: blue400,
+                        style: AppTextStyles.semiBold24.copyWith(
+                            color: AppColor.blue500, // 다른 파란색으로 변경
                             fontSize: MediaQuery.of(context).size.height *
                                 (24 / 852)),
                       ),

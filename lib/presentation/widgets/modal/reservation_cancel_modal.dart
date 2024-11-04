@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/data/providers/network/apis/reservation/reservation_cancel_api.dart';
 
 class ReservationCancelModal extends StatelessWidget {
@@ -18,7 +19,7 @@ class ReservationCancelModal extends StatelessWidget {
         width: MediaQuery.of(context).size.width * (332 / 393),
         height: 109,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8), color: white100),
+            borderRadius: BorderRadius.circular(8), color: AppColor.white100),
         child: Padding(
           padding: const EdgeInsets.only(left: 13),
           child: Column(
@@ -31,12 +32,12 @@ class ReservationCancelModal extends StatelessWidget {
                   width: 70,
                   height: 16,
                   decoration: BoxDecoration(
-                      color: blue400, borderRadius: BorderRadius.circular(3)),
+                      color: AppColor.blue400, borderRadius: BorderRadius.circular(3)),
                   alignment: Alignment.center,
                   child: Text(
                     "${roomnumber}",
-                    style: medium10.copyWith(
-                      color: white100,
+                    style: AppTextStyles.medium10.copyWith(
+                      color: AppColor.white100,
                     ),
                   ),
                 ),
@@ -44,14 +45,14 @@ class ReservationCancelModal extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 6),
                 child: Text('예약을 취소하시겠습니까?',
-                    style: medium14.copyWith(color: gray800)),
+                    style: AppTextStyles.medium14.copyWith(color: AppColor.gray800)),
               ),
               SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('예약을 취소하시면 사용하실 수 없습니다.',
-                      style: medium8.copyWith(color: gray500)),
+                      style: AppTextStyles.medium8.copyWith(color: AppColor.gray500)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -63,11 +64,11 @@ class ReservationCancelModal extends StatelessWidget {
                           width: 62,
                           height: 20,
                           decoration: BoxDecoration(
-                              color: gray200,
+                              color: AppColor.gray200,
                               borderRadius: BorderRadius.circular(5)),
                           child: Center(
                             child: Text('아니요',
-                                style: medium10.copyWith(color: gray500)),
+                                style: AppTextStyles.medium10.copyWith(color: AppColor.gray500)),
                           ),
                         ),
                       ),
@@ -83,11 +84,11 @@ class ReservationCancelModal extends StatelessWidget {
                           width: 62,
                           height: 20,
                           decoration: BoxDecoration(
-                              color: gray200,
+                              color: AppColor.gray200,
                               borderRadius: BorderRadius.circular(5)),
                           child: Center(
                             child: Text('네',
-                                style: medium10.copyWith(color: gray500)),
+                                style: AppTextStyles.medium10.copyWith(color: AppColor.gray500)),
                           ),
                         ),
                       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 
 class Dropdownbox extends StatefulWidget {
   final double wsize, hsize;
@@ -54,15 +55,18 @@ class _DropdownboxState extends State<Dropdownbox> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: gray100),
+                border: Border.all(color: AppColor.gray100),
               ),
               child: ListView(
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 children: widget.index_list
                     .map((item) => ListTile(
-                          title: Text(item,
-                              style: regular14.copyWith(color: gray800)),
+                          title: Text(
+                            item,
+                            style: AppTextStyles.regular14
+                                .copyWith(color: AppColor.gray800),
+                          ),
                           onTap: () {
                             setState(() {
                               dropdownValue = item;
@@ -107,7 +111,7 @@ class _DropdownboxState extends State<Dropdownbox> {
           width: MediaQuery.of(context).size.width * (widget.wsize / 393),
           height: widget.hsize,
           decoration: BoxDecoration(
-            border: Border.all(width: 1, color: gray300),
+            border: Border.all(width: 1, color: AppColor.gray300),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Row(
@@ -117,7 +121,8 @@ class _DropdownboxState extends State<Dropdownbox> {
                 padding: const EdgeInsets.only(left: 16),
                 child: Text(
                   dropdownValue ?? 'Select an item',
-                  style: regular14.copyWith(color: gray800),
+                  style:
+                      AppTextStyles.regular14.copyWith(color: AppColor.gray800),
                 ),
               ),
               Padding(

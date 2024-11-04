@@ -1,6 +1,7 @@
-import 'package:bubble_app/data/models/machine_model.dart';
-import 'package:bubble_app/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:bubble_app/data/models/machine_model.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/data/providers/network/apis/machine/machine_get_api.dart';
 import 'package:bubble_app/data/models/machine_model.dart';
 
@@ -46,13 +47,13 @@ class _HomeActivateState extends State<HomeActivate> {
             onTap: () {},
             child: Container(
               decoration: BoxDecoration(
-                color: isWasherRunning ? blue400 : gray400,
+                color: isWasherRunning ? AppColor.blue400 : AppColor.gray400,
                 borderRadius: BorderRadius.circular(90),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
               child: Text(
                 '세탁기',
-                style: bold12.copyWith(color: white100),
+                style: AppTextStyles.bold12.copyWith(color: AppColor.white100),
               ),
             ),
           ),
@@ -65,13 +66,13 @@ class _HomeActivateState extends State<HomeActivate> {
             onTap: () {},
             child: Container(
               decoration: BoxDecoration(
-                color: isDryerRunning ? blue400 : gray400,
+                color: isDryerRunning ? AppColor.blue400 : AppColor.gray400,
                 borderRadius: BorderRadius.circular(90),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
               child: Text(
                 '건조기',
-                style: bold12.copyWith(color: white100),
+                style: AppTextStyles.bold12.copyWith(color: AppColor.white100),
               ),
             ),
           ),

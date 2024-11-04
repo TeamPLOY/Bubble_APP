@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
@@ -20,7 +21,7 @@ class ReservationPage extends StatefulWidget {
 
 class _ReservationPageState extends State<ReservationPage> {
   var access_token = globalTokens?.access_token;
-  String ReservationDay = '';
+  String reservationDay = '';
   int? selectedBoxIndex;
   late DateTime now;
   late Timer _timer;
@@ -53,7 +54,7 @@ class _ReservationPageState extends State<ReservationPage> {
     super.dispose();
   }
 
-  void _showReservationCancleModal() {
+  void _showReservationCancelModal() {
     if (selectedBoxIndex == null) return;
 
     showDialog(
@@ -64,7 +65,7 @@ class _ReservationPageState extends State<ReservationPage> {
             borderRadius: BorderRadius.circular(15),
           ),
           child: ReservationCheckModal(
-            date: ReservationDay,
+            date: reservationDay,
             onConfirm: () async {
               await sendReservation();
               Navigator.of(context).pop();
@@ -76,7 +77,7 @@ class _ReservationPageState extends State<ReservationPage> {
   }
 
   Future<void> sendReservation() async {
-    if (ReservationDay.isEmpty) {
+    if (reservationDay.isEmpty) {
       setState(() {
         serverResponse = '날짜를 선택해주세요.';
       });
@@ -90,10 +91,10 @@ class _ReservationPageState extends State<ReservationPage> {
     final url = Uri.parse('https://your-server-url.com/reservations');
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ${access_token}'
+      'Authorization': 'Bearer $access_token'
     };
     final body = jsonEncode({
-      'date': ReservationDay,
+      'date': reservationDay,
     });
 
     try {
@@ -124,7 +125,7 @@ class _ReservationPageState extends State<ReservationPage> {
 
       if (isSelected) {
         futureReservationData.then((reservations) {
-          ReservationDay = reservations[index].date;
+          reservationDay = reservations[index].date;
         });
       }
     });
@@ -140,7 +141,7 @@ class _ReservationPageState extends State<ReservationPage> {
               width: MediaQuery.of(context).size.width,
               height: 320,
               decoration: BoxDecoration(
-                color: blue400,
+                color: AppColor.blue400, // AppColor 사용
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(40),
                   bottomRight: Radius.circular(40),
@@ -169,7 +170,7 @@ class _ReservationPageState extends State<ReservationPage> {
                 width: MediaQuery.of(context).size.width * (350 / 393),
                 height: 480,
                 decoration: BoxDecoration(
-                  color: white100,
+                  color: AppColor.white100, // AppColor 사용
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
@@ -191,12 +192,14 @@ class _ReservationPageState extends State<ReservationPage> {
                         children: [
                           Text(
                             "세탁실을 이용할 날짜 선택해주세요",
-                            style: semiBold18.copyWith(color: gray800),
+                            style: AppTextStyles.semiBold18.copyWith(
+                                color: AppColor.gray800), // AppTextStyles 사용
                           ),
                           SizedBox(height: 6),
                           Text(
                             "하나만 선택해주세요",
-                            style: medium12.copyWith(color: gray500),
+                            style: AppTextStyles.medium12.copyWith(
+                                color: AppColor.gray500), // AppTextStyles 사용
                           ),
                           SizedBox(height: 30),
                           GridView.builder(
@@ -243,13 +246,15 @@ class _ReservationPageState extends State<ReservationPage> {
                               children: [
                                 Text(
                                   "빨간색은 선택이 불가능합니다.",
-                                  style: medium12.copyWith(color: red100),
+                                  style: AppTextStyles.medium12.copyWith(
+                                      color:
+                                          AppColor.red100), // AppTextStyles 사용
                                 ),
                                 SizedBox(height: 14),
                                 Center(
                                   child: NextButton(
                                     text: "예약하기",
-                                    onPressed: _showReservationCancleModal,
+                                    onPressed: _showReservationCancelModal,
                                   ),
                                 ),
                                 if (serverResponse.isNotEmpty)

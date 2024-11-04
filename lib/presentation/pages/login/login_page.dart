@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/pages/home/home_page.dart';
 import 'package:bubble_app/presentation/widgets/button/next_button.dart';
 import 'package:bubble_app/presentation/widgets/header/side_header.dart';
@@ -8,7 +9,7 @@ import 'package:bubble_app/presentation/widgets/box/input_box.dart';
 import 'package:bubble_app/data/providers/network/apis/login/login_api.dart';
 import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 import 'package:bubble_app/presentation/pages/signup/signup_page.dart';
-import 'package:bubble_app/Functions/emailsearch.dart';
+import 'package:bubble_app/data/Functions/emailsearch.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,10 +25,11 @@ class _LoginPageState extends State<LoginPage> {
   List<bool> loginstate = [false, false];
   double pad = 42;
   bool logcheck = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white100,
+      backgroundColor: AppColor.white100, // AppColor 사용
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,18 +48,21 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Text(
                     '안녕하세요 : )',
-                    style: bold30.copyWith(color: gray800),
+                    style: AppTextStyles.bold30
+                        .copyWith(color: AppColor.gray800), // AppTextStyles 사용
                   ),
                   Text(
                     '버블입니다.',
-                    style: bold30.copyWith(color: gray800),
+                    style: AppTextStyles.bold30
+                        .copyWith(color: AppColor.gray800), // AppTextStyles 사용
                   ),
                   SizedBox(height: 30),
                   Inputbox(
-                      wsize: 345,
-                      hsize: 40,
-                      text: '아이디 입력',
-                      controller: idController),
+                    wsize: 345,
+                    hsize: 40,
+                    text: '아이디 입력',
+                    controller: idController,
+                  ),
                   SizedBox(height: 14),
                   Inputbox(
                     wsize: 345,
@@ -72,7 +77,8 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Text(
                           '이메일 혹은 비밀번호가 비어있습니다.',
-                          style: medium12.copyWith(color: red100),
+                          style: AppTextStyles.medium12.copyWith(
+                              color: AppColor.red100), // AppTextStyles 사용
                         ),
                         SizedBox(height: 17),
                       ],
@@ -82,7 +88,8 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Text(
                           '이메일 혹은 비밀번호가 일치하지 않습니다.',
-                          style: medium12.copyWith(color: red100),
+                          style: AppTextStyles.medium12.copyWith(
+                              color: AppColor.red100), // AppTextStyles 사용
                         ),
                         SizedBox(height: 17),
                       ],
@@ -90,8 +97,9 @@ class _LoginPageState extends State<LoginPage> {
                   GestureDetector(
                     onTap: () async {
                       Emailsearch emailsearch = Emailsearch(
-                          emailController: idController,
-                          comController: passwordController);
+                        emailController: idController,
+                        comController: passwordController,
+                      );
 
                       setState(() {
                         loginstate = emailsearch.checkForm();
@@ -100,8 +108,9 @@ class _LoginPageState extends State<LoginPage> {
 
                       if (!loginstate[0] && !loginstate[1]) {
                         LoginApi login = LoginApi(
-                            email: idController.text,
-                            password: passwordController.text);
+                          email: idController.text,
+                          password: passwordController.text,
+                        );
                         globalTokens = await login.loginpostData();
 
                         setState(() {
@@ -154,14 +163,15 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         child: Text(
                           '비밀번호 찾기',
-                          style: bold12.copyWith(color: gray800),
+                          style: AppTextStyles.bold12.copyWith(
+                              color: AppColor.gray800), // AppTextStyles 사용
                         ),
                       ),
                       SizedBox(width: 10),
                       Container(
                         width: 1,
                         height: 13.5,
-                        color: gray500,
+                        color: AppColor.gray500, // AppColor 사용
                       ),
                       SizedBox(width: 10),
                       GestureDetector(
@@ -181,7 +191,8 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         child: Text(
                           '회원가입',
-                          style: bold12.copyWith(color: gray800),
+                          style: AppTextStyles.bold12.copyWith(
+                              color: AppColor.gray800), // AppTextStyles 사용
                         ),
                       ),
                     ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
-
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 class Message extends StatelessWidget {
   const Message({required this.text, super.key});
   final String text;
@@ -13,7 +13,7 @@ class Message extends StatelessWidget {
         ),
         Text(
           '${text}',
-          style: medium12.copyWith(color: red100),
+          style: AppTextStyles.medium12.copyWith(color: AppColor.red100),
         )
       ],
     );

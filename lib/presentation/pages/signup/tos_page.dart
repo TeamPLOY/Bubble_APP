@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/presentation/widgets/header/side_header.dart';
 import 'package:bubble_app/presentation/pages/login/login_page.dart';
 import 'package:bubble_app/presentation/widgets/text/tos.dart';
 import 'package:bubble_app/data/providers/network/apis/signup/signup_api.dart';
 
-import 'package:bubble_app/Functions/use_text.dart';
+import 'package:bubble_app/data/Functions/use_text.dart';
 
 class TosPage extends StatefulWidget {
   final SignupApi signup;
@@ -17,11 +18,11 @@ class TosPage extends StatefulWidget {
 }
 
 class _TosPageState extends State<TosPage> {
-  Color button_color1 = gray200;
-  Color button_color2 = gray500;
+  Color button_color1 = AppColor.gray200;
+  Color button_color2 = AppColor.gray500;
   bool allcheckstatus = false;
-  Color color1 = gray700;
-  Color color2 = gray200;
+  Color color1 = AppColor.gray700;
+  Color color2 = AppColor.gray200;
   String svg_url = 'assets/img/check.svg';
   String svg_url1 = 'assets/img/checkgray.svg';
   String svg_url2 = 'assets/img/checkgray.svg';
@@ -67,20 +68,20 @@ class _TosPageState extends State<TosPage> {
   void updatecheck() {
     if (option1 && option2) {
       setState(() {
-        button_color1 = blue400;
-        button_color2 = white100;
+        button_color1 = AppColor.blue400;
+        button_color2 = AppColor.white100;
         allcheckstatus = true;
-        color1 = white100;
-        color2 = blue400;
+        color1 = AppColor.white100;
+        color2 = AppColor.blue400;
         svg_url = 'assets/img/checkwhite.svg';
       });
     } else {
       setState(() {
         allcheckstatus = false;
-        button_color1 = gray200;
-        button_color2 = gray500;
-        color1 = gray700;
-        color2 = gray200;
+        button_color1 = AppColor.gray200;
+        button_color2 = AppColor.gray500;
+        color1 = AppColor.gray700;
+        color2 = AppColor.gray200;
         svg_url = 'assets/img/check.svg';
       });
     }
@@ -136,7 +137,8 @@ class _TosPageState extends State<TosPage> {
                 children: [
                   Text(
                     '이용 약관 동의',
-                    style: semiBold24.copyWith(color: gray700),
+                    style: AppTextStyles.semiBold24
+                        .copyWith(color: AppColor.gray700),
                   ),
                   SizedBox(
                     height: 39,
@@ -145,11 +147,11 @@ class _TosPageState extends State<TosPage> {
                     onTap: () {
                       if (allcheckstatus == false) {
                         setState(() {
-                          button_color1 = blue400;
-                          button_color2 = white100;
+                          button_color1 = AppColor.blue400;
+                          button_color2 = AppColor.white100;
                           allcheckstatus = true;
-                          color1 = white100;
-                          color2 = blue400;
+                          color1 = AppColor.white100;
+                          color2 = AppColor.blue400;
                           svg_url = 'assets/img/checkwhite.svg';
                           option1 = true;
                           svg_url1 = 'assets/img/checkblue.svg';
@@ -158,11 +160,11 @@ class _TosPageState extends State<TosPage> {
                         });
                       } else if (allcheckstatus == true) {
                         setState(() {
-                          button_color1 = gray200;
-                          button_color2 = gray500;
+                          button_color1 = AppColor.gray200;
+                          button_color2 = AppColor.gray500;
                           allcheckstatus = false;
-                          color1 = gray700;
-                          color2 = gray200;
+                          color1 = AppColor.gray700;
+                          color2 = AppColor.gray200;
                           svg_url = 'assets/img/check.svg';
                           option1 = false;
                           svg_url1 = 'assets/img/checkgray.svg';
@@ -192,7 +194,8 @@ class _TosPageState extends State<TosPage> {
                           ),
                           Text(
                             '네, 모두 동의합니다.',
-                            style: semiBold16.copyWith(color: color1),
+                            style: AppTextStyles.semiBold16
+                                .copyWith(color: color1),
                           )
                         ],
                       ),
@@ -220,11 +223,13 @@ class _TosPageState extends State<TosPage> {
                       ),
                       Text(
                         '이용약관 ',
-                        style: semiBold16.copyWith(color: gray800),
+                        style: AppTextStyles.semiBold16
+                            .copyWith(color: AppColor.gray800),
                       ),
                       Text(
                         '(필수)',
-                        style: semiBold16.copyWith(color: blue400),
+                        style: AppTextStyles.semiBold16
+                            .copyWith(color: AppColor.blue400),
                       ),
                       Expanded(
                         child: Row(
@@ -268,11 +273,13 @@ class _TosPageState extends State<TosPage> {
                       ),
                       Text(
                         '개인정보 처리방침 ',
-                        style: semiBold16.copyWith(color: gray800),
+                        style: AppTextStyles.semiBold16
+                            .copyWith(color: AppColor.gray800),
                       ),
                       Text(
                         '(필수)',
-                        style: semiBold16.copyWith(color: blue400),
+                        style: AppTextStyles.semiBold16
+                            .copyWith(color: AppColor.blue400),
                       ),
                       Expanded(
                         child: Row(
@@ -305,7 +312,8 @@ class _TosPageState extends State<TosPage> {
                               children: [
                                 Text(
                                   '약관에 동의해주세요',
-                                  style: medium12.copyWith(color: red100),
+                                  style: AppTextStyles.medium12
+                                      .copyWith(color: AppColor.red100),
                                 )
                               ],
                             ),
@@ -351,7 +359,8 @@ class _TosPageState extends State<TosPage> {
                         child: Center(
                           child: Text(
                             '동의합니다',
-                            style: bold16.copyWith(color: button_color2),
+                            style: AppTextStyles.bold16
+                                .copyWith(color: button_color2),
                           ),
                         ),
                       ))

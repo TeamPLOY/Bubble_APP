@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 
 class NextButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -16,12 +17,12 @@ class NextButton extends StatelessWidget {
         height: 44,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          color: blue400,
+          color: AppColor.blue400,
         ),
         child: Center(
           child: Text(
             '${text}',
-            style: bold16.copyWith(color: white100),
+            style: AppTextStyles.bold16.copyWith(color: AppColor.white100),
           ),
         ),
       ),

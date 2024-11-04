@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/pages/login/login_page.dart';
 import 'package:bubble_app/data/providers/network/apis/login/logout_api.dart';
 
@@ -19,7 +20,7 @@ class _LogoutModalState extends State<LogoutModal> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
-        color: white100,
+        color: AppColor.white100,
         width: 360,
         height: 80,
         child: Column(
@@ -30,7 +31,7 @@ class _LogoutModalState extends State<LogoutModal> {
               padding: EdgeInsets.only(top: 17, left: 18),
               child: Text(
                 '정말 로그아웃 하시겠습니까?',
-                style: medium16.copyWith(color: gray800),
+                style: AppTextStyles.medium16.copyWith(color: AppColor.gray800),
               ),
             ),
             Expanded(
@@ -43,7 +44,7 @@ class _LogoutModalState extends State<LogoutModal> {
                       onTap: () => {Navigator.of(context).pop()},
                       child: Text(
                         '취소',
-                        style: semiBold12.copyWith(color: gray600),
+                        style: AppTextStyles.semiBold12.copyWith(color: AppColor.gray600),
                       )),
                   SizedBox(
                     width: 12,
@@ -68,7 +69,7 @@ class _LogoutModalState extends State<LogoutModal> {
                       },
                       child: Text(
                         '로그아웃',
-                        style: semiBold12.copyWith(color: Color(0xff1C4EFF)),
+                        style: AppTextStyles.semiBold12.copyWith(color: Color(0xff1C4EFF)),
                       ))
                 ],
               ),

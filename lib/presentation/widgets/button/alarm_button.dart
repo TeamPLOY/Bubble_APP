@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 
 class AlarmButton extends StatefulWidget {
   final int selectedButtonIndex;
@@ -71,17 +72,17 @@ class CustomButton extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
         decoration: BoxDecoration(
-          color: isSelected ? blue400 : white100,
+          color: isSelected ? AppColor.blue400 : AppColor.white100,
           borderRadius: BorderRadius.circular(30),
           border: Border.all(
-            color: isSelected ? blue400 : white100,
+            color: isSelected ? AppColor.blue400 : AppColor.white100,
             width: 0.3,
           ),
         ),
         child: Text(
           text,
-          style: regular14.copyWith(
-            color: isSelected ? white100 : gray500,
+          style: AppTextStyles.regular14.copyWith(
+            color: isSelected ? AppColor.white100 : AppColor.gray500,
             decoration: TextDecoration.none,
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/presentation/widgets/header/side_header.dart';
 import 'package:bubble_app/presentation/widgets/text/profile_text.dart';
@@ -18,6 +19,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   UserModel? userData;
+
   @override
   void initState() {
     super.initState();
@@ -32,14 +34,14 @@ class _ProfilePageState extends State<ProfilePage> {
         userData = fetchedUser;
       });
     } catch (e) {
-      print('에러 ${e}');
+      print('에러: ${e}');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white100,
+      backgroundColor: AppColor.white100, // AppColor 사용
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +57,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                              border: Border.all(color: gray300, width: 1),
+                              border: Border.all(
+                                  color: AppColor.gray300,
+                                  width: 1), // AppColor 사용
                               shape: BoxShape.circle),
                           child: ClipOval(
                             child: Image.network(
@@ -83,13 +87,15 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         Text(
                           userData != null ? '${userData!.name}' : '이름 로딩 중...',
-                          style: semiBold16.copyWith(color: gray800),
+                          style: AppTextStyles.semiBold16.copyWith(
+                              color: AppColor.gray800), // AppTextStyles 사용
                         ),
                         Text(
                           userData != null
                               ? '${userData!.studentNum}'
                               : '학생 번호 로딩 중...',
-                          style: medium12.copyWith(color: gray600),
+                          style: AppTextStyles.medium12.copyWith(
+                              color: AppColor.gray600), // AppTextStyles 사용
                         )
                       ],
                     ),
@@ -106,12 +112,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Text(
                       '이메일',
-                      style: medium14.copyWith(color: gray800),
+                      style: AppTextStyles.medium14.copyWith(
+                          color: AppColor.gray800), // AppTextStyles 사용
                     ),
                     ProfileText(
-                        information: userData != null
-                            ? '${userData!.email}'
-                            : '이메일 로딩 중...')
+                      information: userData != null
+                          ? '${userData!.email}'
+                          : '이메일 로딩 중...',
+                    )
                   ],
                 ),
               ),
@@ -125,12 +133,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Text(
                       '호실',
-                      style: medium14.copyWith(color: gray800),
+                      style: AppTextStyles.medium14.copyWith(
+                          color: AppColor.gray800), // AppTextStyles 사용
                     ),
                     ProfileText(
-                        information: userData != null
-                            ? '${userData!.roomNum}'
-                            : '호실 로딩 중...')
+                      information: userData != null
+                          ? '${userData!.roomNum}'
+                          : '호실 로딩 중...',
+                    )
                   ],
                 ),
               ),
@@ -143,14 +153,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: GestureDetector(
                     onTap: () {
                       showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return LogoutModal();
-                          });
+                        context: context,
+                        builder: (BuildContext context) {
+                          return LogoutModal();
+                        },
+                      );
                     },
                     child: Text(
                       '로그아웃',
-                      style: regular14.copyWith(color: gray600),
+                      style: AppTextStyles.regular14.copyWith(
+                          color: AppColor.gray600), // AppTextStyles 사용
                     ),
                   ),
                 ),

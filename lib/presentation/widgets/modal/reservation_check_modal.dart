@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/pages/reservation/finish_page.dart';
 
 class ReservationCheckModal extends StatelessWidget {
@@ -19,11 +20,11 @@ class ReservationCheckModal extends StatelessWidget {
           : 210,
       height: MediaQuery.of(context).size.width >= 700 ? 350 : 250,
       decoration: BoxDecoration(
-        color: white100,
+        color: AppColor.white100,
         borderRadius: BorderRadius.circular(15),
         border: Border.all(
           width: 1.5,
-          color: blue400,
+          color: AppColor.blue400,
         ),
       ),
       child: Column(
@@ -71,12 +72,12 @@ class ReservationCheckModal extends StatelessWidget {
                         : 25,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(3),
-                      border: Border.all(width: 1, color: gray400),
+                      border: Border.all(width: 1, color: AppColor.gray400),
                     ),
                     child: Center(
                       child: Text(
                         '아니오',
-                        style: semiBold10.copyWith(color: gray500),
+                        style: AppTextStyles.semiBold10.copyWith(color: AppColor.gray500),
                       ),
                     ),
                   ),
@@ -112,14 +113,14 @@ class ReservationCheckModal extends StatelessWidget {
                         ? MediaQuery.of(context).size.height * (50 / 893)
                         : 25,
                     decoration: BoxDecoration(
-                      color: blue400,
+                      color: AppColor.blue400,
                       borderRadius: BorderRadius.circular(3),
                       border: Border.all(width: 1, color: Colors.transparent),
                     ),
                     child: Center(
                       child: Text(
                         '네',
-                        style: semiBold10.copyWith(color: white100),
+                        style: AppTextStyles.semiBold10.copyWith(color: AppColor.white100),
                       ),
                     ),
                   ),
