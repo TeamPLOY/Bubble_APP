@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:bubble_app/theme.dart';
+import 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_text_styles.dart';
+
 class UnderlinedText extends StatelessWidget {
   final String text;
 
@@ -11,7 +13,7 @@ class UnderlinedText extends StatelessWidget {
   Widget build(BuildContext context) {
     final textSpan = TextSpan(
       text: text,
-      style: medium12.copyWith(color: red100)
+      style: AppTextStyles.medium12..copyWith(color: AppColor.red100)
     );
 
     return Stack(
@@ -25,7 +27,7 @@ class UnderlinedText extends StatelessWidget {
           right: 0,
           child: Container(
             height: 1,
-            color: red100,
+            color: AppColor.red100,
             margin: EdgeInsets.only(top: 1),
           ),
         ),

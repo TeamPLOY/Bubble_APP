@@ -139,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: NextButton(
                       text: '로그인 하기',
-                      onPressed: () {}, // NextButton에 필요한 콜백 함수를 추가합니다.
+                      onPressed: () {}, 
                     ),
                   ),
                   SizedBox(height: 14),

@@ -150,20 +150,52 @@ class _ProfilePageState extends State<ProfilePage> {
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 80),
-                  child: GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return LogoutModal();
+                  child: Column(
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).size.height*(225/852),),
+                      GestureDetector(
+                        onTap: () {
+                          
                         },
-                      );
-                    },
-                    child: Text(
-                      '로그아웃',
-                      style: AppTextStyles.regular14.copyWith(
-                          color: AppColor.gray600), // AppTextStyles 사용
-                    ),
+                        child: Text(
+                          '문의하기/분실물 찾기',
+                          style: AppTextStyles.regular14.copyWith(
+                              color: AppColor.gray600), // AppTextStyles 사용
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return LogoutModal();
+                            },
+                          );
+                        },
+                        child: Text(
+                          '로그아웃',
+                          style: AppTextStyles.regular14.copyWith(
+                              color: AppColor.gray600), // AppTextStyles 사용
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return LogoutModal();
+                            },
+                          );
+                        },
+                        child: Text(
+                          '탈퇴하기',
+                          style: AppTextStyles.regular14.copyWith(
+                              color: AppColor.red100), // AppTextStyles 사용
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
