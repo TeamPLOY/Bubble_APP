@@ -18,10 +18,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<List<MachineModel>>? machineData;
-
+  bool? check_user;
   @override
   void initState() {
     super.initState();
+    
     _futureMachineData();
   }
 

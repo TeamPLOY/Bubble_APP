@@ -1,3 +1,4 @@
+import 'package:bubble_app/presentation/pages/alarm/reservation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/data/providers/network/apis/notice/notice_api.dart';
@@ -42,14 +43,29 @@ class _NoticePageState extends State<NoticePage> {
 
     if (index == 0) {
       Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => AlarmPage()),
-      );
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        AlarmPage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ),
+                );
+      
     } else if (index == 2) {
       Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ReservationPage()),
-      );
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        ReservationListPage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ),
+                );
     }
   }
 

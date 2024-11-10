@@ -8,14 +8,14 @@ import 'package:bubble_app/presentation/widgets/box/reservation_cancel_box.dart'
 import 'package:bubble_app/data/providers/network/apis/reservation/reservation_state_api.dart';
 import 'package:bubble_app/presentation/pages/alarm/alarm_page.dart';
 
-class ReservationPage extends StatefulWidget {
-  const ReservationPage({Key? key}) : super(key: key);
+class ReservationListPage extends StatefulWidget {
+  const ReservationListPage({Key? key}) : super(key: key);
 
   @override
   _ReservationStatePage createState() => _ReservationStatePage();
 }
 
-class _ReservationStatePage extends State<ReservationPage> {
+class _ReservationStatePage extends State<ReservationListPage> {
   int _selectedButtonIndex = 2;
   List<ReservationStateModel> reservationStateList = [];
   bool isLoading = true; // 로딩 상태 추가
@@ -39,19 +39,32 @@ class _ReservationStatePage extends State<ReservationPage> {
       _selectedButtonIndex = index;
     });
 
-    Widget page;
     if (index == 0) {
-      page = AlarmPage();
+      Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        AlarmPage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ),
+                );
+      
     } else if (index == 1) {
-      page = NoticePage();
-    } else {
-      return; // 인덱스가 0이나 1이 아닐 경우 함수 종료
+      Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        NoticePage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ),
+                );
     }
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => page), // 애니메이션 없이 페이지 전환
-    );
   }
 
   String formatDate(String date) {

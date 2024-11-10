@@ -1,3 +1,4 @@
+import 'package:bubble_app/presentation/widgets/modal/full_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -40,7 +41,12 @@ class _ReservationBoxState extends State<ReservationBox> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        widget.onStateChanged(!widget.isSelected);
+        if(widget.userCount>=4){
+          showDialog(context: context, builder: (BuildContext context) {return FullModal();});
+        }
+        else{
+          widget.onStateChanged(!widget.isSelected);
+        }
       },
       child: Container(
         width: 140,

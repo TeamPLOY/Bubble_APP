@@ -16,12 +16,12 @@ class _LogoutModalState extends State<LogoutModal> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
       child: Container(
-        color: AppColor.white100,
-        width: 360,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: AppColor.white100,
+        ),
+        width: MediaQuery.of(context).size.width*(360/393),
         height: 80,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

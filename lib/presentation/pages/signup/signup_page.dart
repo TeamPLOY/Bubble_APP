@@ -13,7 +13,7 @@ import 'package:bubble_app/presentation/widgets/box/input_box.dart';
 import 'package:bubble_app/presentation/widgets/box/dropdown_box.dart';
 import 'package:bubble_app/presentation/pages/signup/tos_page.dart';
 import 'package:bubble_app/data/Functions/emailsearch.dart';
-import 'package:bubble_app/data/Functions/UnderlinedText.dart';
+// import 'package:bubble_app/data/Functions/UnderlinedText.dart';
 import 'package:bubble_app/data/Functions/Formsearch.dart';
 
 class SignupPage extends StatefulWidget {
@@ -270,7 +270,15 @@ class _SignupPageState extends State<SignupPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   GestureDetector(
-                                    child: UnderlinedText(text: '재전송'),
+                                    child: RichText(
+                                      text: TextSpan(
+                                        text: '재전송',
+                                        style: AppTextStyles.regular12.copyWith(                                          color: Colors.red,
+                                          decoration: TextDecoration.underline,
+                                          decorationColor: Colors.red,
+                                        )
+                                      ),
+                                    ),
                                     onTap: () {
                                       if (emails != null) {
                                         EmailPostApi email_post =

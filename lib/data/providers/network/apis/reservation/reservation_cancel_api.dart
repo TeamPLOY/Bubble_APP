@@ -7,10 +7,17 @@ class ReservationCancelApi {
   late String date;
   var access_token = globalTokens?.access_token;
   ReservationCancelApi({required this.date});
+  String formatDate(String dateString) {
+    final date = DateTime.parse(
+      dateString.replaceAll('년 ', '-').replaceAll('월 ', '-').replaceAll('일', '')
+    );
 
+    return "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+  }
   Future<void> fetchCancel() async {
+    String dateTime=formatDate(date);
     Map<String, dynamic> postData = {
-      'date': date,
+      'date': dateTime,
     };
     print(date);
 

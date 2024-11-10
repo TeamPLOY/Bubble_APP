@@ -41,6 +41,7 @@ class SignupApi {
         print('포스트 성공 : $responseData');
       } else {
         print('실패 :  ${response.statusCode}');
+        print(utf8.decode(response.bodyBytes));
       }
     } catch (e) {
       print('에러 : $e');
