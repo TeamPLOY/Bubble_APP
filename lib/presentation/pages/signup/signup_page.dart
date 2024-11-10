@@ -1,3 +1,4 @@
+import 'package:bubble_app/presentation/widgets/box/email_box.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:bubble_app/app/config/app_color.dart';
@@ -169,11 +170,7 @@ class _SignupPageState extends State<SignupPage> {
                                   .copyWith(color: AppColor.gray600),
                             ),
                           ),
-                          Inputbox(
-                              wsize: 98,
-                              hsize: 40,
-                              text: 'bssm.hs.kr',
-                              controller: comController),
+                          EmailBox(wsize: 98, hsize: 40),
                           SizedBox(width: 10),
                           Expanded(
                             child: InkWell(
