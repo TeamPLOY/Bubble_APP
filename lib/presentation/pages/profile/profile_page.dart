@@ -2,7 +2,7 @@ import 'package:bubble_app/presentation/pages/deleteUser/delete_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/presentation/widgets/header/side_header.dart';
 import 'package:bubble_app/presentation/widgets/text/profile_text.dart';
 import 'package:bubble_app/presentation/widgets/modal/logout_modal.dart';

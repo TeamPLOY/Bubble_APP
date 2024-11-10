@@ -30,17 +30,6 @@ class _CancelState extends State<Cancel> {
     _cancel = widget.cancel;
   }
 
-  String todate(String date) {
-    late String ymd = date.substring(0, 4) +
-        '년 ' +
-        date.substring(5, 7) +
-        '월 ' +
-        date.substring(8, 10) +
-        '일';
-
-    return ymd;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -80,7 +69,7 @@ class _CancelState extends State<Cancel> {
                 Padding(
                   padding: EdgeInsets.only(left: 12, top: 13),
                   child: Text(
-                    "${todate(widget.resDate)} 예약",
+                    "${widget.resDate} 예약",
                     style: AppTextStyles.medium14.copyWith(
                       color: AppColor.gray800,
                     ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'dart:async';
 import 'package:bubble_app/presentation/widgets/button/next_button.dart';
 import 'package:bubble_app/presentation/widgets/header/side_header.dart';
@@ -10,6 +8,7 @@ import 'package:bubble_app/presentation/widgets/box/reservation_box.dart';
 import 'package:bubble_app/data/models/reservation_model.dart';
 import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 import 'package:bubble_app/data/providers/network/apis/reservation/reservation_get_api.dart';
+import 'package:bubble_app/data/providers/network/apis/reservation/reservation_post_api.dart';
 import 'package:bubble_app/presentation/widgets/modal/reservation_check_modal.dart';
 
 class ReservationPage extends StatefulWidget {
@@ -28,11 +27,15 @@ class _ReservationPageState extends State<ReservationPage> {
   late Future<List<ReservationModel>> futureReservationData;
   final ReservationGetApi reservationGet = ReservationGetApi();
   String serverResponse = '';
-  bool isLoading = false;
 
+
+
+  bool isLoading = false;
+  
   @override
   void initState() {
     super.initState();
+    
     now = DateTime.now();
     futureReservationData = reservationGet.fetchData();
 
@@ -87,37 +90,10 @@ class _ReservationPageState extends State<ReservationPage> {
     setState(() {
       isLoading = true;
     });
-
-    final url = Uri.parse('https://your-server-url.com/reservations');
-    final headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $access_token'
-    };
-    final body = jsonEncode({
-      'date': reservationDay,
-    });
-
-    try {
-      final response = await http.post(url, headers: headers, body: body);
-      if (response.statusCode == 200) {
-        setState(() {
-          serverResponse = '예약이 성공적으로 완료되었습니다.';
-        });
-      } else {
-        setState(() {
-          serverResponse = '예약에 실패했습니다. 다시 시도해주세요.';
-        });
-      }
-    } catch (error) {
-      setState(() {
-        serverResponse = '서버 오류가 발생했습니다: $error';
-      });
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
+    print(reservationDay);
+    ReservationPostApi postApi = ReservationPostApi(date:reservationDay );
+    postApi.reservationDate();
+}
 
   void _onStateChanged(int index, bool isSelected) {
     setState(() {
@@ -135,11 +111,11 @@ class _ReservationPageState extends State<ReservationPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Stack(
+        body:Stack(
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 320,
+              height: 320,  
               decoration: BoxDecoration(
                 color: AppColor.blue400, // AppColor 사용
                 borderRadius: BorderRadius.only(
@@ -186,7 +162,7 @@ class _ReservationPageState extends State<ReservationPage> {
                       return Center(child: Text('오류: ${snapshot.error}'));
                     } else if (snapshot.hasData) {
                       List<ReservationModel> reservations = snapshot.data!;
-
+        
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -252,9 +228,15 @@ class _ReservationPageState extends State<ReservationPage> {
                                 ),
                                 SizedBox(height: 14),
                                 Center(
-                                  child: NextButton(
-                                    text: "예약하기",
-                                    onPressed: _showReservationCancelModal,
+                                  child: GestureDetector(
+                                    onTap: (){
+        
+                                       _showReservationCancelModal();
+                                    },
+                                    child: NextButton(
+                                      text: "예약하기",
+                                      onPressed:(){}
+                                    ),
                                   ),
                                 ),
                                 if (serverResponse.isNotEmpty)
@@ -278,7 +260,7 @@ class _ReservationPageState extends State<ReservationPage> {
               ),
             ),
           ],
-        ),
+        )
       ),
     );
   }

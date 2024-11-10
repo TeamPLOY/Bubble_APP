@@ -49,6 +49,7 @@ class MainHeader extends StatelessWidget {
             padding: EdgeInsets.only(right: 24),
             child: GestureDetector(
               onTap: () {
+                
                 Navigator.push(
                   context,
                   PageRouteBuilder(

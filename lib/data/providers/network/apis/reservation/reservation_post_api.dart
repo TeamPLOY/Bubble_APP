@@ -4,14 +4,15 @@ import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 import 'package:bubble_app/data/providers/network/apis/api_url.dart';
 
 class ReservationPostApi {
-  late DateTime date;
+  late String date;
   var access_token = globalTokens?.access_token ?? '';
 
   ReservationPostApi({required this.date});
 
   Future<void> reservationDate() async {
     Map<String, dynamic> postData = {
-      'date': date.toIso8601String(),
+      // 'date': date.toIso8601String(),
+      'date' : date
     };
 
     try {

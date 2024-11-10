@@ -24,10 +24,17 @@ class SideHeader extends StatelessWidget {
             padding: const EdgeInsets.only(left: 20),
             child: GestureDetector(
                 onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                  );
+                  Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        HomePage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
+                  ),
+                );
                 },
                 child: SvgPicture.asset(
                   'assets/img/back.svg',

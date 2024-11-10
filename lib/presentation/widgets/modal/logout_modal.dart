@@ -21,7 +21,7 @@ class _LogoutModalState extends State<LogoutModal> {
       ),
       child: Container(
         color: AppColor.white100,
-        width: 360,
+        width: MediaQuery.of(context).size.width*(360/393),
         height: 80,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
