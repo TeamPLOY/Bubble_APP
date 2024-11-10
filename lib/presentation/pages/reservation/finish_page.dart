@@ -54,6 +54,7 @@ class _FinishState extends State<FinishPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.white100,
       body: SafeArea(
         child: Center(
           child: Column(

@@ -111,6 +111,7 @@ class _ReservationPageState extends State<ReservationPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppColor.white100,
         body:Stack(
           children: [
             Container(

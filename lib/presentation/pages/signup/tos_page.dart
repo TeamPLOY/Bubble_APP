@@ -122,6 +122,7 @@ class _TosPageState extends State<TosPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.white100,
       body: SafeArea(
         child: Column(
           children: [
