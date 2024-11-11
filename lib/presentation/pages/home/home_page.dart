@@ -8,6 +8,9 @@ import 'package:bubble_app/presentation/widgets/header/main_header.dart';
 import 'package:bubble_app/presentation/widgets/bottom/bottom.dart';
 import 'package:bubble_app/presentation/widgets/box/home_notice_box.dart';
 import 'package:bubble_app/presentation/widgets/box/home_activate.dart';
+import 'package:bubble_app/data/models/user_model.dart';
+import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
+import 'package:bubble_app/data/providers/network/apis/profile/profile_api.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,14 +21,36 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<List<MachineModel>>? machineData;
-  bool? check_user;
+  late String roomname;
+  String? washingroom_text;
   @override
   void initState() {
     super.initState();
-    
     _futureMachineData();
+    getuserstaet();
   }
-
+  Future<void> getuserstaet() async {
+    var access_token = globalTokens?.access_token;
+    ProfileApi get_profile = ProfileApi(access_token: access_token);
+    UserModel user= await get_profile.fetchData();
+    
+    if(user.roomNum[0]=='B'){
+      if(user.roomNum[1]=='4'){
+        if(user.washingRoom=='B42'){
+          washingroom_text='B동 여자 세탁실';
+        }
+        else{
+          washingroom_text='B동 B41 세탁실';
+        }
+      }
+      else if(user.roomNum[1]=='3'){
+        washingroom_text='B동 ${user.washingRoom} 세탁실';
+      }
+    }
+    else if(user.roomNum[0]=='A'){
+      washingroom_text='A동 세탁실';
+    }
+  }
   Future<void> _futureMachineData() async {
     MachineGetApi machine = MachineGetApi();
     try {
@@ -61,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "B 여자 세탁실",
+                        " ${washingroom_text==null?"로딩 중":washingroom_text}",
                         style: AppTextStyles.medium22
                             .copyWith(color: AppColor.gray800),
                       ),
