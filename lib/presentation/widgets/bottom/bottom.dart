@@ -23,6 +23,7 @@ class _BottomState extends State<Bottom> {
     setState(() {
       check_user = result; // 결과를 check_user에 저장
     });
+    print(check_user);
   }
 
   @override
@@ -45,6 +46,9 @@ class _BottomState extends State<Bottom> {
           children: [
             IconButton(
               onPressed: () {
+                setState(() {
+                  get_user_state();
+                });
                 if(check_user==true){showDialog(context: context, builder: (BuildContext context){return UserfullModal();});}
                 else{
                   Navigator.push(

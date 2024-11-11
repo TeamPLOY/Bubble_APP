@@ -6,7 +6,7 @@ import 'package:bubble_app/data/providers/network/apis/api_url.dart';
 
 class ProfileApi {
   final String access_token;
-
+  
   ProfileApi({required this.access_token});
 
   Future<UserModel> fetchData() async {

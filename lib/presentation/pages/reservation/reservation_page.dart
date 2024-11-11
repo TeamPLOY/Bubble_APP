@@ -1,3 +1,4 @@
+import 'package:bubble_app/data/providers/network/apis/profile/profile_api.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
@@ -10,6 +11,7 @@ import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 import 'package:bubble_app/data/providers/network/apis/reservation/reservation_get_api.dart';
 import 'package:bubble_app/data/providers/network/apis/reservation/reservation_post_api.dart';
 import 'package:bubble_app/presentation/widgets/modal/reservation_check_modal.dart';
+import 'package:bubble_app/data/models/user_model.dart';
 
 class ReservationPage extends StatefulWidget {
   const ReservationPage({super.key});
@@ -27,18 +29,15 @@ class _ReservationPageState extends State<ReservationPage> {
   late Future<List<ReservationModel>> futureReservationData;
   final ReservationGetApi reservationGet = ReservationGetApi();
   String serverResponse = '';
-
-
-
   bool isLoading = false;
-  
+  late bool isfirstclass;
+
   @override
   void initState() {
     super.initState();
-    
     now = DateTime.now();
+    getuserstaet();
     futureReservationData = reservationGet.fetchData();
-
     _timer = Timer.periodic(Duration(minutes: 1), (Timer timer) {
       DateTime currentTime = DateTime.now();
       if (currentTime.weekday == DateTime.sunday &&
@@ -78,7 +77,18 @@ class _ReservationPageState extends State<ReservationPage> {
       },
     );
   }
-
+  Future<void> getuserstaet() async {
+    var access_token = globalTokens?.access_token;
+    ProfileApi get_profile = ProfileApi(access_token: access_token);
+    UserModel user= await get_profile.fetchData();
+    if(user.studentNum/1000-user.studentNum%1000/1000==1.0){
+      isfirstclass= true;
+    }
+    else{
+      isfirstclass= false;
+    }
+  }
+  
   Future<void> sendReservation() async {
     if (reservationDay.isEmpty) {
       setState(() {
@@ -200,16 +210,17 @@ class _ReservationPageState extends State<ReservationPage> {
                                   reservations[index];
                               return GestureDetector(
                                 onTap: () {
-                                  _onStateChanged(index, true);
+                                 isfirstclass!=null&&isfirstclass==false? _onStateChanged(index, true):(){};
                                 },
-                                child: ReservationBox(
+                                child: isfirstclass!=null? ReservationBox(
+                                  isfirstclass: isfirstclass,
                                   onStateChanged: (isSelected) {
                                     _onStateChanged(index, isSelected);
                                   },
                                   today: DateTime.parse(reservation.date),
                                   userCount: reservation.userCount,
                                   isSelected: selectedBoxIndex == index,
-                                ),
+                                ):Text('로딩 중'),
                               );
                             },
                           ),
