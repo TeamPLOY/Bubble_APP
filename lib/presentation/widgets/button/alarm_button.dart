@@ -75,7 +75,7 @@ class CustomButton extends StatelessWidget {
           color: isSelected ? AppColor.blue400 : AppColor.white100,
           borderRadius: BorderRadius.circular(30),
           border: Border.all(
-            color: isSelected ? AppColor.blue400 : AppColor.white100,
+            color: isSelected ? AppColor.blue400 : AppColor.gray500,
             width: 0.3,
           ),
         ),
