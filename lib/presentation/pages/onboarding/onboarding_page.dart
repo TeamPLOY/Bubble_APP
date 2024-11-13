@@ -8,53 +8,55 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor.white100,
-      body: SafeArea(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(color: AppColor.blue400), // AppColor 사용
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * (122 / 852),
-                    ),
-                    Image.asset('assets/img/BUBBLE.png'),
-                    Text(
-                      '한 번의 터치로 세탁 알림과 예약,',
-                      style: AppTextStyles.medium18.copyWith(
-                          color: AppColor.gray100), // AppTextStyles 사용
-                    ),
-                    Text(
-                      '버블에서 시작하세요',
-                      style: AppTextStyles.medium18.copyWith(
-                          color: AppColor.gray100), // AppTextStyles 사용
-                    ),
-                  ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColor.blue400,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height >= 500 ? MediaQuery.of(context).size.height * (122 / 852):MediaQuery.of(context).size.height * (70 / 852),
+                      ),
+                      Image.asset('assets/img/BUBBLE.png'),
+                      Text(
+                        '한 번의 터치로 세탁 알림과 예약,',
+                        style: AppTextStyles.medium18.copyWith(
+                            color: AppColor.gray100), // AppTextStyles 사용
+                      ),
+                      Text(
+                        '버블에서 시작하세요',
+                        style: AppTextStyles.medium18.copyWith(
+                            color: AppColor.gray100), // AppTextStyles 사용
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.width >= 500
+                SizedBox(
+                height: MediaQuery.of(context).size.width >= 500 ||MediaQuery.of(context).size.height <= 620 
                     ? MediaQuery.of(context).size.height * (100 / 852)
                     : MediaQuery.of(context).size.height * (207 / 852),
               ),
-              Image.asset(
+              ],
+            ),
+            Column(
+              children: [
+                Image.asset(
                 'assets/img/kuma.png',
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.width >= 500
-                    ? MediaQuery.of(context).size.height * (400 / 852)
+                height: MediaQuery.of(context).size.width >= 500 
+                    ? MediaQuery.of(context).size.height * (350 / 852)
                     : MediaQuery.of(context).size.height * (258 / 852),
                 fit: BoxFit.fill,
               ),
-              Expanded(
-                child: GestureDetector(
+                GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
@@ -70,7 +72,7 @@ class OnboardingPage extends StatelessWidget {
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                    height: MediaQuery.of(context).size.height*(50/852),
                     decoration:
                         BoxDecoration(color: AppColor.gray100), // AppColor 사용
                     child: Center(
@@ -84,9 +86,9 @@ class OnboardingPage extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
-            ],
-          ),
+              ],
+            )
+          ],
         ),
       ),
     );
