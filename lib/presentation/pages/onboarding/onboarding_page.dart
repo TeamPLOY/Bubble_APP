@@ -13,6 +13,7 @@ class OnboardingPage extends StatelessWidget {
         backgroundColor: AppColor.blue400,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Column(
               children: [
@@ -23,39 +24,48 @@ class OnboardingPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: MediaQuery.of(context).size.height >= 500 ? MediaQuery.of(context).size.height * (122 / 852):MediaQuery.of(context).size.height * (70 / 852),
+                        height: MediaQuery.of(context).size.height >= 500
+                            ? MediaQuery.of(context).size.height * (80 / 852)
+                            : MediaQuery.of(context).size.height * (50 / 852),
                       ),
                       Image.asset('assets/img/BUBBLE.png'),
                       Text(
                         '한 번의 터치로 세탁 알림과 예약,',
                         style: AppTextStyles.medium18.copyWith(
-                            color: AppColor.gray100), // AppTextStyles 사용
+                          color: AppColor.gray100,
+                          fontSize:
+                              MediaQuery.of(context).size.height * (24 / 852),
+                        ), // AppTextStyles 사용
                       ),
                       Text(
                         '버블에서 시작하세요',
                         style: AppTextStyles.medium18.copyWith(
-                            color: AppColor.gray100), // AppTextStyles 사용
+                          color: AppColor.gray100,
+                          fontSize:
+                              MediaQuery.of(context).size.height * (18 / 852),
+                        ), // AppTextStyles 사용
                       ),
                     ],
                   ),
                 ),
                 SizedBox(
-                height: MediaQuery.of(context).size.width >= 500 ||MediaQuery.of(context).size.height <= 620 
-                    ? MediaQuery.of(context).size.height * (100 / 852)
-                    : MediaQuery.of(context).size.height * (207 / 852),
-              ),
+                  height: MediaQuery.of(context).size.width >= 500 ||
+                          MediaQuery.of(context).size.height <= 620
+                      ? MediaQuery.of(context).size.height * (100 / 852)
+                      : MediaQuery.of(context).size.height * (207 / 852),
+                ),
               ],
             ),
             Column(
               children: [
                 Image.asset(
-                'assets/img/kuma.png',
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.width >= 500 
-                    ? MediaQuery.of(context).size.height * (350 / 852)
-                    : MediaQuery.of(context).size.height * (258 / 852),
-                fit: BoxFit.fill,
-              ),
+                  'assets/img/kuma.png',
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width >= 500
+                      ? MediaQuery.of(context).size.height * (350 / 852)
+                      : MediaQuery.of(context).size.height * (258 / 852),
+                  fit: BoxFit.fill,
+                ),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -72,7 +82,7 @@ class OnboardingPage extends StatelessWidget {
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height*(50/852),
+                    height: MediaQuery.of(context).size.height * (50 / 852),
                     decoration:
                         BoxDecoration(color: AppColor.gray100), // AppColor 사용
                     child: Center(
