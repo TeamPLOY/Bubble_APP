@@ -87,7 +87,7 @@ class _CancelState extends State<Cancel> {
                           ),
                           child: Center(
                             child: Text(
-                              '사용 완료',
+                              '사용 완료 ',
                               style: AppTextStyles.medium14.copyWith(color: AppColor.gray500),
                             ),
                           ),

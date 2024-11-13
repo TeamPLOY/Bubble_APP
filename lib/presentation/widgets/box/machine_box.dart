@@ -39,11 +39,11 @@ class _MachineBoxState extends State<MachineBox> {
     alram_onff = await machingCheck.checkpostData();
     alram_url =
         alram_onff ? 'assets/img/alarm_no.svg' : 'assets/img/alarm_x.svg';
-    setState(() {}); // 값을 가져온 후 UI 업데이트
+    setState(() {});
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(Duration(minutes: 1), (timer) {
+    _timer = Timer.periodic(const Duration(minutes: 1), (timer) {
       setState(() {
         if (widget.minute > 0) {
           widget.minute--;
@@ -52,7 +52,7 @@ class _MachineBoxState extends State<MachineBox> {
             widget.hour--;
             widget.minute = 59;
           } else {
-            _timer.cancel(); // 타이머 종료
+            _timer.cancel();
           }
         }
       });
@@ -69,6 +69,17 @@ class _MachineBoxState extends State<MachineBox> {
     return time.toString().padLeft(2, '0');
   }
 
+  String getDeviceName() {
+    // 공백으로 분리하고 '세탁기' 또는 '건조기'가 포함된 부분만 반환
+    List<String> parts = widget.device.split(' ');
+    for (String part in parts) {
+      if (part.contains('세탁기') || part.contains('건조기')) {
+        return part;
+      }
+    }
+    return parts.last; // 해당하는 단어가 없는 경우 마지막 부분 반환
+  }
+
   void alramchange() async {
     setState(() {
       if (alram_onff == false) {
@@ -80,107 +91,91 @@ class _MachineBoxState extends State<MachineBox> {
       }
     });
     await machineSave.savepostData();
-    print("끝");
   }
 
   @override
   Widget build(BuildContext context) {
-    // 화면 크기 가져오기
     final size = MediaQuery.of(context).size;
-    final width = size.width * 0.4; // 40% 너비로 설정
-    final height = size.height * 0.15; // 15% 높이로 설정
+    final boxWidth = size.width * 0.35;
+    final boxHeight = size.height * 0.12;
 
-    // 글자 크기 설정 (비율에 따라 조정)
-    final titleSize = width * 0.05; // 제목 글자 크기
-    final subtitleSize = width * 0.04; // 부제목 글자 크기
-    final timeSize = width * 0.04; // 시간 글자 크기
+    final titleSize = boxHeight * 0.11;
+    final subtitleSize = boxHeight * 0.09;
+    final timeSize = boxHeight * 0.11;
+
+    final horizontalPadding = boxWidth * 0.04;
 
     return Container(
-      width: size.width * 0.4, // 너비를 반응형으로 설정
-      height: size.height * 0.15, // 높이도 반응형으로 설정
+      width: boxWidth,
+      height: boxHeight,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7),
+          borderRadius: BorderRadius.circular(boxHeight * 0.05),
           border: Border.all(width: 1, color: AppColor.gray300)),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+        padding: EdgeInsets.symmetric(
+            horizontal: horizontalPadding, vertical: boxHeight * 0.08),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.only(top: height * 0.1, right: width * 0.05),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        '${widget.device}',
-                        style: AppTextStyles.medium14.copyWith(
-                            color: AppColor.gray800, fontSize: titleSize),
-                      ),
-                      Lightbox(selectedIndex: widget.place),
-                    ],
-                  ),
-                  GestureDetector(
-                      onTap: () => {alramchange()},
-                      child: SvgPicture.asset(
-                        alram_url,
-                        width: width * 0.1,
-                        height: height * 0.1,
-                      )),
-                ],
-              ),
-            ),
-            Padding(
-                padding: EdgeInsets.only(top: height * 0.1),
-                child: Row(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
                   children: [
                     Text(
-                      '${widget.device}',
-                      style: AppTextStyles.medium10.copyWith(
-                          color: AppColor.gray800, fontSize: subtitleSize),
+                      getDeviceName(),
+                      style: AppTextStyles.medium14.copyWith(
+                          color: AppColor.gray800, fontSize: titleSize),
                     ),
-                    SizedBox(
-                      width: width * 0.01,
+                    Lightbox(
+                      selectedIndex: widget.place,
+                      dotSize: boxWidth * 0.012,
                     ),
-                    Container(
-                      width: width * 0.02,
-                      height: width * 0.02,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: widget.hour == 0 && widget.minute == 0
-                              ? AppColor.gray300
-                              : AppColor.red100),
-                    )
                   ],
-                )),
-            Padding(
-              padding: EdgeInsets.only(top: height * 0.1),
-              child: Row(
-                children: [
-                  Container(
-                    width: width * 0.8,
-                    height: height * 0.25,
-                    decoration: BoxDecoration(
-                        color: AppColor.gray200,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: width * 0.05),
-                          child: Text(
-                            '${formattime(widget.hour)}:${formattime(widget.minute)}',
-                            style: AppTextStyles.medium12.copyWith(
-                                color: AppColor.gray400, fontSize: timeSize),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                ),
+                GestureDetector(
+                  onTap: () => alramchange(),
+                  child: SvgPicture.asset(
+                    alram_url,
+                    width: boxWidth * 0.06,
+                    height: boxHeight * 0.15,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  getDeviceName(),
+                  style: AppTextStyles.medium10.copyWith(
+                      color: AppColor.gray800, fontSize: subtitleSize),
+                ),
+                SizedBox(width: boxWidth * 0.02),
+                Container(
+                  width: boxWidth * 0.015,
+                  height: boxWidth * 0.015,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: widget.hour == 0 && widget.minute == 0
+                          ? AppColor.gray300
+                          : AppColor.red100),
+                )
+              ],
+            ),
+            Container(
+              width: boxWidth * 0.9,
+              height: boxHeight * 0.28,
+              decoration: BoxDecoration(
+                color: AppColor.gray200,
+                borderRadius: BorderRadius.circular(boxHeight * 0.04),
+              ),
+              child: Center(
+                child: Text(
+                  '${formattime(widget.hour)}:${formattime(widget.minute)}',
+                  style: AppTextStyles.medium12
+                      .copyWith(color: AppColor.gray400, fontSize: timeSize),
+                ),
               ),
             )
           ],
@@ -192,23 +187,22 @@ class _MachineBoxState extends State<MachineBox> {
 
 class Lightbox extends StatelessWidget {
   final int selectedIndex;
+  final double dotSize;
 
   const Lightbox({
     super.key,
     required this.selectedIndex,
+    required this.dotSize,
   });
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final dotSize = size.width * 0.01; // dot 크기를 화면 크기에 맞춰 설정
-
     return Padding(
-      padding: EdgeInsets.only(left: size.width * 0.02),
+      padding: EdgeInsets.only(left: dotSize * 2),
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: size.width * 0.03),
+            padding: EdgeInsets.only(left: dotSize * 3),
             child: Row(
               children: List.generate(2, (index) {
                 int number = index + 1;

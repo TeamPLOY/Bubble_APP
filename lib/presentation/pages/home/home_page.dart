@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   var messageString = "";
   late String roomname;
   String? washingroom_text;
+  
   @override
   void initState() {
     super.initState();

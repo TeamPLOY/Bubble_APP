@@ -144,6 +144,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * (225 / 852),
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     GestureDetector(
                       onTap: () {
                         showDialog(
