@@ -2,14 +2,14 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApiUrls {
   static String baseUrl = dotenv.env['BASE_URL'] ?? '';
-
+  static String get delete_url => '$baseUrl/user';
   static String get cancel_post_url => '$baseUrl/reservation/cancel';
   static String get check_get_url => '$baseUrl/isReserved';
   static String get email_check_url => '$baseUrl/email/check';
   static String get email_get_url => '$baseUrl/email';
   static String get email_post_url => '$baseUrl/email';
   static String get join_reservation_url => '$baseUrl/reservation';
-  static String get join_url => '$baseUrl/login';
+  static String get join_url => '$baseUrl/signup';
   static String get login_post_url => '$baseUrl/login';
   static String get logout_url => '$baseUrl/logout';
   static String get machine_get_url => '$baseUrl/washing';

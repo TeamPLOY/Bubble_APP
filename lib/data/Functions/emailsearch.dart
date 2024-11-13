@@ -10,9 +10,6 @@ class Emailsearch {
     if(emailController.text.isEmpty){
       isState[0]=true;
     }
-    if(comController.text.isEmpty){
-      isState[1]=true;
-    }
     return isState;
   }
 }

@@ -11,12 +11,11 @@ class NextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
       child: Container(
         width: MediaQuery.of(context).size.width - 48,
         height: 44,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(8),
           color: AppColor.blue400,
         ),
         child: Center(

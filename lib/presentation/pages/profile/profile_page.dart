@@ -1,7 +1,7 @@
+import 'package:bubble_app/presentation/pages/deleteUser/delete_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/presentation/widgets/header/side_header.dart';
 import 'package:bubble_app/presentation/widgets/text/profile_text.dart';
 import 'package:bubble_app/presentation/widgets/modal/logout_modal.dart';
@@ -25,6 +25,9 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     _fetchUserData();
   }
+
+  final String instagramUrl =
+      "https://www.instagram.com/bssm_ploy?igsh=bTMzemExbXN6MG83";
 
   Future<void> _fetchUserData() async {
     ProfileApi users = ProfileApi(access_token: globalTokens?.access_token);
@@ -53,32 +56,19 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 40),
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: AppColor.gray300,
-                                  width: 1), // AppColor 사용
-                              shape: BoxShape.circle),
-                          child: ClipOval(
-                            child: Image.network(
-                              'https://i.namu.wiki/i/qEreAmFbCgPlrKxTyu3p1LPPO3H1PgPIY239AfhWa-qXbJITXTtxYziYFCJqFFwaFt174p5sHIXReL7TSUQ-oQ.webp',
-                              width: 90,
-                              height: 90,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: AppColor.gray300, width: 1), // AppColor 사용
+                          shape: BoxShape.circle),
+                      child: ClipOval(
+                        child: Image.network(
+                          'https://i.namu.wiki/i/Bge3xnYd4kRe_IKbm2uqxlhQJij2SngwNssjpjaOyOqoRhQlNwLrR2ZiK-JWJ2b99RGcSxDaZ2UCI7fiv4IDDQ.webp',
+                          width: 90,
+                          height: 90,
+                          fit: BoxFit.cover,
                         ),
-                        Positioned(
-                          child: GestureDetector(
-                            child: SvgPicture.asset(svgsetimage,
-                                width: 18, height: 18),
-                          ),
-                          left: 72,
-                          top: 69,
-                        )
-                      ],
+                      ),
                     ),
                   ),
                   Padding(
@@ -145,26 +135,49 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 80),
-                  child: GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return LogoutModal();
-                        },
-                      );
-                    },
-                    child: Text(
-                      '로그아웃',
-                      style: AppTextStyles.regular14.copyWith(
-                          color: AppColor.gray600), // AppTextStyles 사용
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 80),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * (225 / 852),
                     ),
-                  ),
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return LogoutModal();
+                          },
+                        );
+                      },
+                      child: Text(
+                        '로그아웃',
+                        style: AppTextStyles.regular14.copyWith(
+                            color: AppColor.gray600), // AppTextStyles 사용
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return DeletePage();
+                          },
+                        );
+                      },
+                      child: Text(
+                        '탈퇴하기',
+                        style: AppTextStyles.regular14.copyWith(
+                            color: AppColor.red100), // AppTextStyles 사용
+                      ),
+                    ),
+                  ],
                 ),
               ),
             )

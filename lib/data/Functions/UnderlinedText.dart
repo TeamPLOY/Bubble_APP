@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
+
 class UnderlinedText extends StatelessWidget {
   final String text;
 

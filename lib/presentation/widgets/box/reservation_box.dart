@@ -1,3 +1,4 @@
+import 'package:bubble_app/presentation/widgets/modal/full_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -6,6 +7,7 @@ import 'package:bubble_app/app/config/app_text_styles.dart';
 
 class ReservationBox extends StatefulWidget {
   const ReservationBox({
+    required this.isfirstclass,
     required this.today,
     required this.userCount,
     required this.onStateChanged,
@@ -13,6 +15,7 @@ class ReservationBox extends StatefulWidget {
     super.key,
   });
 
+  final bool isfirstclass;
   final DateTime today;
   final int userCount;
   final ValueChanged<bool> onStateChanged;
@@ -24,7 +27,7 @@ class ReservationBox extends StatefulWidget {
 
 class _ReservationBoxState extends State<ReservationBox> {
   late Color boxColor;
-
+  
   @override
   void initState() {
     super.initState();
@@ -38,9 +41,43 @@ class _ReservationBoxState extends State<ReservationBox> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return widget.isfirstclass==true && (DateFormat('EEEE', 'ko_KR').format(widget.today)=="화요일"|| DateFormat('EEEE', 'ko_KR').format(widget.today)=="목요일")?
+    Container(
+        width: 140,
+        height: 107,
+        decoration: BoxDecoration(
+          color:AppColor.white100,
+          borderRadius: BorderRadius.circular(9.33),
+          border: Border.all(
+            width: 1.5,
+            color: AppColor.red100
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              DateFormat('M월d일').format(widget.today),
+              style: AppTextStyles.medium16.copyWith(
+                  color:AppColor.red100,),
+            ),
+            SizedBox(height: 4),
+            Text(
+              DateFormat('EEEE', 'ko_KR').format(widget.today),
+              style: AppTextStyles.medium16.copyWith(
+                  color:AppColor.red100,),
+            ),
+          ],
+        )
+    ): GestureDetector(
       onTap: () {
-        widget.onStateChanged(!widget.isSelected);
+        if(widget.userCount>=4){
+          showDialog(context: context, builder: (BuildContext context) {return FullModal();});
+        }
+        else{
+          widget.onStateChanged(!widget.isSelected);
+        }
       },
       child: Container(
         width: 140,

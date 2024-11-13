@@ -1,3 +1,5 @@
+import 'package:bubble_app/data/providers/network/apis/reservation/reservation_check_api.dart';
+import 'package:bubble_app/presentation/widgets/modal/userfull_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/app/config/app_color.dart';
@@ -5,9 +7,30 @@ import 'package:bubble_app/presentation/pages/profile/profile_page.dart';
 import 'package:bubble_app/presentation/pages/reservation/reservation_page.dart';
 import 'package:bubble_app/presentation/pages/alarm/alarm_page.dart';
 
-class Bottom extends StatelessWidget {
+class Bottom extends StatefulWidget {
   const Bottom({super.key});
 
+  @override
+  State<Bottom> createState() => _BottomState();
+}
+
+class _BottomState extends State<Bottom> {
+  bool? check_user;
+    Future<void> get_user_state() async{
+    ReservationCheckApi reservationCheckApi = ReservationCheckApi();
+    
+    bool result= await reservationCheckApi.fetchData();
+    setState(() {
+      check_user = result; // 결과를 check_user에 저장
+    });
+    print(check_user);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    get_user_state();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,7 +46,12 @@ class Bottom extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                Navigator.push(
+                setState(() {
+                  get_user_state();
+                });
+                if(check_user==true){showDialog(context: context, builder: (BuildContext context){return UserfullModal();});}
+                else{
+                  Navigator.push(
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) =>
@@ -34,6 +62,7 @@ class Bottom extends StatelessWidget {
                     },
                   ),
                 );
+                }
               },
               icon: SvgPicture.asset(
                 'assets/img/calendar.svg',

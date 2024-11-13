@@ -1,12 +1,12 @@
+import 'package:bubble_app/presentation/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
-import 'package:bubble_app/presentation/pages/home/home_page.dart';
 
-class SideHeader extends StatelessWidget {
+class SignHeader extends StatelessWidget {
   late String text;
-  SideHeader({required this.text, super.key});
+  SignHeader({required this.text, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class SideHeader extends StatelessWidget {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) =>
-                        HomePage(),
+                        LoginPage(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
                       return child;

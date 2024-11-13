@@ -3,7 +3,6 @@ import 'package:bubble_app/data/models/machine_model.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/data/providers/network/apis/machine/machine_get_api.dart';
-import 'package:bubble_app/data/models/machine_model.dart';
 
 class HomeActivate extends StatefulWidget {
   const HomeActivate({super.key});

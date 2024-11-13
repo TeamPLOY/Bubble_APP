@@ -1,10 +1,9 @@
+import 'package:bubble_app/presentation/widgets/header/login_header.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/pages/home/home_page.dart';
 import 'package:bubble_app/presentation/widgets/button/next_button.dart';
-import 'package:bubble_app/presentation/widgets/header/side_header.dart';
-import 'package:bubble_app/presentation/pages/profile/profile_page.dart';
 import 'package:bubble_app/presentation/widgets/box/input_box.dart';
 import 'package:bubble_app/data/providers/network/apis/login/login_api.dart';
 import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
@@ -37,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SideHeader(text: '로그인'),
+                LoginHeader(text: '로그인'),
                 SizedBox(height: 107),
               ],
             ),
@@ -72,17 +71,17 @@ class _LoginPageState extends State<LoginPage> {
                     password: true,
                   ),
                   SizedBox(height: pad),
-                  if (loginstate[0] == true || loginstate[1] == true)
-                    Column(
-                      children: [
-                        Text(
-                          '이메일 혹은 비밀번호가 비어있습니다.',
-                          style: AppTextStyles.medium12.copyWith(
-                              color: AppColor.red100), // AppTextStyles 사용
-                        ),
-                        SizedBox(height: 17),
-                      ],
-                    ),
+                  // if (loginstate[0] == true || loginstate[1] == true)
+                  //   Column(
+                  //     children: [
+                  //       Text(
+                  //         '이메일 혹은 비밀번호가 비어있습니다.',
+                  //         style: AppTextStyles.medium12.copyWith(
+                  //             color: AppColor.red100), // AppTextStyles 사용
+                  //       ),
+                  //       SizedBox(height: 17),
+                  //     ],
+                  //   ),
                   if (logcheck == false)
                     Column(
                       children: [
@@ -139,40 +138,40 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: NextButton(
                       text: '로그인 하기',
-                      onPressed: () {}, // NextButton에 필요한 콜백 함수를 추가합니다.
+                      onPressed: () {}, 
                     ),
                   ),
                   SizedBox(height: 14),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      ProfilePage(),
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                return child;
-                              },
-                            ),
-                          );
-                        },
-                        child: Text(
-                          '비밀번호 찾기',
-                          style: AppTextStyles.bold12.copyWith(
-                              color: AppColor.gray800), // AppTextStyles 사용
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        width: 1,
-                        height: 13.5,
-                        color: AppColor.gray500, // AppColor 사용
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     Navigator.push(
+                      //       context,
+                      //       PageRouteBuilder(
+                      //         pageBuilder:
+                      //             (context, animation, secondaryAnimation) =>
+                      //                 ProfilePage(),
+                      //         transitionsBuilder: (context, animation,
+                      //             secondaryAnimation, child) {
+                      //           return child;
+                      //         },
+                      //       ),
+                      //     );
+                      //   },
+                      //   child: Text(
+                      //     '비밀번호 찾기',
+                      //     style: AppTextStyles.bold12.copyWith(
+                      //         color: AppColor.gray800), // AppTextStyles 사용
+                      //   ),
+                      // ),
+                      // SizedBox(width: 10),
+                      // Container(
+                      //   width: 1,
+                      //   height: 13.5,
+                      //   color: AppColor.gray500, // AppColor 사용
+                      // ),
                       SizedBox(width: 10),
                       GestureDetector(
                         onTap: () {

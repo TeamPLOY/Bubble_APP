@@ -61,8 +61,8 @@ class ReservationCancelModal extends StatelessWidget {
                           Navigator.pop(context, false);
                         },
                         child: Container(
-                          width: 62,
-                          height: 20,
+                        width: MediaQuery.of(context).size.width * (50 / 393),
+                        height: MediaQuery.of(context).size.height * (20 / 893),
                           decoration: BoxDecoration(
                               color: AppColor.gray200,
                               borderRadius: BorderRadius.circular(5)),
@@ -81,8 +81,8 @@ class ReservationCancelModal extends StatelessWidget {
                           cancelPost.fetchCancel();
                         },
                         child: Container(
-                          width: 62,
-                          height: 20,
+                        width: MediaQuery.of(context).size.width * (50 / 393),
+                        height: MediaQuery.of(context).size.height * (20 / 893),
                           decoration: BoxDecoration(
                               color: AppColor.gray200,
                               borderRadius: BorderRadius.circular(5)),
@@ -93,7 +93,7 @@ class ReservationCancelModal extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 14,
+                        width: MediaQuery.of(context).size.width * (14 / 393),
                       )
                     ],
                   )
