@@ -8,6 +8,8 @@ import 'package:bubble_app/presentation/widgets/header/main_header.dart';
 import 'package:bubble_app/presentation/widgets/bottom/bottom.dart';
 import 'package:bubble_app/presentation/widgets/box/home_notice_box.dart';
 import 'package:bubble_app/presentation/widgets/box/home_activate.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,11 +20,36 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<List<MachineModel>>? machineData;
+  var messageString = "";
 
   @override
   void initState() {
     super.initState();
     _futureMachineData();
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      RemoteNotification? notification = message.notification;
+
+      if (notification != null) {
+        FlutterLocalNotificationsPlugin().show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          const NotificationDetails(
+            android: AndroidNotificationDetails(
+              'high_importance_channel',
+              'high_importance_notification',
+              importance: Importance.max,
+            ),
+          ),
+        );
+
+        setState(() {
+          messageString = message.notification!.body!;
+          print("Foreground 메시지 수신: $messageString");
+        });
+      }
+    });
   }
 
   Future<void> _futureMachineData() async {
@@ -60,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "B 여자 세탁실",
+                        "메시지 내용: $messageString\nB 여자 세탁실",
                         style: AppTextStyles.medium22
                             .copyWith(color: AppColor.gray800),
                       ),
@@ -83,15 +110,17 @@ class _HomePageState extends State<HomePage> {
                             return Center(child: CircularProgressIndicator());
                           } else if (futureResult.hasError) {
                             return Center(
-                                child: Text('에러: ${futureResult.error}',
-                                    style: AppTextStyles.regular14
-                                        .copyWith(color: AppColor.red300)));
+                              child: Text('에러: ${futureResult.error}',
+                                  style: AppTextStyles.regular14
+                                      .copyWith(color: AppColor.red300)),
+                            );
                           } else if (futureResult.data == null ||
                               futureResult.data!.isEmpty) {
                             return Center(
-                                child: Text('시간이 날라오고 있어요.',
-                                    style: AppTextStyles.regular14
-                                        .copyWith(color: AppColor.gray500)));
+                              child: Text('시간이 날라오고 있어요.',
+                                  style: AppTextStyles.regular14
+                                      .copyWith(color: AppColor.gray500)),
+                            );
                           }
 
                           final machines = futureResult.data!;
@@ -124,10 +153,9 @@ class _HomePageState extends State<HomePage> {
 
                                       return Padding(
                                         padding: EdgeInsets.only(
-                                          right: colIndex == 0
-                                              ? paddingValue
-                                              : 0.0,
-                                        ),
+                                            right: colIndex == 0
+                                                ? paddingValue
+                                                : 0.0),
                                         child: Container(
                                           width: boxWidth,
                                           child: Column(
@@ -140,8 +168,7 @@ class _HomePageState extends State<HomePage> {
                                                 device: machine.name,
                                               ),
                                               SizedBox(
-                                                height: screenHeight * 0.016,
-                                              ),
+                                                  height: screenHeight * 0.016),
                                             ],
                                           ),
                                         ),
