@@ -196,12 +196,7 @@ class _ReservationPageState extends State<ReservationPage> {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                childAspectRatio:
-                                    MediaQuery.of(context).size.width >= 700
-                                        ? 3.5
-                                        : MediaQuery.of(context).size.width >= 400
-                                            ? 2.5
-                                            : 1.3,
+                                childAspectRatio:1.55,
                                 mainAxisSpacing: 10,
                                 crossAxisSpacing: 10,
                               ),
