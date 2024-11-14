@@ -44,8 +44,10 @@ class _DeletePageState extends State<DelPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('회원 탈퇴를 위해',style: AppTextStyles.bold20.copyWith(color: AppColor.gray700),),
-                Text('회원정보를 입력해주세요.',style: AppTextStyles.bold20.copyWith(color: AppColor.gray700),),
+                Text(
+                  '회원 탈퇴를 위해\n회원정보를 입력해주세요.',
+                  style: AppTextStyles.bold20.copyWith(color: AppColor.gray700),
+                ),
                 SizedBox(height: 17,),
 
                 InputTitle(text: '이메일'),
