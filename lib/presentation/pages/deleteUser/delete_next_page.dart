@@ -18,7 +18,7 @@ class DeleteNextPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          state==true?
+          state==true? 
           Column(
             children: [
               SizedBox(height: MediaQuery.of(context).size.height*(160/852),),

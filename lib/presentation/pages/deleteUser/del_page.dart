@@ -16,7 +16,7 @@ class DelPage extends StatefulWidget {
   @override
   State<DelPage> createState() => _DeletePageState();
 }
-
+ 
 class _DeletePageState extends State<DelPage> {
   List<bool> validationemailResults = [false, false,false];
 
