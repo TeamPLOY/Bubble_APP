@@ -30,6 +30,23 @@ class _CancelState extends State<Cancel> {
     _cancel = widget.cancel;
   }
 
+bool checkDate(String backendDate) {
+  String formattedDate = backendDate
+      .replaceAll('년 ', '-')
+      .replaceAll('월 ', '-')
+      .replaceAll('일', '');
+  DateTime parsedDate = DateTime.parse(formattedDate);
+
+  DateTime today = DateTime.now();
+
+  if (parsedDate.isBefore(today)) {
+    return true;
+  } else if (parsedDate.isAfter(today)) {
+    return false;
+  }
+  throw ();
+}
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -77,8 +94,7 @@ class _CancelState extends State<Cancel> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 17),
-                  child: _cancel == true
-                      ? Container(
+                  child:_cancel == true? Container(
                           width: 70,
                           height: 26,
                           decoration: BoxDecoration(
@@ -87,23 +103,38 @@ class _CancelState extends State<Cancel> {
                           ),
                           child: Center(
                             child: Text(
-                              '사용 완료',
+                              '예약 취소',
                               style: AppTextStyles.medium14.copyWith(color: AppColor.gray500),
                             ),
                           ),
-                        )
-                      : GestureDetector(
-                          onTap: () async {
-                            final result = await showDialog(
-                              context: context,
-                              builder: (context) {
-                                return ReservationCancelModal(
-                                  roomnumber: widget.roomnumber,
-                                  date: widget.resDate,
-                                  cancel: widget.cancel,
+                        ):
+                        checkDate(widget.resDate)? 
+                        Container(
+                              width: 70,
+                              height: 26,
+                              decoration: BoxDecoration(
+                                color: AppColor.gray200,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  '사용 완료',
+                                  style: AppTextStyles.medium14.copyWith(color: AppColor.gray500),
+                                ),
+                              ),
+                            ) : 
+                          GestureDetector(
+                              onTap: () async {
+                                final result = await showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return ReservationCancelModal(
+                                      roomnumber: widget.roomnumber,
+                                      date: widget.resDate,
+                                      cancel: widget.cancel,
+                                    );
+                                  },
                                 );
-                              },
-                            );
 
                             if (result != null && result == true) {
                               print(result);
