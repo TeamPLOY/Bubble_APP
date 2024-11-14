@@ -9,7 +9,6 @@ import 'package:bubble_app/presentation/widgets/modal/logout_modal.dart';
 import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 import 'package:bubble_app/data/providers/network/apis/profile/profile_api.dart';
 import 'package:bubble_app/data/models/user_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 const String svgsetimage = 'assets/img/setimage.svg';
 
@@ -27,16 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     _fetchUserData();
   }
-  final String instagramUrl = "https://www.instagram.com/bssm_ploy?igsh=bTMzemExbXN6MG83";
-
-
-  Future<void> _launchInstagram() async {
-    if (await canLaunch(instagramUrl)) {
-      await launch(instagramUrl);
-    } else {
-      throw 'Could not launch $instagramUrl';
-    }
-  }
+  
   Future<void> _fetchUserData() async {
     ProfileApi users = ProfileApi(access_token: globalTokens?.access_token);
     try {
@@ -151,15 +141,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height*(225/852),),
-                    GestureDetector(
-                      onTap: _launchInstagram,
-                      child: Text(
-                        '문의하기/분실물 찾기',
-                        style: AppTextStyles.regular14.copyWith(
-                            color: AppColor.gray600), // AppTextStyles 사용
-                      ),
-                    ),
-                    SizedBox(height: 20,),
+        
                     GestureDetector(
                       onTap: () {
                         showDialog(
