@@ -11,7 +11,6 @@ class LoginApi {
     required this.email,
     required this.password,
   });
-
   Future<TokenModel> loginpostData() async {
     Map<String, dynamic> postData = {
       'email': email,
@@ -19,11 +18,17 @@ class LoginApi {
     };
 
     try {
+      
       final response = await http.post(
         Uri.parse(ApiUrls.login_post_url),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
+      // final response = await http.post(
+      //   Uri.parse(ApiUrls.login_post_url),
+      //   headers: <String, String>{
+      //     'Content-Type': 'application/json; charset=UTF-8',
+      //   },
         body: jsonEncode(postData),
       );
       if (response.statusCode == 200) {

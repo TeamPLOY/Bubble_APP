@@ -1,3 +1,5 @@
+import 'package:bubble_app/presentation/widgets/box/email_box.dart';
+import 'package:bubble_app/presentation/widgets/header/sign_header.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:bubble_app/app/config/app_color.dart';
@@ -6,7 +8,6 @@ import 'package:bubble_app/presentation/widgets/button/next_button.dart';
 import 'package:bubble_app/data/providers/network/apis/email/email_post_api.dart';
 import 'package:bubble_app/data/providers/network/apis/email/email_check_api.dart';
 import 'package:bubble_app/data/providers/network/apis/signup/signup_api.dart';
-import 'package:bubble_app/presentation/widgets/header/side_header.dart';
 import 'package:bubble_app/presentation/widgets/text/input_title.dart';
 import 'package:bubble_app/presentation/widgets/text/message.dart';
 import 'package:bubble_app/presentation/widgets/box/input_box.dart';
@@ -128,7 +129,7 @@ class _SignupPageState extends State<SignupPage> {
         child: ListView(children: [
           Column(
             children: [
-              SideHeader(text: '회원가입'),
+              SignHeader(text: '회원가입'),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * (24 / 393)),
@@ -169,11 +170,7 @@ class _SignupPageState extends State<SignupPage> {
                                   .copyWith(color: AppColor.gray600),
                             ),
                           ),
-                          Inputbox(
-                              wsize: 98,
-                              hsize: 40,
-                              text: 'bssm.hs.kr',
-                              controller: comController),
+                          EmailBox(wsize: 98, hsize: 40),
                           SizedBox(width: 10),
                           Expanded(
                             child: InkWell(

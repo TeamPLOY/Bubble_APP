@@ -2,7 +2,6 @@ import 'package:bubble_app/presentation/pages/alarm/reservation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/data/providers/network/apis/notice/notice_api.dart';
-import 'package:bubble_app/presentation/pages/reservation/reservation_page.dart';
 import 'package:bubble_app/presentation/widgets/header/side_header.dart';
 import 'package:bubble_app/presentation/widgets/button/alarm_button.dart';
 import 'package:bubble_app/presentation/widgets/box/notice_box.dart';

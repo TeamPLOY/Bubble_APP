@@ -1,3 +1,4 @@
+import 'package:bubble_app/data/providers/network/apis/profile/profile_api.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
@@ -10,6 +11,7 @@ import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 import 'package:bubble_app/data/providers/network/apis/reservation/reservation_get_api.dart';
 import 'package:bubble_app/data/providers/network/apis/reservation/reservation_post_api.dart';
 import 'package:bubble_app/presentation/widgets/modal/reservation_check_modal.dart';
+import 'package:bubble_app/data/models/user_model.dart';
 
 class ReservationPage extends StatefulWidget {
   const ReservationPage({super.key});
@@ -27,18 +29,15 @@ class _ReservationPageState extends State<ReservationPage> {
   late Future<List<ReservationModel>> futureReservationData;
   final ReservationGetApi reservationGet = ReservationGetApi();
   String serverResponse = '';
-
-
-
   bool isLoading = false;
-  
+  late bool isfirstclass;
+
   @override
   void initState() {
     super.initState();
-    
     now = DateTime.now();
+    getuserstaet();
     futureReservationData = reservationGet.fetchData();
-
     _timer = Timer.periodic(Duration(minutes: 1), (Timer timer) {
       DateTime currentTime = DateTime.now();
       if (currentTime.weekday == DateTime.sunday &&
@@ -78,7 +77,18 @@ class _ReservationPageState extends State<ReservationPage> {
       },
     );
   }
-
+  Future<void> getuserstaet() async {
+    var access_token = globalTokens?.access_token;
+    ProfileApi get_profile = ProfileApi(access_token: access_token);
+    UserModel user= await get_profile.fetchData();
+    if(user.studentNum/1000-user.studentNum%1000/1000==1.0){
+      isfirstclass= true;
+    }
+    else{
+      isfirstclass= false;
+    }
+  }
+  
   Future<void> sendReservation() async {
     if (reservationDay.isEmpty) {
       setState(() {
@@ -111,6 +121,7 @@ class _ReservationPageState extends State<ReservationPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppColor.white100,
         body:Stack(
           children: [
             Container(
@@ -163,94 +174,103 @@ class _ReservationPageState extends State<ReservationPage> {
                     } else if (snapshot.hasData) {
                       List<ReservationModel> reservations = snapshot.data!;
         
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "세탁실을 이용할 날짜 선택해주세요",
-                            style: AppTextStyles.semiBold18.copyWith(
-                                color: AppColor.gray800), // AppTextStyles 사용
-                          ),
-                          SizedBox(height: 6),
-                          Text(
-                            "하나만 선택해주세요",
-                            style: AppTextStyles.medium12.copyWith(
-                                color: AppColor.gray500), // AppTextStyles 사용
-                          ),
-                          SizedBox(height: 30),
-                          GridView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio:
-                                  MediaQuery.of(context).size.width >= 700
-                                      ? 3.5
-                                      : MediaQuery.of(context).size.width >= 400
-                                          ? 2.5
-                                          : 1.3,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
+                      return ListView(
+                        children:[ Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "세탁실을 이용할 날짜 선택해주세요",
+                              style: AppTextStyles.semiBold18.copyWith(
+                                  color: AppColor.gray800), // AppTextStyles 사용
                             ),
-                            itemCount: reservations.length,
-                            itemBuilder: (context, index) {
-                              ReservationModel reservation =
-                                  reservations[index];
-                              return GestureDetector(
-                                onTap: () {
-                                  _onStateChanged(index, true);
-                                },
-                                child: ReservationBox(
-                                  onStateChanged: (isSelected) {
-                                    _onStateChanged(index, isSelected);
+                            SizedBox(height: 6),
+                            Text(
+                              "하나만 선택해주세요",
+                              style: AppTextStyles.medium12.copyWith(
+                                  color: AppColor.gray500), // AppTextStyles 사용
+                            ),
+                            SizedBox(height: 30),
+                            GridView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio:1.55,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                              ),
+                              itemCount: reservations.length,
+                              itemBuilder: (context, index) {
+                                ReservationModel reservation =
+                                    reservations[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                   isfirstclass!=null&&isfirstclass==false? _onStateChanged(index, true):(){};
                                   },
-                                  today: DateTime.parse(reservation.date),
-                                  userCount: reservation.userCount,
-                                  isSelected: selectedBoxIndex == index,
-                                ),
-                              );
-                            },
-                          ),
-                          SizedBox(
-                              height: MediaQuery.of(context).size.height *
-                                  (45 / 835)),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "빨간색은 선택이 불가능합니다.",
-                                  style: AppTextStyles.medium12.copyWith(
-                                      color:
-                                          AppColor.red100), // AppTextStyles 사용
-                                ),
-                                SizedBox(height: 14),
-                                Center(
-                                  child: GestureDetector(
-                                    onTap: (){
-        
-                                       _showReservationCancelModal();
+                                  child: FutureBuilder<bool>(
+                                    future: Future.value(isfirstclass), // isfirstclass 값을 Future로 감싸서 반환
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState == ConnectionState.waiting) {
+                                        return Center(child: CircularProgressIndicator()); // 로딩 중
+                                      } else if (snapshot.hasData) {
+                                        return ReservationBox(
+                                          isfirstclass: snapshot.data ?? false, // 데이터가 있으면 사용
+                                          onStateChanged: (isSelected) {
+                                            _onStateChanged(index, isSelected);
+                                          },
+                                          today: DateTime.parse(reservation.date),
+                                          userCount: reservation.userCount,
+                                          isSelected: selectedBoxIndex == index,
+                                        );
+                                      } else {
+                                        return Center(child: Text('데이터를 불러오는 중 오류가 발생했습니다.'));
+                                      }
                                     },
-                                    child: NextButton(
-                                      text: "예약하기",
-                                      onPressed:(){}
-                                    ),
                                   ),
-                                ),
-                                if (serverResponse.isNotEmpty)
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 20),
-                                    child: Text(
-                                      serverResponse,
-                                      style: TextStyle(color: Colors.red),
-                                    ),
-                                  ),
-                              ],
+                                );
+                              },
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                                height: MediaQuery.of(context).size.height *
+                                    (45 / 835)),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "빨간색은 선택이 불가능합니다.",
+                                    style: AppTextStyles.medium12.copyWith(
+                                        color:
+                                            AppColor.red100), // AppTextStyles 사용
+                                  ),
+                                  SizedBox(height: 14),
+                                  Center(
+                                    child: GestureDetector(
+                                      onTap: (){
+                                
+                                         _showReservationCancelModal();
+                                      },
+                                      child: NextButton(
+                                        text: "예약하기",
+                                        onPressed:(){}
+                                      ),
+                                    ),
+                                  ),
+                                  if (serverResponse.isNotEmpty)
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: Text(
+                                        serverResponse,
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),]
                       );
                     } else {
                       return Center(child: Text('예약 데이터가 없습니다.'));
