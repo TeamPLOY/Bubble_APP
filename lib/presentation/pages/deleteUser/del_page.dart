@@ -1,5 +1,5 @@
 import 'package:bubble_app/data/Functions/deletesearch.dart';
-import 'package:bubble_app/presentation/pages/deleteUser/delete_finish_page.dart';
+import 'package:bubble_app/presentation/pages/deleteUser/delete_next_page.dart';
 import 'package:bubble_app/presentation/widgets/box/input_box.dart';
 import 'package:bubble_app/presentation/widgets/button/next_button.dart';
 import 'package:bubble_app/presentation/widgets/text/input_title.dart';
@@ -10,14 +10,14 @@ import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/widgets/header/side_header.dart';
 import 'package:bubble_app/data/providers/network/apis/delete/delete_api.dart';
 
-class DeletePage extends StatefulWidget {
-  const DeletePage({super.key});
+class DelPage extends StatefulWidget {
+  const DelPage({super.key});
 
   @override
-  State<DeletePage> createState() => _DeletePageState();
+  State<DelPage> createState() => _DeletePageState();
 }
-
-class _DeletePageState extends State<DeletePage> {
+ 
+class _DeletePageState extends State<DelPage> {
   List<bool> validationemailResults = [false, false,false];
 
   final TextEditingController emailController = TextEditingController();
@@ -44,8 +44,10 @@ class _DeletePageState extends State<DeletePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('회원 탈퇴를 위해',style: AppTextStyles.bold20.copyWith(color: AppColor.gray700),),
-                Text('회원정보를 입력해주세요.',style: AppTextStyles.bold20.copyWith(color: AppColor.gray700),),
+                Text(
+                  '회원 탈퇴를 위해\n회원정보를 입력해주세요.',
+                  style: AppTextStyles.bold20.copyWith(color: AppColor.gray700),
+                ),
                 SizedBox(height: 17,),
 
                 InputTitle(text: '이메일'),
@@ -81,7 +83,7 @@ class _DeletePageState extends State<DeletePage> {
                         PageRouteBuilder(
                             pageBuilder:
                             (context, animation, secondaryAnimation) =>
-                              DeleteFinishPage(state: delete_state,),
+                              DeleteNextPage(state: delete_state,),
                             transitionsBuilder: (context, animation,
                             secondaryAnimation, child) {
                             return child; // 애니메이션 없이 바로 화면 전환

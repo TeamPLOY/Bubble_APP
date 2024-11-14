@@ -1,14 +1,14 @@
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
-import 'package:bubble_app/presentation/pages/profile/profile_page.dart';
+// import 'package:bubble_app/presentation/pages/profile/profile_page.dart';
 import 'package:bubble_app/presentation/widgets/button/next_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/presentation/pages/onboarding/onboarding_page.dart';
 
-class DeleteFinishPage extends StatelessWidget {
+class DeleteNextPage extends StatelessWidget {
   final bool state;
-  DeleteFinishPage({required this.state,super.key});
+  DeleteNextPage({required this.state,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class DeleteFinishPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          state==true?
+          state==true? 
           Column(
             children: [
               SizedBox(height: MediaQuery.of(context).size.height*(160/852),),
