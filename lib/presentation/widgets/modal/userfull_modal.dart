@@ -15,25 +15,24 @@ class _UserfullModalState extends State<UserfullModal> {
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: AppColor.white100
-        ),
-        width: MediaQuery.of(context).size.width*(360/393),
-        height: 80,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: AppColor.white100),
+        width: MediaQuery.of(context).size.width * (340 / 393),
+        height: 100,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 15, left: 15),
+              padding: EdgeInsets.only(top: 16, left: 16),
               child: Text(
-                '이번주에는 이미 예약을 하셨습니다.',
+                '이미 예약이 하셨습니다.\n다음 주에 진행해주세요!',
                 style: AppTextStyles.medium14.copyWith(color: AppColor.gray800),
               ),
             ),
             Expanded(
                 child: Padding(
-              padding: const EdgeInsets.only( right: 21),
+              padding: const EdgeInsets.only(right: 21, bottom: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -41,7 +40,8 @@ class _UserfullModalState extends State<UserfullModal> {
                       onTap: () => {Navigator.of(context).pop()},
                       child: Text(
                         '확인',
-                        style: AppTextStyles.semiBold12.copyWith(color: Color(0xff1C4EFF)),
+                        style: AppTextStyles.semiBold14
+                            .copyWith(color: Color(0xff1C4EFF)),
                       ))
                 ],
               ),

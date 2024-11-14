@@ -94,7 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 15),
+              padding: EdgeInsets.only(top: 14),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
@@ -104,6 +104,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       '이메일',
                       style: AppTextStyles.medium14.copyWith(
                           color: AppColor.gray800), // AppTextStyles 사용
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * (3 / 852),
                     ),
                     ProfileText(
                       information: userData != null
@@ -126,6 +129,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: AppTextStyles.medium14.copyWith(
                           color: AppColor.gray800), // AppTextStyles 사용
                     ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * (3 / 852),
+                    ),
                     ProfileText(
                       information: userData != null
                           ? '${userData!.roomNum}'
@@ -142,7 +148,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * (225 / 852),
+                      height: MediaQuery.of(context).size.height * (250 / 852),
                     ),
                     SizedBox(
                       height: 20,

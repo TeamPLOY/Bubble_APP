@@ -44,19 +44,20 @@ class _CancelState extends State<Cancel> {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.only(left: 16, top: 13),
+        padding: EdgeInsets.only(left: 16, top: 14),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              width: 70,
+              width: 60,
               height: 16,
               decoration: BoxDecoration(
-                  color: AppColor.blue400, borderRadius: BorderRadius.circular(3)),
+                  color: AppColor.blue400,
+                  borderRadius: BorderRadius.circular(3)),
               alignment: Alignment.center,
               child: Text(
-                "${widget.roomnumber}",
+                "세탁실 ${widget.roomnumber}",
                 style: AppTextStyles.medium10.copyWith(
                   color: AppColor.white100,
                 ),
@@ -67,16 +68,16 @@ class _CancelState extends State<Cancel> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 12, top: 13),
+                  padding: EdgeInsets.only(left: 0, top: 8),
                   child: Text(
-                    "${widget.resDate} 예약",
+                    "${widget.resDate}에 예약이 있습니다.",
                     style: AppTextStyles.medium14.copyWith(
                       color: AppColor.gray800,
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 17),
+                  padding: const EdgeInsets.only(right: 17, top: 3),
                   child: _cancel == true
                       ? Container(
                           width: 70,
@@ -88,7 +89,8 @@ class _CancelState extends State<Cancel> {
                           child: Center(
                             child: Text(
                               '사용 완료 ',
-                              style: AppTextStyles.medium14.copyWith(color: AppColor.gray500),
+                              style: AppTextStyles.medium14
+                                  .copyWith(color: AppColor.gray500),
                             ),
                           ),
                         )
@@ -122,7 +124,8 @@ class _CancelState extends State<Cancel> {
                             child: Center(
                               child: Text(
                                 '예약 취소',
-                                style: AppTextStyles.semiBold14.copyWith(color: AppColor.blue400),
+                                style: AppTextStyles.semiBold14
+                                    .copyWith(color: AppColor.blue400),
                               ),
                             ),
                           ),

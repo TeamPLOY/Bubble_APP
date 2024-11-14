@@ -1,5 +1,5 @@
 import 'package:bubble_app/presentation/widgets/box/email_box.dart';
-import 'package:bubble_app/presentation/widgets/header/sign_header.dart';
+import 'package:bubble_app/presentation/widgets/header/side_header.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:bubble_app/app/config/app_color.dart';
@@ -129,7 +129,7 @@ class _SignupPageState extends State<SignupPage> {
         child: ListView(children: [
           Column(
             children: [
-              SignHeader(text: '회원가입'),
+              SideHeader(text: '회원가입'),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * (24 / 393)),

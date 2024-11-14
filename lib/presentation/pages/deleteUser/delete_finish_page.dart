@@ -30,7 +30,6 @@ class DeleteFinishPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width *(142/393),
                   height: MediaQuery.of(context).size.width  *(142/393),
                   ),
-                  
                 ],
               ),
               SizedBox(height: 25,),

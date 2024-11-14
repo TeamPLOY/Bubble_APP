@@ -41,29 +41,24 @@ class _ReservationStatePage extends State<ReservationListPage> {
 
     if (index == 0) {
       Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        AlarmPage(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return child;
-                    },
-                  ),
-                );
-      
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => AlarmPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return child;
+          },
+        ),
+      );
     } else if (index == 1) {
       Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        NoticePage(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return child;
-                    },
-                  ),
-                );
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => NoticePage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return child;
+          },
+        ),
+      );
     }
   }
 
@@ -84,7 +79,7 @@ class _ReservationStatePage extends State<ReservationListPage> {
               selectedButtonIndex: _selectedButtonIndex,
               onButtonPressed: _handleButtonPress,
             ),
-            SizedBox(height: 46),
+            SizedBox(height: 30),
             Expanded(
               child: isLoading // 로딩 상태에 따라 UI 변경
                   ? Center(child: CircularProgressIndicator())

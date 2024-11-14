@@ -9,10 +9,10 @@ import 'package:bubble_app/presentation/widgets/bottom/bottom.dart';
 import 'package:bubble_app/presentation/widgets/box/home_notice_box.dart';
 import 'package:bubble_app/presentation/widgets/box/home_activate.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:bubble_app/data/models/user_model.dart';
 import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 import 'package:bubble_app/data/providers/network/apis/profile/profile_api.dart';
+import 'dart:async';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,36 +26,30 @@ class _HomePageState extends State<HomePage> {
   var messageString = "";
   late String roomname;
   String? washingroom_text;
-  
+  Timer? _machineTimer;
+
   @override
   void initState() {
     super.initState();
     _futureMachineData();
+    _setupMessageListener();
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      RemoteNotification? notification = message.notification;
-
-      if (notification != null) {
-        FlutterLocalNotificationsPlugin().show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          const NotificationDetails(
-            android: AndroidNotificationDetails(
-              'high_importance_channel',
-              'high_importance_notification',
-              importance: Importance.max,
-            ),
-          ),
-        );
-
-        setState(() {
-          messageString = message.notification!.body!;
-          print("Foreground 메시지 수신: $messageString");
-        });
-      }
+    // 1분마다 데이터 갱신
+    _machineTimer = Timer.periodic(const Duration(minutes: 1), (timer) {
+      _futureMachineData();
     });
+
     getuserstaet();
+  }
+
+  void _setupMessageListener() {
+    // 포그라운드 메시지 처리
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      setState(() {
+        messageString = message.notification?.body ?? '';
+        print("메시지 수신: $messageString");
+      });
+    });
   }
 
   Future<void> getuserstaet() async {
@@ -82,6 +76,10 @@ class _HomePageState extends State<HomePage> {
     MachineGetApi machine = MachineGetApi();
     try {
       List<MachineModel> fetchedMachine = await machine.fetchData();
+
+      // 서버에 현재 FCM 토큰 전송
+      await _sendFCMTokenToServer();
+
       setState(() {
         machineData = Future.value(fetchedMachine);
       });
@@ -90,13 +88,33 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  // FCM 토큰을 서버에 전송
+  Future<void> _sendFCMTokenToServer() async {
+    try {
+      String? token = await FirebaseMessaging.instance.getToken();
+      if (token != null) {
+        var access_token = globalTokens?.access_token;
+        // TODO: FCM 토큰을 서버에 전송하는 API 호출
+        // await FCMTokenApi(access_token: access_token).sendToken(token);
+        print('FCM 토큰: $token');
+      }
+    } catch (e) {
+      print('FCM 토큰 전송 실패: $e');
+    }
+  }
+
+  @override
+  void dispose() {
+    _machineTimer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
-    // 반응형 패딩 값 계산
-    double paddingValue = screenWidth * 0.05; // 화면 너비의 5%를 패딩으로 설정
+    double paddingValue = screenWidth * 0.05;
 
     return Scaffold(
       backgroundColor: AppColor.white100,
