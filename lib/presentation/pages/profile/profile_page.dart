@@ -1,4 +1,5 @@
-import 'package:bubble_app/presentation/pages/deleteUser/delete_page.dart';
+
+import 'package:bubble_app/presentation/pages/deleteUser/del_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
@@ -163,7 +164,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return DeletePage();
+                            return DelPage();
                           },
                         );
                       },
