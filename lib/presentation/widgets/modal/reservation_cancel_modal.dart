@@ -32,10 +32,11 @@ class ReservationCancelModal extends StatelessWidget {
                   width: 70,
                   height: 16,
                   decoration: BoxDecoration(
-                      color: AppColor.blue400, borderRadius: BorderRadius.circular(3)),
+                      color: AppColor.blue400,
+                      borderRadius: BorderRadius.circular(3)),
                   alignment: Alignment.center,
                   child: Text(
-                    "${roomnumber}",
+                    "세탁실 ${roomnumber}",
                     style: AppTextStyles.medium10.copyWith(
                       color: AppColor.white100,
                     ),
@@ -45,14 +46,16 @@ class ReservationCancelModal extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 6),
                 child: Text('예약을 취소하시겠습니까?',
-                    style: AppTextStyles.medium14.copyWith(color: AppColor.gray800)),
+                    style: AppTextStyles.medium14
+                        .copyWith(color: AppColor.gray800)),
               ),
-              SizedBox(height: 24),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('예약을 취소하시면 사용하실 수 없습니다.',
-                      style: AppTextStyles.medium8.copyWith(color: AppColor.gray500)),
+                      style: AppTextStyles.medium10
+                          .copyWith(color: AppColor.gray600)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -61,14 +64,16 @@ class ReservationCancelModal extends StatelessWidget {
                           Navigator.pop(context, false);
                         },
                         child: Container(
-                        width: MediaQuery.of(context).size.width * (50 / 393),
-                        height: MediaQuery.of(context).size.height * (20 / 893),
+                          width: MediaQuery.of(context).size.width * (50 / 393),
+                          height:
+                              MediaQuery.of(context).size.height * (20 / 893),
                           decoration: BoxDecoration(
                               color: AppColor.gray200,
                               borderRadius: BorderRadius.circular(5)),
                           child: Center(
                             child: Text('아니요',
-                                style: AppTextStyles.medium10.copyWith(color: AppColor.gray500)),
+                                style: AppTextStyles.medium10
+                                    .copyWith(color: AppColor.gray600)),
                           ),
                         ),
                       ),
@@ -81,14 +86,16 @@ class ReservationCancelModal extends StatelessWidget {
                           cancelPost.fetchCancel();
                         },
                         child: Container(
-                        width: MediaQuery.of(context).size.width * (50 / 393),
-                        height: MediaQuery.of(context).size.height * (20 / 893),
+                          width: MediaQuery.of(context).size.width * (50 / 393),
+                          height:
+                              MediaQuery.of(context).size.height * (20 / 893),
                           decoration: BoxDecoration(
                               color: AppColor.gray200,
                               borderRadius: BorderRadius.circular(5)),
                           child: Center(
                             child: Text('네',
-                                style: AppTextStyles.medium10.copyWith(color: AppColor.gray500)),
+                                style: AppTextStyles.medium10
+                                    .copyWith(color: AppColor.gray600)),
                           ),
                         ),
                       ),

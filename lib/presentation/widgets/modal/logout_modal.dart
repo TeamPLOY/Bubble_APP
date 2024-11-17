@@ -4,7 +4,6 @@ import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/pages/login/login_page.dart';
 import 'package:bubble_app/data/providers/network/apis/login/logout_api.dart';
 
-
 class LogoutModal extends StatefulWidget {
   const LogoutModal({super.key});
 
@@ -21,14 +20,14 @@ class _LogoutModalState extends State<LogoutModal> {
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: AppColor.white100,
         ),
-        width: MediaQuery.of(context).size.width*(360/393),
+        width: MediaQuery.of(context).size.width * (360 / 393),
         height: 80,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 17, left: 18),
+              padding: EdgeInsets.only(top: 14, left: 14),
               child: Text(
                 '정말 로그아웃 하시겠습니까?',
                 style: AppTextStyles.medium16.copyWith(color: AppColor.gray800),
@@ -36,7 +35,7 @@ class _LogoutModalState extends State<LogoutModal> {
             ),
             Expanded(
                 child: Padding(
-              padding: const EdgeInsets.only(bottom: 14, right: 21),
+              padding: const EdgeInsets.only(right: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -44,7 +43,8 @@ class _LogoutModalState extends State<LogoutModal> {
                       onTap: () => {Navigator.of(context).pop()},
                       child: Text(
                         '취소',
-                        style: AppTextStyles.semiBold12.copyWith(color: AppColor.gray600),
+                        style: AppTextStyles.semiBold14
+                            .copyWith(color: AppColor.gray600),
                       )),
                   SizedBox(
                     width: 12,
@@ -69,7 +69,8 @@ class _LogoutModalState extends State<LogoutModal> {
                       },
                       child: Text(
                         '로그아웃',
-                        style: AppTextStyles.semiBold12.copyWith(color: Color(0xff1C4EFF)),
+                        style: AppTextStyles.semiBold14
+                            .copyWith(color: Color(0xff1C4EFF)),
                       ))
                 ],
               ),

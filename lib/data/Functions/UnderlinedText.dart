@@ -13,7 +13,7 @@ class UnderlinedText extends StatelessWidget {
   Widget build(BuildContext context) {
     final textSpan = TextSpan(
       text: text,
-      style: AppTextStyles.medium12..copyWith(color: AppColor.red100)
+      style: AppTextStyles.medium12.copyWith(color: AppColor.red100)
     );
 
     return Stack(

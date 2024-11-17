@@ -18,17 +18,17 @@ class LoginApi {
     };
 
     try {
-      
+      print('서버에 전송할 데이터: $postData');
       final response = await http.post(
         Uri.parse(ApiUrls.login_post_url),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-      // final response = await http.post(
-      //   Uri.parse(ApiUrls.login_post_url),
-      //   headers: <String, String>{
-      //     'Content-Type': 'application/json; charset=UTF-8',
-      //   },
+        // final response = await http.post(
+        //   Uri.parse(ApiUrls.login_post_url),
+        //   headers: <String, String>{
+        //     'Content-Type': 'application/json; charset=UTF-8',
+        //   },
         body: jsonEncode(postData),
       );
       if (response.statusCode == 200) {

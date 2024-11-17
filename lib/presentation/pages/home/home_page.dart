@@ -1,16 +1,18 @@
+import 'package:bubble_app/data/providers/network/apis/machine/machine_get_api.dart';
+import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/widgets/box/machine_box.dart';
 import 'package:bubble_app/data/models/machine_model.dart';
-import 'package:bubble_app/data/providers/network/apis/machine/machine_get_api.dart';
 import 'package:bubble_app/presentation/widgets/header/main_header.dart';
 import 'package:bubble_app/presentation/widgets/bottom/bottom.dart';
 import 'package:bubble_app/presentation/widgets/box/home_notice_box.dart';
 import 'package:bubble_app/presentation/widgets/box/home_activate.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:bubble_app/data/models/user_model.dart';
-import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 import 'package:bubble_app/data/providers/network/apis/profile/profile_api.dart';
+import 'dart:async';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,36 +23,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<List<MachineModel>>? machineData;
-  late String roomname;
+  String messageString = "";
   String? washingroom_text;
+  Timer? _machineTimer;
+  StreamSubscription<RemoteMessage>? _messageSubscription;
+
   @override
   void initState() {
     super.initState();
     _futureMachineData();
+    _setupFCM(); // FCM 설정 추가
+    _setupMessageListener();
+
+    _machineTimer = Timer.periodic(const Duration(minutes: 1), (timer) {});
     getuserstaet();
   }
-  Future<void> getuserstaet() async {
-    var access_token = globalTokens?.access_token;
-    ProfileApi get_profile = ProfileApi(access_token: access_token);
-    UserModel user= await get_profile.fetchData();
-    
-    if(user.roomNum[0]=='B'){
-      if(user.roomNum[1]=='4'){
-        if(user.washingRoom=='B42'){
-          washingroom_text='B동 여자 세탁실';
-        }
-        else{
-          washingroom_text='B동 B41 세탁실';
-        }
-      }
-      else if(user.roomNum[1]=='3'){
-        washingroom_text='B동 ${user.washingRoom} 세탁실';
-      }
-    }
-    else if(user.roomNum[0]=='A'){
-      washingroom_text='A동 세탁실';
-    }
-  }
+
   Future<void> _futureMachineData() async {
     MachineGetApi machine = MachineGetApi();
     try {
@@ -63,13 +51,119 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future<void> _setupFCM() async {
+    // 알림 권한 요청
+    NotificationSettings settings =
+        await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    // Foreground 메시지 처리
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      // 앱이 열려있을 때 알림 표시
+      if (message.notification != null) {
+        print('Foreground Message 수신: ${message.notification?.body}');
+        // 상태 업데이트 및 데이터 새로고침
+        setState(() {
+          messageString = message.notification?.body ?? '';
+        });
+      }
+    });
+
+    // Background 메시지 처리
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('Background Message 수신: ${message.notification?.body}');
+      if (message.notification != null) {
+        setState(() {
+          messageString = message.notification?.body ?? '';
+        });
+      }
+    });
+
+    // 앱이 완전히 종료된 상태에서 알림을 탭하여 열었을 때
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+    if (initialMessage != null) {
+      print('Terminated state Message: ${initialMessage.notification?.body}');
+      setState(() {
+        messageString = initialMessage.notification?.body ?? '';
+      });
+    }
+  }
+
+  void _setupMessageListener() {
+    _messageSubscription =
+        FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      if (message.notification?.body?.contains('세탁기') ?? false) {
+        setState(() {
+          messageString = message.notification?.body ?? '';
+        });
+
+        print("메시지 수신: ${message.notification?.body}");
+
+        Future.delayed(const Duration(seconds: 3), () {
+          if (mounted) {
+            setState(() {
+              messageString = '';
+            });
+          }
+        });
+      }
+    });
+  }
+
+  Widget _buildMessageWidget() {
+    if (messageString.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      decoration: BoxDecoration(
+        color: AppColor.gray100,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        messageString,
+        style: AppTextStyles.regular14.copyWith(color: AppColor.gray800),
+      ),
+    );
+  }
+
+  Future<void> getuserstaet() async {
+    var access_token = globalTokens?.access_token;
+    ProfileApi get_profile = ProfileApi(access_token: access_token);
+    UserModel user = await get_profile.fetchData();
+
+    if (user.roomNum[0] == 'B') {
+      if (user.roomNum[1] == '4') {
+        if (user.washingRoom == 'B42') {
+          washingroom_text = 'B동 여자 세탁실';
+        } else {
+          washingroom_text = 'B동 B41 세탁실';
+        }
+      } else if (user.roomNum[1] == '3') {
+        washingroom_text = 'B동 ${user.washingRoom} 세탁실';
+      }
+    } else if (user.roomNum[0] == 'A') {
+      washingroom_text = 'A동 세탁실';
+    }
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _machineTimer?.cancel();
+    _messageSubscription?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-
-    // 반응형 패딩 값 계산
-    double paddingValue = screenWidth * 0.05; // 화면 너비의 5%를 패딩으로 설정
+    double paddingValue = screenWidth * 0.05;
 
     return Scaffold(
       backgroundColor: AppColor.white100,
@@ -86,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        " ${washingroom_text==null?"로딩 중":washingroom_text}",
+                        "${washingroom_text == null ? "로딩 중" : washingroom_text}",
                         style: AppTextStyles.medium22
                             .copyWith(color: AppColor.gray800),
                       ),
@@ -96,6 +190,7 @@ class _HomePageState extends State<HomePage> {
                         style: AppTextStyles.medium16
                             .copyWith(color: AppColor.gray800),
                       ),
+                      _buildMessageWidget(),
                       SizedBox(height: screenHeight * 0.012),
                       MainNoticeBox(),
                       SizedBox(height: screenHeight * 0.025),
@@ -109,22 +204,24 @@ class _HomePageState extends State<HomePage> {
                             return Center(child: CircularProgressIndicator());
                           } else if (futureResult.hasError) {
                             return Center(
-                                child: Text('에러: ${futureResult.error}',
-                                    style: AppTextStyles.regular14
-                                        .copyWith(color: AppColor.red300)));
+                              child: Text('에러: ${futureResult.error}',
+                                  style: AppTextStyles.regular14
+                                      .copyWith(color: AppColor.red300)),
+                            );
                           } else if (futureResult.data == null ||
                               futureResult.data!.isEmpty) {
                             return Center(
-                                child: Text('시간이 날라오고 있어요.',
-                                    style: AppTextStyles.regular14
-                                        .copyWith(color: AppColor.gray500)));
+                              child: Text('시간이 날라오고 있어요.',
+                                  style: AppTextStyles.regular14
+                                      .copyWith(color: AppColor.gray500)),
+                            );
                           }
 
                           final machines = futureResult.data!;
 
                           return LayoutBuilder(
                             builder: (context, constraints) {
-                              double boxWidth = constraints.maxWidth * 0.4;
+                              double boxWidth = constraints.maxWidth * 0.44;
                               return ListView.builder(
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
@@ -150,10 +247,9 @@ class _HomePageState extends State<HomePage> {
 
                                       return Padding(
                                         padding: EdgeInsets.only(
-                                          right: colIndex == 0
-                                              ? paddingValue
-                                              : 0.0,
-                                        ),
+                                            right: colIndex == 0
+                                                ? paddingValue
+                                                : 0.0),
                                         child: Container(
                                           width: boxWidth,
                                           child: Column(
@@ -166,8 +262,7 @@ class _HomePageState extends State<HomePage> {
                                                 device: machine.name,
                                               ),
                                               SizedBox(
-                                                height: screenHeight * 0.016,
-                                              ),
+                                                  height: screenHeight * 0.016),
                                             ],
                                           ),
                                         ),

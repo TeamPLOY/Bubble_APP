@@ -38,7 +38,7 @@ class MainHeader extends StatelessWidget {
                 );
               },
               child: SvgPicture.asset(
-                'assets/img/logo.svg',
+                'assets/img/home_logo.svg',
                 width: 71,
                 height: 14,
               ),
@@ -49,7 +49,6 @@ class MainHeader extends StatelessWidget {
             padding: EdgeInsets.only(right: 24),
             child: GestureDetector(
               onTap: () {
-                
                 Navigator.push(
                   context,
                   PageRouteBuilder(

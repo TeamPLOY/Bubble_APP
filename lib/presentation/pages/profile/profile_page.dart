@@ -1,9 +1,7 @@
-
 import 'package:bubble_app/presentation/pages/deleteUser/del_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/presentation/widgets/header/side_header.dart';
 import 'package:bubble_app/presentation/widgets/text/profile_text.dart';
 import 'package:bubble_app/presentation/widgets/modal/logout_modal.dart';
@@ -27,7 +25,10 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     _fetchUserData();
   }
-  
+
+  final String instagramUrl =
+      "https://www.instagram.com/bssm_ploy?igsh=bTMzemExbXN6MG83";
+
   Future<void> _fetchUserData() async {
     ProfileApi users = ProfileApi(access_token: globalTokens?.access_token);
     try {
@@ -58,8 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Container(
                       decoration: BoxDecoration(
                           border: Border.all(
-                              color: AppColor.gray300,
-                              width: 1), // AppColor 사용
+                              color: AppColor.gray300, width: 1), // AppColor 사용
                           shape: BoxShape.circle),
                       child: ClipOval(
                         child: Image.network(
@@ -94,7 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 15),
+              padding: EdgeInsets.only(top: 14),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
@@ -104,6 +104,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       '이메일',
                       style: AppTextStyles.medium14.copyWith(
                           color: AppColor.gray800), // AppTextStyles 사용
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * (3 / 852),
                     ),
                     ProfileText(
                       information: userData != null
@@ -126,6 +129,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: AppTextStyles.medium14.copyWith(
                           color: AppColor.gray800), // AppTextStyles 사용
                     ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * (3 / 852),
+                    ),
                     ProfileText(
                       information: userData != null
                           ? '${userData!.roomNum}'
@@ -141,8 +147,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: EdgeInsets.only(bottom: 80),
                 child: Column(
                   children: [
-                    SizedBox(height: MediaQuery.of(context).size.height*(225/852),),
-        
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * (200 / 852),
+                    ),
                     GestureDetector(
                       onTap: () {
                         showDialog(
@@ -158,7 +165,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             color: AppColor.gray600), // AppTextStyles 사용
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     GestureDetector(
                       onTap: () {
                         showDialog(

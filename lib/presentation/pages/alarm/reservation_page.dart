@@ -4,7 +4,7 @@ import 'package:bubble_app/presentation/widgets/header/side_header.dart';
 import 'package:bubble_app/data/models/reservation_state_model.dart';
 import 'package:bubble_app/presentation/pages/alarm/notice_page.dart';
 import 'package:bubble_app/presentation/widgets/button/alarm_button.dart';
-import 'package:bubble_app/presentation/widgets/box/reservation_cancel_box.dart';
+import 'package:bubble_app/presentation/widgets/box/reservation/reservation_cancel_box.dart';
 import 'package:bubble_app/data/providers/network/apis/reservation/reservation_state_api.dart';
 import 'package:bubble_app/presentation/pages/alarm/alarm_page.dart';
 
@@ -41,29 +41,24 @@ class _ReservationStatePage extends State<ReservationListPage> {
 
     if (index == 0) {
       Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        AlarmPage(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return child;
-                    },
-                  ),
-                );
-      
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => AlarmPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return child;
+          },
+        ),
+      );
     } else if (index == 1) {
       Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        NoticePage(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return child;
-                    },
-                  ),
-                );
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => NoticePage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return child;
+          },
+        ),
+      );
     }
   }
 
