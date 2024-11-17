@@ -1,11 +1,11 @@
 import 'package:bubble_app/data/providers/network/apis/reservation/reservation_check_api.dart';
+import 'package:bubble_app/presentation/pages/home/home_page.dart';
 import 'package:bubble_app/presentation/widgets/modal/userfull_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/presentation/pages/profile/profile_page.dart';
 import 'package:bubble_app/presentation/pages/reservation/reservation_page.dart';
-import 'package:bubble_app/presentation/pages/alarm/alarm_page.dart';
 
 class Bottom extends StatefulWidget {
   const Bottom({super.key});
@@ -16,10 +16,10 @@ class Bottom extends StatefulWidget {
 
 class _BottomState extends State<Bottom> {
   bool? check_user;
-    Future<void> get_user_state() async{
+  Future<void> get_user_state() async {
     ReservationCheckApi reservationCheckApi = ReservationCheckApi();
-    
-    bool result= await reservationCheckApi.fetchData();
+
+    bool result = await reservationCheckApi.fetchData();
     setState(() {
       check_user = result; // 결과를 check_user에 저장
     });
@@ -31,6 +31,7 @@ class _BottomState extends State<Bottom> {
     super.initState();
     get_user_state();
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,19 +50,24 @@ class _BottomState extends State<Bottom> {
                 setState(() {
                   get_user_state();
                 });
-                if(check_user==true){showDialog(context: context, builder: (BuildContext context){return UserfullModal();});}
-                else{
+                if (check_user == true) {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return UserfullModal();
+                      });
+                } else {
                   Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        ReservationPage(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return child;
-                    },
-                  ),
-                );
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          ReservationPage(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        return child;
+                      },
+                    ),
+                  );
                 }
               },
               icon: SvgPicture.asset(
@@ -76,7 +82,7 @@ class _BottomState extends State<Bottom> {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) =>
-                        AlarmPage(),
+                        HomePage(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
                       return child; // 애니메이션 없이 바로 화면 전환

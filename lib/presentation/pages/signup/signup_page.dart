@@ -1,5 +1,6 @@
 import 'package:bubble_app/presentation/widgets/box/email_box.dart';
 import 'package:bubble_app/presentation/widgets/header/side_header.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:bubble_app/app/config/app_color.dart';
@@ -14,7 +15,6 @@ import 'package:bubble_app/presentation/widgets/box/input_box.dart';
 import 'package:bubble_app/presentation/widgets/box/dropdown_box.dart';
 import 'package:bubble_app/presentation/pages/signup/tos_page.dart';
 import 'package:bubble_app/data/Functions/emailsearch.dart';
-// import 'package:bubble_app/data/Functions/UnderlinedText.dart';
 import 'package:bubble_app/data/Functions/Formsearch.dart';
 
 class SignupPage extends StatefulWidget {
@@ -27,6 +27,7 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   List<bool> validationResults = [false, false, false, false];
   List<bool> validationemailResults = [false, false];
+  String? fcmtoken;
 
   String? selectedgrade;
   String? selectedclass_number;
@@ -73,7 +74,6 @@ class _SignupPageState extends State<SignupPage> {
   late Timer timer;
   late int gradenumber;
   late String emails;
-  //late EmailGetModels email_checkCode;
   bool openstate = false;
 
   String format(int seconds) {
@@ -119,6 +119,16 @@ class _SignupPageState extends State<SignupPage> {
     selectedgrade = grade.first;
     selectedstudent_number = student_number.first;
     selectedroom = room.first;
+    _initializeFCM();
+  }
+
+  Future<void> _initializeFCM() async {
+    try {
+      fcmtoken = await FirebaseMessaging.instance.getToken();
+      print('FCM Token: $fcmtoken');
+    } catch (e) {
+      print('FCM 토큰 가져오기 실패: $e');
+    }
   }
 
   @override
@@ -269,14 +279,16 @@ class _SignupPageState extends State<SignupPage> {
                                   GestureDetector(
                                     child: RichText(
                                       text: TextSpan(
-                                        text: '재전송',
-                                        style: AppTextStyles.regular12.copyWith(                                          color: Colors.red,
-                                          decoration: TextDecoration.underline,
-                                          decorationColor: Colors.red,
-                                        )
-                                      ),
+                                          text: '재전송',
+                                          style:
+                                              AppTextStyles.regular12.copyWith(
+                                            color: Colors.red,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            decorationColor: Colors.red,
+                                          )),
                                     ),
-                                    onTap: () {
+                                    onTap: () async {
                                       if (emails != null) {
                                         EmailPostApi email_post =
                                             EmailPostApi(email: emails);
@@ -420,26 +432,33 @@ class _SignupPageState extends State<SignupPage> {
                       Align(
                           child: Text(
                         '빈 칸을 모두 작성해주세요',
-                         style: AppTextStyles.medium12
+                        style: AppTextStyles.medium12
                             .copyWith(color: AppColor.red100),
                       )),
                       SizedBox(
                         height: 2,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Formsearch formsearch = Formsearch(
-                            nameController: nameController,
-                            passwordController: passwordController,
-                            repasswordController: repasswordController,
-                            roomController: roomController,
-                          );
-                          setState(() {
-                            validationResults = formsearch.checkForm();
-                          });
-                          print(validationResults);
-                          if (openstate == false) {
-                            said_email = true;
+                      GestureDetector(onTap: () async {
+                        Formsearch formsearch = Formsearch(
+                          nameController: nameController,
+                          passwordController: passwordController,
+                          repasswordController: repasswordController,
+                          roomController: roomController,
+                        );
+                        setState(() {
+                          validationResults = formsearch.checkForm();
+                        });
+
+                        print(validationResults);
+                        if (openstate == false) {
+                          said_email = true;
+                        }
+
+                        if (validationResults
+                                .every((element) => element == false) &&
+                            openstate == true) {
+                          if (fcmtoken == null) {
+                            await _initializeFCM();
                           }
                           if (validationResults
                                   .every((element) => element == false) &&
@@ -478,11 +497,13 @@ class _SignupPageState extends State<SignupPage> {
                             String room_number =
                                 selectedroom![0] + roomController.text;
                             SignupApi signup = SignupApi(
-                                email: emails!,
-                                password: passwordController.text,
-                                name: nameController.text,
-                                stuNum: gradenumber,
-                                roomNum: room_number);
+                              email: emails!,
+                              password: passwordController.text,
+                              name: nameController.text,
+                              stuNum: gradenumber,
+                              roomNum: room_number,
+                              token: fcmtoken ?? '',
+                            );
 
                             Navigator.push(
                               context,
@@ -499,12 +520,13 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                             );
                           }
-                        },
-                        child: NextButton(
+                        }
+                        child:
+                        NextButton(
                           text: '회원가입하기',
                           onPressed: () => {},
-                        ),
-                      ),
+                        );
+                      }),
                       SizedBox(
                         height: 58,
                       )
