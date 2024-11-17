@@ -196,7 +196,7 @@ class _ReservationPageState extends State<ReservationPage> {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                childAspectRatio:1.55,
+                                childAspectRatio:1.3,
                                 mainAxisSpacing: 10,
                                 crossAxisSpacing: 10,
                               ),
@@ -266,6 +266,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                         style: TextStyle(color: Colors.red),
                                       ),
                                     ),
+                                    SizedBox(height: 30,)
                                 ],
                               ),
                             ),
