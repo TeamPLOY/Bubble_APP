@@ -75,14 +75,14 @@ class CustomButton extends StatelessWidget {
           color: isSelected ? AppColor.blue400 : AppColor.white100,
           borderRadius: BorderRadius.circular(30),
           border: Border.all(
-            color: isSelected ? AppColor.blue400 : AppColor.gray500,
+            color: isSelected ? AppColor.blue400 : AppColor.gray600,
             width: 0.3,
           ),
         ),
         child: Text(
           text,
           style: AppTextStyles.regular14.copyWith(
-            color: isSelected ? AppColor.white100 : AppColor.gray500,
+            color: isSelected ? AppColor.white100 : AppColor.gray600,
             decoration: TextDecoration.none,
           ),
         ),

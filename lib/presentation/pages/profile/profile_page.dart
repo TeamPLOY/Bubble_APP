@@ -1,4 +1,3 @@
-
 import 'package:bubble_app/presentation/pages/deleteUser/del_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
@@ -149,10 +148,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * (250 / 852),
-                    ),
-                    SizedBox(
-                      height: 20,
+                      height: MediaQuery.of(context).size.height * (200 / 852),
                     ),
                     GestureDetector(
                       onTap: () {

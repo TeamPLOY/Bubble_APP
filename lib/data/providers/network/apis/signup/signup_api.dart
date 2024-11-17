@@ -8,7 +8,7 @@ class SignupApi {
   final String name;
   final int stuNum;
   final String roomNum;
-  final String token;
+  final String fcmtoken;
 
   SignupApi({
     required this.email,
@@ -16,7 +16,7 @@ class SignupApi {
     required this.name,
     required this.stuNum,
     required this.roomNum,
-    required this.token,
+    required this.fcmtoken,
   });
 
   Future<void> joinpostData() async {
@@ -26,7 +26,7 @@ class SignupApi {
       'name': name,
       'stuNum': stuNum,
       'roomNum': roomNum,
-      'token': token,
+      'token': fcmtoken,
     };
 
     try {

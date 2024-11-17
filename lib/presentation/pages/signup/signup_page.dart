@@ -1,6 +1,5 @@
 import 'package:bubble_app/presentation/widgets/box/email_box.dart';
-import 'package:bubble_app/presentation/widgets/header/side_header.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:bubble_app/presentation/widgets/header/login_header.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:bubble_app/app/config/app_color.dart';
@@ -16,6 +15,7 @@ import 'package:bubble_app/presentation/widgets/box/dropdown_box.dart';
 import 'package:bubble_app/presentation/pages/signup/tos_page.dart';
 import 'package:bubble_app/data/Functions/emailsearch.dart';
 import 'package:bubble_app/data/Functions/Formsearch.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class SignupPage extends StatefulWidget {
   SignupPage({super.key});
@@ -74,6 +74,7 @@ class _SignupPageState extends State<SignupPage> {
   late Timer timer;
   late int gradenumber;
   late String emails;
+  //late EmailGetModels email_checkCode;
   bool openstate = false;
 
   String format(int seconds) {
@@ -119,16 +120,13 @@ class _SignupPageState extends State<SignupPage> {
     selectedgrade = grade.first;
     selectedstudent_number = student_number.first;
     selectedroom = room.first;
-    _initializeFCM();
+    getFCMToken();
   }
 
-  Future<void> _initializeFCM() async {
-    try {
-      fcmtoken = await FirebaseMessaging.instance.getToken();
-      print('FCM Token: $fcmtoken');
-    } catch (e) {
-      print('FCM 토큰 가져오기 실패: $e');
-    }
+  Future<void> getFCMToken() async {
+    final messaging = FirebaseMessaging.instance;
+    fcmtoken = await messaging.getToken();
+    print('FCM Token: $fcmtoken');
   }
 
   @override
@@ -139,7 +137,7 @@ class _SignupPageState extends State<SignupPage> {
         child: ListView(children: [
           Column(
             children: [
-              SideHeader(text: '회원가입'),
+              LoginHeader(text: '회원가입'),
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * (24 / 393)),
@@ -288,7 +286,7 @@ class _SignupPageState extends State<SignupPage> {
                                             decorationColor: Colors.red,
                                           )),
                                     ),
-                                    onTap: () async {
+                                    onTap: () {
                                       if (emails != null) {
                                         EmailPostApi email_post =
                                             EmailPostApi(email: emails);
@@ -438,27 +436,20 @@ class _SignupPageState extends State<SignupPage> {
                       SizedBox(
                         height: 2,
                       ),
-                      GestureDetector(onTap: () async {
-                        Formsearch formsearch = Formsearch(
-                          nameController: nameController,
-                          passwordController: passwordController,
-                          repasswordController: repasswordController,
-                          roomController: roomController,
-                        );
-                        setState(() {
-                          validationResults = formsearch.checkForm();
-                        });
-
-                        print(validationResults);
-                        if (openstate == false) {
-                          said_email = true;
-                        }
-
-                        if (validationResults
-                                .every((element) => element == false) &&
-                            openstate == true) {
-                          if (fcmtoken == null) {
-                            await _initializeFCM();
+                      GestureDetector(
+                        onTap: () {
+                          Formsearch formsearch = Formsearch(
+                            nameController: nameController,
+                            passwordController: passwordController,
+                            repasswordController: repasswordController,
+                            roomController: roomController,
+                          );
+                          setState(() {
+                            validationResults = formsearch.checkForm();
+                          });
+                          print(validationResults);
+                          if (openstate == false) {
+                            said_email = true;
                           }
                           if (validationResults
                                   .every((element) => element == false) &&
@@ -502,7 +493,7 @@ class _SignupPageState extends State<SignupPage> {
                               name: nameController.text,
                               stuNum: gradenumber,
                               roomNum: room_number,
-                              token: fcmtoken ?? '',
+                              fcmtoken: fcmtoken ?? '',
                             );
 
                             Navigator.push(
@@ -520,13 +511,12 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                             );
                           }
-                        }
-                        child:
-                        NextButton(
+                        },
+                        child: NextButton(
                           text: '회원가입하기',
                           onPressed: () => {},
-                        );
-                      }),
+                        ),
+                      ),
                       SizedBox(
                         height: 58,
                       )

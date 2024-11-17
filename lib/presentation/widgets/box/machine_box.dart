@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'dart:async';
-
 import 'package:bubble_app/data/providers/network/apis/machine/machine_alarm_api.dart';
 
 class MachineBox extends StatefulWidget {
-  final int hour, minute, place;
-  final String device;
+  late int hour, minute, place;
+  late String device;
 
   MachineBox({
     required this.place,
     required this.hour,
     required this.minute,
     required this.device,
+    super.key,
   });
 
   @override
@@ -22,133 +21,151 @@ class MachineBox extends StatefulWidget {
 }
 
 class _MachineBoxState extends State<MachineBox> {
-  bool alram_onff = false; // 알람 상태
-  String alram_url = 'assets/img/alarm_no.svg'; // 알람 아이콘 URL
-  Timer? _timer;
-  late MachineAlarmApi machineSave =
-      MachineAlarmApi(machine: widget.device); // 알람 데이터 API
+  late Timer _timer;
+  late MachineAlarmApi machineSave = MachineAlarmApi(machine: widget.device);
 
   @override
   void initState() {
     super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(Duration(minutes: 1), (timer) {
+      setState(() {
+        if (widget.minute > 0) {
+          widget.minute--;
+        } else {
+          if (widget.hour > 0) {
+            widget.hour--;
+            widget.minute = 59;
+          } else {
+            _timer.cancel();
+          }
+        }
+      });
+    });
   }
 
   @override
   void dispose() {
-    _timer?.cancel(); // 타이머 해제
+    _timer.cancel();
     super.dispose();
   }
 
   String formattime(int time) {
-    return time.toString().padLeft(2, '0'); // 시간을 두 자릿수로 포맷
+    return time.toString().padLeft(2, '0');
   }
 
-  String getDeviceName() {
-    // 화면에 표시할 기계 이름만 잘라서 반환
-    List<String> parts = widget.device.split(' ');
-    for (String part in parts) {
-      if (part.contains('세탁기') || part.contains('건조기')) {
-        return part; // 세탁기 또는 건조기만 표시
-      }
-    }
-    return parts.last; // 다른 부분은 그대로 출력
-  }
-
-  void alramchange() async {
-    setState(() {
-      alram_onff = !alram_onff;
-      alram_url = alram_onff
-          ? 'assets/img/alarm_no.svg'
-          : 'assets/img/alarm_x.svg'; // 알람 상태 변경
-    });
-    await machineSave.savepostData(); // 서버로 데이터 전송
+  /// 머신 이름 가공 함수
+  String extractMachineName(String fullName) {
+    List<String> parts = fullName.split(' '); // 공백 기준으로 나누기
+    return parts.length > 1 ? parts.last : fullName; // 마지막 단어 반환
   }
 
   @override
   Widget build(BuildContext context) {
+    // 화면 크기 가져오기
     final size = MediaQuery.of(context).size;
-    final boxWidth = size.width * 0.42;
-    final boxHeight = boxWidth * 0.8;
-    final titleSize = boxWidth * 0.1;
-    final subtitleSize = boxWidth * 0.08;
-    final timeSize = boxWidth * 0.12;
+    final width = size.width * 0.4; // 40% 너비로 설정
+    final height = size.height * 0.15; // 15% 높이로 설정
+
+    // 글자 크기 설정 (크기를 더 크게 조정)
+    final titleSize = width * 0.09; // 제목 글자 크기
+    final subtitleSize = width * 0.08; // 부제목 글자 크기
+    final timeSize = width * 0.08; // 시간 글자 크기
 
     return Container(
-      width: boxWidth,
-      height: boxHeight,
+      width: size.width * 0.8, // 너비를 반응형으로 설정
+      height: size.height * 0.15, // 높이도 반응형으로 설정
       decoration: BoxDecoration(
-        border: Border.all(width: 1, color: AppColor.gray300),
-        borderRadius: BorderRadius.circular(8),
-      ),
+          borderRadius: BorderRadius.circular(7),
+          border: Border.all(width: 1, color: AppColor.gray300)),
       child: Padding(
-        padding: EdgeInsets.all(boxWidth * 0.05),
+        padding: EdgeInsets.symmetric(horizontal: width * 0.05),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Expanded(
-                  child: Row(
+            Padding(
+              padding: EdgeInsets.only(top: height * 0.1, right: width * 0.05),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
                     children: [
                       Text(
-                        getDeviceName(), // 표시할 기계 이름
+                        // 가공된 머신 이름을 표시
+                        extractMachineName(widget.device),
                         style: AppTextStyles.medium14.copyWith(
-                          color: AppColor.gray800,
-                          fontSize: titleSize,
-                        ),
+                            color: AppColor.gray800, fontSize: titleSize),
                       ),
-                      Lightbox(
-                        selectedIndex: widget.place,
-                        dotSize: boxWidth * 0.03,
-                        spacing: boxWidth * 0.01,
-                      ),
+                      Lightbox(selectedIndex: widget.place),
                     ],
                   ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Text(
-                  getDeviceName(), 
-                  style: AppTextStyles.medium10.copyWith(
-                    color: AppColor.gray800,
-                    fontSize: subtitleSize,
-                  ),
-                ),
-                SizedBox(width: boxWidth * 0.03),
-                Container(
-                  width: boxWidth * 0.03,
-                  height: boxWidth * 0.03,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: widget.hour == 0 && widget.minute == 0
-                        ? AppColor.gray300
-                        : AppColor.red100,
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              width: double.infinity,
-              height: boxHeight * 0.3,
-              decoration: BoxDecoration(
-                color: AppColor.gray200,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Center(
-                child: Text(
-                  '${formattime(widget.hour)}:${formattime(widget.minute)}', // 시간 표시
-                  style: AppTextStyles.medium12.copyWith(
-                    color: AppColor.gray400,
-                    fontSize: timeSize,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                ],
               ),
             ),
+            Padding(
+              padding: EdgeInsets.only(top: height * 0.1),
+              child: Row(
+                children: [
+                  Text(
+                    '작동중',
+                    style: AppTextStyles.medium10.copyWith(
+                        color: AppColor.gray800, fontSize: subtitleSize),
+                  ),
+                  SizedBox(
+                    width: width * 0.02,
+                  ),
+                  Container(
+                    width: width * 0.05,
+                    height: width * 0.05,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: widget.hour == 0 && widget.minute == 0
+                            ? AppColor.gray300
+                            : AppColor.red100),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: height * 0.1),
+              child: Row(
+                children: [
+                  Container(
+                    width: width * 0.9,
+                    height: height * 0.25,
+                    decoration: BoxDecoration(
+                      color: widget.hour == 0 && widget.minute == 0
+                          ? AppColor.gray200 // 작동 중이지 않을 때 배경 설정
+                          : Colors.transparent, // 작동 중일 때 배경 제거
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: widget.hour == 0 && widget.minute == 0
+                            ? Colors.transparent // 작동 중이지 않을 때 테두리 제거
+                            : AppColor.gray300, // 작동 중일 때 테두리 색상 설정
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: width * 0.05),
+                          child: Text(
+                            '${formattime(widget.hour)} : ${formattime(widget.minute)}',
+                            style: AppTextStyles.medium14.copyWith(
+                                color: AppColor.gray600, fontSize: timeSize),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -156,6 +173,7 @@ class _MachineBoxState extends State<MachineBox> {
   }
 }
 
+// Lightbox 위젯 정의
 class Lightbox extends StatelessWidget {
   final int selectedIndex;
   final double dotSize;
@@ -164,14 +182,14 @@ class Lightbox extends StatelessWidget {
   const Lightbox({
     super.key,
     required this.selectedIndex,
-    required this.dotSize,
-    required this.spacing,
+    this.dotSize = 6.0,
+    this.spacing = 2.0,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: spacing * 2),
+      padding: EdgeInsets.only(left: spacing * 3),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -197,7 +215,7 @@ class Lightbox extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: List.generate(4, (index) {
-              int number = index - 3;
+              int number = index + -3;
               return Padding(
                 padding: EdgeInsets.only(right: spacing),
                 child: Container(

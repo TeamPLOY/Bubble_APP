@@ -1,17 +1,17 @@
-import 'package:bubble_app/data/providers/network/apis/profile/profile_api.dart';
+import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
+import 'package:bubble_app/presentation/widgets/button/next_button.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
-import 'dart:async';
-import 'package:bubble_app/presentation/widgets/button/next_button.dart';
 import 'package:bubble_app/presentation/widgets/header/side_header.dart';
-import 'package:bubble_app/presentation/widgets/box/reservation_box.dart';
-import 'package:bubble_app/data/models/reservation_model.dart';
-import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
+import 'package:bubble_app/presentation/widgets/box/reservation/reservation_weekbox.dart';
+import 'package:bubble_app/presentation/widgets/box/reservation/reservation_machinebox.dart';
 import 'package:bubble_app/data/providers/network/apis/reservation/reservation_get_api.dart';
-import 'package:bubble_app/data/providers/network/apis/reservation/reservation_post_api.dart';
+import 'package:bubble_app/data/models/reservation_model.dart';
 import 'package:bubble_app/presentation/widgets/modal/reservation_check_modal.dart';
+import 'package:bubble_app/data/providers/network/apis/reservation/reservation_post_api.dart';
 import 'package:bubble_app/data/models/user_model.dart';
+import 'package:bubble_app/data/providers/network/apis/profile/profile_api.dart';
 
 class ReservationPage extends StatefulWidget {
   const ReservationPage({super.key});
@@ -21,266 +21,251 @@ class ReservationPage extends StatefulWidget {
 }
 
 class _ReservationPageState extends State<ReservationPage> {
-  var access_token = globalTokens?.access_token;
-  String reservationDay = '';
-  int? selectedBoxIndex;
-  late DateTime now;
-  late Timer _timer;
-  late Future<List<ReservationModel>> futureReservationData;
-  final ReservationGetApi reservationGet = ReservationGetApi();
-  String serverResponse = '';
-  bool isLoading = false;
-  late bool isfirstclass;
+  late Future<List<ReservationModel>> reservationsFuture;
+  late UserModel user_profile;
+  int selectedIndex = 0;
+  int selectedMachine = -1;
+  var access_token = globalTokens?.access_token ?? '';
 
   @override
   void initState() {
     super.initState();
-    now = DateTime.now();
-    getuserstaet();
-    futureReservationData = reservationGet.fetchData();
-    _timer = Timer.periodic(Duration(minutes: 1), (Timer timer) {
-      DateTime currentTime = DateTime.now();
-      if (currentTime.weekday == DateTime.sunday &&
-          currentTime.hour == 10 &&
-          currentTime.minute == 0) {
-        setState(() {
-          futureReservationData = reservationGet.fetchData();
-        });
-      }
-    });
+    reservationsFuture = fetchReservations();
+    fetchUser();
   }
 
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
+  Future<List<ReservationModel>> fetchReservations() async {
+    final reservationGetApi = ReservationGetApi();
+    return await reservationGetApi.fetchData();
   }
 
-  void _showReservationCancelModal() {
-    if (selectedBoxIndex == null) return;
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: ReservationCheckModal(
-            date: reservationDay,
-            onConfirm: () async {
-              await sendReservation();
-              Navigator.of(context).pop();
-            },
-          ),
-        );
-      },
-    );
-  }
-  Future<void> getuserstaet() async {
-    var access_token = globalTokens?.access_token;
-    ProfileApi get_profile = ProfileApi(access_token: access_token);
-    UserModel user= await get_profile.fetchData();
-    if(user.studentNum/1000-user.studentNum%1000/1000==1.0){
-      isfirstclass= true;
-    }
-    else{
-      isfirstclass= false;
-    }
-  }
-  
-  Future<void> sendReservation() async {
-    if (reservationDay.isEmpty) {
-      setState(() {
-        serverResponse = '날짜를 선택해주세요.';
-      });
-      return;
-    }
-
-    setState(() {
-      isLoading = true;
-    });
-    print(reservationDay);
-    ReservationPostApi postApi = ReservationPostApi(date:reservationDay );
-    postApi.reservationDate();
-}
-
-  void _onStateChanged(int index, bool isSelected) {
-    setState(() {
-      selectedBoxIndex = isSelected ? index : null;
-
-      if (isSelected) {
-        futureReservationData.then((reservations) {
-          reservationDay = reservations[index].date;
-        });
-      }
-    });
+  void fetchUser() async{
+    final userGetapi = ProfileApi(access_token: access_token);
+    user_profile = await userGetapi.fetchData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColor.white100,
-        body:Stack(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 320,  
-              decoration: BoxDecoration(
-                color: AppColor.blue400, // AppColor 사용
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40),
-                  bottomRight: Radius.circular(40),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: SideHeader(text: "예약"),
-            ),
-            Positioned(
-              top: 60,
-              left: 20,
-              right: 20,
-              child: Image.asset(
-                'assets/img/sun.png',
-                width: 200,
-                height: 200,
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                width: MediaQuery.of(context).size.width * (350 / 393),
-                height: 480,
-                decoration: BoxDecoration(
-                  color: AppColor.white100, // AppColor 사용
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                ),
-                padding: EdgeInsets.only(left: 23, top: 30, right: 23),
-                child: FutureBuilder<List<ReservationModel>>(
-                  future: futureReservationData,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      return Center(child: Text('오류: ${snapshot.error}'));
-                    } else if (snapshot.hasData) {
-                      List<ReservationModel> reservations = snapshot.data!;
-        
-                      return ListView(
-                        children:[ Column(
+    return Scaffold(
+      backgroundColor: AppColor.white100,
+      body: SafeArea(
+        child: FutureBuilder<List<ReservationModel>>(
+          future:  reservationsFuture, // 데이터가 준비된 경우에만 호출
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasData) {
+              List<ReservationModel> reservations = snapshot.data!; // Access the data here
+              return ListView(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SideHeader(text: "예약"),
+                      const SizedBox(height: 17),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "세탁실을 이용할 날짜 선택해주세요",
-                              style: AppTextStyles.semiBold18.copyWith(
-                                  color: AppColor.gray800), // AppTextStyles 사용
+                              '세탁실을 이용한 날짜와\n기기를 선택하세요!',
+                              style: AppTextStyles.semiBold24
+                                  .copyWith(color: AppColor.gray800),
                             ),
-                            SizedBox(height: 6),
+                            const SizedBox(height: 8),
                             Text(
-                              "하나만 선택해주세요",
-                              style: AppTextStyles.medium12.copyWith(
-                                  color: AppColor.gray500), // AppTextStyles 사용
+                              '1가지만 선택이 가능해요.',
+                              style: AppTextStyles.medium14
+                                  .copyWith(color: AppColor.blue400),
                             ),
-                            SizedBox(height: 30),
-                            GridView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio:1.55,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
-                              ),
-                              itemCount: reservations.length,
-                              itemBuilder: (context, index) {
-                                ReservationModel reservation =
-                                    reservations[index];
-                                return GestureDetector(
+                            const SizedBox(height: 31),
+                            Text(
+                              '희망하는 날짜 선택',
+                              style: AppTextStyles.semiBold18
+                                  .copyWith(color: AppColor.gray800),
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              children: [
+                                ReservationWeekbox(
+                                  day: reservations[0].date, // Access the data here
+                                  week: "월",
+                                  isActive: selectedIndex == 0,
                                   onTap: () {
-                                   isfirstclass!=null&&isfirstclass==false? _onStateChanged(index, true):(){};
+                                    setState(() {
+                                      selectedIndex = 0;
+                                    });
                                   },
-                                  child: FutureBuilder<bool>(
-                                    future: Future.value(isfirstclass), // isfirstclass 값을 Future로 감싸서 반환
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState == ConnectionState.waiting) {
-                                        return Center(child: CircularProgressIndicator()); // 로딩 중
-                                      } else if (snapshot.hasData) {
-                                        return ReservationBox(
-                                          isfirstclass: snapshot.data ?? false, // 데이터가 있으면 사용
-                                          onStateChanged: (isSelected) {
-                                            _onStateChanged(index, isSelected);
-                                          },
-                                          today: DateTime.parse(reservation.date),
-                                          userCount: reservation.userCount,
-                                          isSelected: selectedBoxIndex == index,
-                                        );
-                                      } else {
-                                        return Center(child: Text('데이터를 불러오는 중 오류가 발생했습니다.'));
-                                      }
-                                    },
-                                  ),
-                                );
-                              },
+                                ),
+                                const SizedBox(width: 20),
+                                ReservationWeekbox(
+                                  day: reservations[1].date, // Access the data here
+                                  week: "화",
+                                  isActive: selectedIndex == 1,
+                                  onTap: () {
+                                    setState(() {
+                                      selectedIndex = 1;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              children: [
+                                ReservationWeekbox(
+                                  day: reservations[2].date, // Access the data here
+                                  week: "수",
+                                  isActive: selectedIndex == 2,
+                                  onTap: () {
+                                    setState(() {
+                                      selectedIndex = 2;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(width: 20),
+                                ReservationWeekbox(
+                                  day: reservations[3].date, // Access the data here
+                                  week: "목",
+                                  isActive: selectedIndex == 3,
+                                  onTap: () {
+                                    setState(() {
+                                      selectedIndex = 3;
+                                    });
+                                  },
+                                ),
+                              ],
                             ),
                             SizedBox(
-                                height: MediaQuery.of(context).size.height *
-                                    (45 / 835)),
-                            Align(
-                              alignment: Alignment.center,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "빨간색은 선택이 불가능합니다.",
-                                    style: AppTextStyles.medium12.copyWith(
-                                        color:
-                                            AppColor.red100), // AppTextStyles 사용
-                                  ),
-                                  SizedBox(height: 14),
-                                  Center(
-                                    child: GestureDetector(
-                                      onTap: (){
-                                
-                                         _showReservationCancelModal();
-                                      },
-                                      child: NextButton(
-                                        text: "예약하기",
-                                        onPressed:(){}
-                                      ),
-                                    ),
-                                  ),
-                                  if (serverResponse.isNotEmpty)
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 20),
-                                      child: Text(
-                                        serverResponse,
-                                        style: TextStyle(color: Colors.red),
-                                      ),
-                                    ),
-                                ],
-                              ),
+                              height: MediaQuery.of(context).size.height * (50 / 852),
                             ),
+                            Row(
+                              children: [
+                                Text(
+                                  '희망하는 세탁기 선택',
+                                  style: AppTextStyles.semiBold18
+                                      .copyWith(color: AppColor.gray800),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              children: [
+                                ReservationMachinebox(
+                                  machine: "1",
+                                  machine_state: reservations[selectedIndex].userCount[0],
+                                  isActive: selectedMachine == 0,
+                                  onTap: () {
+                                    setState(() {
+                                      selectedMachine = 0;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(width: 20),
+                                ReservationMachinebox(
+                                  machine: "2",
+                                  machine_state: reservations[selectedIndex].userCount[1],
+                                  isActive: selectedMachine == 1,
+                                  onTap: () {
+                                    setState(() {
+                                      selectedMachine = 1;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              children: [
+                                ReservationMachinebox(
+                                  machine: "3",
+                                  machine_state: reservations[selectedIndex].userCount[2],
+                                  isActive: selectedMachine == 2,
+                                  onTap: () {
+                                    setState(() {
+                                      selectedMachine = 2;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(width: 20),
+                                ReservationMachinebox(
+                                  machine: "4",
+                                  machine_state: reservations[selectedIndex].userCount[3],
+                                  isActive: selectedMachine == 3,
+                                  onTap: () {
+                                    setState(() {
+                                      selectedMachine = 3;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * (118 / 852),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '빨간색은 선택이 불가능합니다.',
+                                      style: AppTextStyles.medium12
+                                          .copyWith(color: AppColor.red100),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                GestureDetector(
+                                  onTap: ()=>{
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(15),
+                                          ),
+                                          child: ReservationCheckModal(
+                                            date: reservations[selectedIndex].date,
+                                            onConfirm: () async {
+                                              print('${reservations[selectedIndex].date}');
+                                              print("${user_profile.washingRoom} 세탁기${selectedMachine+1}");
+                                              ReservationPostApi postApi = ReservationPostApi(date:'${reservations[selectedIndex].date}',machine: "${user_profile.washingRoom} 세탁기${selectedMachine+1}");
+                                              postApi.reservationDate();
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    )
+                                  },
+                                  child: NextButton(
+                                    text: '예약하기',
+                                    onPressed: () {
+                                      // 버튼 클릭 시 로직 추가
+                                    },
+                                  ),
+                                )
+                              ],
+                            )
                           ],
-                        ),]
-                      );
-                    } else {
-                      return Center(child: Text('예약 데이터가 없습니다.'));
-                    }
-                  },
-                ),
-              ),
-            ),
-          ],
-        )
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              return const Center(child: Text('No data available.'));
+            }
+          },
+        ),
       ),
     );
   }

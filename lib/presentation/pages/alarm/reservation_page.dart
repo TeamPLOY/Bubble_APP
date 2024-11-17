@@ -4,7 +4,7 @@ import 'package:bubble_app/presentation/widgets/header/side_header.dart';
 import 'package:bubble_app/data/models/reservation_state_model.dart';
 import 'package:bubble_app/presentation/pages/alarm/notice_page.dart';
 import 'package:bubble_app/presentation/widgets/button/alarm_button.dart';
-import 'package:bubble_app/presentation/widgets/box/reservation_cancel_box.dart';
+import 'package:bubble_app/presentation/widgets/box/reservation/reservation_cancel_box.dart';
 import 'package:bubble_app/data/providers/network/apis/reservation/reservation_state_api.dart';
 import 'package:bubble_app/presentation/pages/alarm/alarm_page.dart';
 
@@ -79,7 +79,7 @@ class _ReservationStatePage extends State<ReservationListPage> {
               selectedButtonIndex: _selectedButtonIndex,
               onButtonPressed: _handleButtonPress,
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 46),
             Expanded(
               child: isLoading // 로딩 상태에 따라 UI 변경
                   ? Center(child: CircularProgressIndicator())
@@ -89,6 +89,8 @@ class _ReservationStatePage extends State<ReservationListPage> {
                         itemBuilder: (context, index) {
                           final reservation = reservationStateList[index];
                           return Cancel(
+                            dayOfWeek: reservation.dayOfWeek,
+                            machine: reservation.machine,
                             cancel: reservation.cancel,
                             resDate: formatDate(reservation.date),
                             roomnumber: reservation.washingRoom,

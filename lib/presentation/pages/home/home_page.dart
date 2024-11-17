@@ -190,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                         style: AppTextStyles.medium16
                             .copyWith(color: AppColor.gray800),
                       ),
-                      _buildMessageWidget(), // 메시지 위젯 추가
+                      _buildMessageWidget(),
                       SizedBox(height: screenHeight * 0.012),
                       MainNoticeBox(),
                       SizedBox(height: screenHeight * 0.025),
@@ -221,7 +221,7 @@ class _HomePageState extends State<HomePage> {
 
                           return LayoutBuilder(
                             builder: (context, constraints) {
-                              double boxWidth = constraints.maxWidth * 0.4;
+                              double boxWidth = constraints.maxWidth * 0.44;
                               return ListView.builder(
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),

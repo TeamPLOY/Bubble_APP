@@ -17,12 +17,12 @@ class _MainNoticeBoxState extends State<MainNoticeBox> {
       height: 47,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: AppColor.gray100,
+        color: AppColor.gray200,
       ),
       padding: EdgeInsets.only(left: 13, top: 14),
       child: Text(
         "세탁기 섬유유연제는 두통을 유발하니 자제해주세요.",
-        style: AppTextStyles.medium14.copyWith(color: AppColor.gray500),
+        style: AppTextStyles.medium14.copyWith(color: AppColor.gray600),
       ),
     );
   }
