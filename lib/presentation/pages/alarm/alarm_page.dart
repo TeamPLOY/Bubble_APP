@@ -65,7 +65,7 @@ class _AlarmPageState extends State<AlarmPage> {
             Expanded(
               // Expand로 공간을 확보
               child: ListView.builder(
-                itemCount: 0, // 원하는 알림 개수 설정
+                itemCount: 1, // 원하는 알림 개수 설정
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 5.0),
@@ -73,19 +73,33 @@ class _AlarmPageState extends State<AlarmPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Container(
                         width: MediaQuery.of(context).size.width * (345 / 393),
-                        height: 50,
+                        height: 72,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           color: AppColor.white100,
                           border: Border.all(color: AppColor.gray300, width: 1),
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 16.0, top: 10, right: 8),
-                          child: Text(
-                            '한태영님, 세탁기가 완료되었습니다. 어서 건조기를 돌리세요!',
-                            style: AppTextStyles.medium12
-                                .copyWith(color: AppColor.gray800),
-                          ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 17.0, top: 16),
+                              child: Text(
+                                '한태영님, 세탁기가 완료되었습니다. 어서 건조기를 돌리세요!',
+                                style: AppTextStyles.semiBold14
+                                    .copyWith(color: AppColor.gray800),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 16.0, top: 5),
+                              child: Text(
+                                '2024-11-23',
+                                style: AppTextStyles.medium12
+                                    .copyWith(color: AppColor.gray600),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

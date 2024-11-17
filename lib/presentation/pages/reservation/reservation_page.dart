@@ -203,8 +203,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * (118 / 852),
+                           SizedBox(
+                              height: MediaQuery.of(context).size.height >740? MediaQuery.of(context).size.height * (118 / 852): MediaQuery.of(context).size.height * (20/ 852),
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
@@ -249,7 +249,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                       // 버튼 클릭 시 로직 추가
                                     },
                                   ),
-                                )
+                                ),
+                                SizedBox(height: 10,)
                               ],
                             )
                           ],
