@@ -54,7 +54,7 @@ class _CancelState extends State<Cancel> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * (332 / 393),
-      height: 92,
+      height: 72,
       decoration: BoxDecoration(
         color: AppColor.white100,
         borderRadius: BorderRadius.circular(8),
@@ -73,13 +73,13 @@ class _CancelState extends State<Cancel> {
               width: 70,
               height: 16,
               decoration: BoxDecoration(
-                  color: AppColor.blue400,
-                  borderRadius: BorderRadius.circular(3)),
-              alignment: Alignment.center,
-              child: Text(
-                "${widget.roomnumber}",
-                style: AppTextStyles.medium10.copyWith(
-                  color: AppColor.white100,
+                  color: AppColor.blue400, borderRadius: BorderRadius.circular(3)),
+              child: Center(
+                child: Text(
+                  "${widget.machine}",
+                  style: AppTextStyles.medium10.copyWith(
+                    color: AppColor.white100,
+                  ),
                 ),
               ),
             ),
@@ -89,29 +89,16 @@ class _CancelState extends State<Cancel> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${widget.resDate} 예약",
-                        style: AppTextStyles.medium14.copyWith(
-                          color: AppColor.gray800,
-                        ),
-                      ),
-                      Text(
-                        "${widget.dayOfWeek} ${widget.machine}",
-                        style: AppTextStyles.medium14.copyWith(
-                          color: AppColor.gray800,
-                        ),
-                      ),
-                    ],
+                  child: Text(
+                    "${widget.resDate} ${widget.dayOfWeek} 예약",
+                    style: AppTextStyles.medium14.copyWith(
+                      color: AppColor.gray800,
+                    ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 17, top: 10),
-                  child: _cancel == true
-                      ? Container(
+                  padding: const EdgeInsets.only(right: 10,top: 5),
+                  child:_cancel == true? Container(
                           width: 70,
                           height: 26,
                           decoration: BoxDecoration(
