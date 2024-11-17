@@ -87,13 +87,23 @@ class _ReservationPageState extends State<ReservationPage> {
                               style: AppTextStyles.semiBold18
                                   .copyWith(color: AppColor.gray800),
                             ),
-                            const SizedBox(height: 16),
-                            Row(
-                              children: [
-                                ReservationWeekbox(
-                                  day: reservations[0].date, // Access the data here
-                                  week: "월",
-                                  isActive: selectedIndex == 0,
+
+                            SizedBox(height: 30),
+                            GridView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio:1.3,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                              ),
+                              itemCount: reservations.length,
+                              itemBuilder: (context, index) {
+                                ReservationModel reservation =
+                                    reservations[index];
+                                return GestureDetector(
                                   onTap: () {
                                     setState(() {
                                       selectedIndex = 0;
@@ -249,9 +259,19 @@ class _ReservationPageState extends State<ReservationPage> {
                                       // 버튼 클릭 시 로직 추가
                                     },
                                   ),
-                                )
-                              ],
-                            )
+
+                                  if (serverResponse.isNotEmpty)
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20),
+                                      child: Text(
+                                        serverResponse,
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                    ),
+                                    SizedBox(height: 30,)
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
