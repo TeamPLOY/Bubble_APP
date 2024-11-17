@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+//import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'dart:async';
-import 'package:bubble_app/data/providers/network/apis/machine/machine_check_api.dart';
+//import 'package:bubble_app/data/providers/network/apis/machine/machine_check_api.dart';/
 import 'package:bubble_app/data/providers/network/apis/machine/machine_alarm_api.dart';
 
 class MachineBox extends StatefulWidget {
@@ -22,25 +22,25 @@ class MachineBox extends StatefulWidget {
 }
 
 class _MachineBoxState extends State<MachineBox> {
-  late bool alram_onff;
-  late String alram_url = 'assets/img/alarm_no.svg';
+  // late bool alram_onff;
+  // late String alram_url = 'assets/img/alarm_no.svg';
   late Timer _timer;
   late MachineAlarmApi machineSave = MachineAlarmApi(machine: widget.device);
 
   @override
   void initState() {
     super.initState();
-    setcheck();
+    // setcheck();
     _startTimer();
   }
 
-  void setcheck() async {
-    MachingCheckApi machingCheck = MachingCheckApi(machine: widget.device);
-    alram_onff = await machingCheck.checkpostData();
-    alram_url =
-        alram_onff ? 'assets/img/alarm_no.svg' : 'assets/img/alarm_x.svg';
-    setState(() {}); // 값을 가져온 후 UI 업데이트
-  }
+  // void setcheck() async {
+  //   MachingCheckApi machingCheck = MachingCheckApi(machine: widget.device);
+  //   alram_onff = await machingCheck.checkpostData();
+  //   alram_url =
+  //       alram_onff ? 'assets/img/alarm_no.svg' : 'assets/img/alarm_x.svg';
+  //   setState(() {}); // 값을 가져온 후 UI 업데이트
+  // }
 
   void _startTimer() {
     _timer = Timer.periodic(Duration(minutes: 1), (timer) {
@@ -69,19 +69,19 @@ class _MachineBoxState extends State<MachineBox> {
     return time.toString().padLeft(2, '0');
   }
 
-  void alramchange() async {
-    setState(() {
-      if (alram_onff == false) {
-        alram_url = 'assets/img/alarm_no.svg';
-        alram_onff = true;
-      } else if (alram_onff == true) {
-        alram_url = 'assets/img/alarm_x.svg';
-        alram_onff = false;
-      }
-    });
-    await machineSave.savepostData();
-    print("끝");
-  }
+  // void alramchange() async {
+  //   setState(() {
+  //     if (alram_onff == false) {
+  //       alram_url = 'assets/img/alarm_no.svg';
+  //       alram_onff = true;
+  //     } else if (alram_onff == true) {
+  //       alram_url = 'assets/img/alarm_x.svg';
+  //       alram_onff = false;
+  //     }
+  //   });
+  //   await machineSave.savepostData();
+  //   print("끝");
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -122,13 +122,13 @@ class _MachineBoxState extends State<MachineBox> {
                       Lightbox(selectedIndex: widget.place),
                     ],
                   ),
-                  GestureDetector(
-                      onTap: () => {alramchange()},
-                      child: SvgPicture.asset(
-                        alram_url,
-                        width: width * 0.1,
-                        height: height * 0.1,
-                      )),
+                  // GestureDetector(
+                  //     onTap: () => {alramchange()},
+                  //     child: SvgPicture.asset(
+                  //       alram_url,
+                  //       width: width * 0.1,
+                  //       height: height * 0.1,
+                  //     )),
                 ],
               ),
             ),

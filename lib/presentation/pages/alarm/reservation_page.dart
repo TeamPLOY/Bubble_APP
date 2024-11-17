@@ -94,6 +94,8 @@ class _ReservationStatePage extends State<ReservationListPage> {
                         itemBuilder: (context, index) {
                           final reservation = reservationStateList[index];
                           return Cancel(
+                            dayOfWeek: reservation.dayOfWeek,
+                            machine: reservation.machine,
                             cancel: reservation.cancel,
                             resDate: formatDate(reservation.date),
                             roomnumber: reservation.washingRoom,
