@@ -8,12 +8,15 @@ class Cancel extends StatefulWidget {
   final String roomnumber;
   final bool cancel;
   final String washingRoom;
-
+  final String dayOfWeek;
+  final String machine;
   Cancel(
       {required this.resDate,
       required this.roomnumber,
       required this.cancel,
       required this.washingRoom,
+      required this.dayOfWeek,
+      required this.machine,
       Key? key})
       : super(key: key);
 
@@ -51,7 +54,7 @@ bool checkDate(String backendDate) {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * (332 / 393),
-      height: 72,
+      height: 92,
       decoration: BoxDecoration(
         color: AppColor.white100,
         borderRadius: BorderRadius.circular(8),
@@ -82,18 +85,30 @@ bool checkDate(String backendDate) {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: [ 
                 Padding(
-                  padding: EdgeInsets.only(left: 12, top: 13),
-                  child: Text(
-                    "${widget.resDate} 예약",
-                    style: AppTextStyles.medium14.copyWith(
-                      color: AppColor.gray800,
-                    ),
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${widget.resDate} 예약",
+                        style: AppTextStyles.medium14.copyWith(
+                          color: AppColor.gray800,
+                        ),
+                      ),
+                      Text(
+                        "${widget.dayOfWeek} ${widget.machine}",
+                        style: AppTextStyles.medium14.copyWith(
+                          color: AppColor.gray800,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 17),
+                  padding: const EdgeInsets.only(right: 17,top: 10),
                   child:_cancel == true? Container(
                           width: 70,
                           height: 26,

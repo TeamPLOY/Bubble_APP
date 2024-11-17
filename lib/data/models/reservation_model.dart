@@ -1,7 +1,7 @@
 class ReservationModel {
   final String date;
   final String day;
-  final int userCount;
+  final List<dynamic>userCount;
 
   ReservationModel(
       {required this.date, required this.day, required this.userCount});
