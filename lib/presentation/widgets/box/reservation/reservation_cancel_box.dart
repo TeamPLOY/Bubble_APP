@@ -73,7 +73,8 @@ class _CancelState extends State<Cancel> {
               width: 70,
               height: 16,
               decoration: BoxDecoration(
-                  color: AppColor.blue400, borderRadius: BorderRadius.circular(3)),
+                  color: AppColor.blue400,
+                  borderRadius: BorderRadius.circular(3)),
               child: Center(
                 child: Text(
                   "${widget.machine}",
@@ -97,8 +98,9 @@ class _CancelState extends State<Cancel> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 10,top: 5),
-                  child:_cancel == true? Container(
+                  padding: const EdgeInsets.only(right: 10, top: 5),
+                  child: _cancel == true
+                      ? Container(
                           width: 70,
                           height: 26,
                           decoration: BoxDecoration(
