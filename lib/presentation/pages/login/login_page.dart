@@ -71,17 +71,17 @@ class _LoginPageState extends State<LoginPage> {
                     password: true,
                   ),
                   SizedBox(height: pad),
-                  // if (loginstate[0] == true || loginstate[1] == true)
-                  //   Column(
-                  //     children: [
-                  //       Text(
-                  //         '이메일 혹은 비밀번호가 비어있습니다.',
-                  //         style: AppTextStyles.medium12.copyWith(
-                  //             color: AppColor.red100), // AppTextStyles 사용
-                  //       ),
-                  //       SizedBox(height: 17),
-                  //     ],
-                  //   ),
+                  if (loginstate[0] == true || loginstate[1] == true)
+                    Column(
+                      children: [
+                        Text(
+                          '이메일 혹은 비밀번호가 비어있습니다.',
+                          style: AppTextStyles.medium12.copyWith(
+                              color: AppColor.red100), // AppTextStyles 사용
+                        ),
+                        SizedBox(height: 17),
+                      ],
+                    ),
                   if (logcheck == false)
                     Column(
                       children: [
