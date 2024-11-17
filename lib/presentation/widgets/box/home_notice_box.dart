@@ -14,15 +14,15 @@ class _MainNoticeBoxState extends State<MainNoticeBox> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width - 48,
-      height: 47,
+      height: 57,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: AppColor.gray200,
       ),
-      padding: EdgeInsets.only(left: 13, top: 14),
+      padding: EdgeInsets.only(left: 10, top: 10,right: 10),
       child: Text(
         "세탁기 섬유유연제는 두통을 유발하니 자제해주세요.",
-        style: AppTextStyles.medium16.copyWith(color: AppColor.gray600),
+        style: AppTextStyles.medium14.copyWith(color: AppColor.gray600),
       ),
     );
   }
