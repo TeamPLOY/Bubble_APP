@@ -55,7 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 40),
+                    padding: const EdgeInsets.only(top: 40),
                     child: Container(
                       decoration: BoxDecoration(
                           border: Border.all(
@@ -72,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 13),
+                    padding: const EdgeInsets.only(top: 13),
                     child: Column(
                       children: [
                         Text(
@@ -93,63 +93,56 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
+            const SizedBox(height: 14), // 상단 정보와 첫 번째 섹션 간 여백
             Padding(
-              padding: EdgeInsets.only(top: 14),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '이메일',
-                      style: AppTextStyles.medium14.copyWith(
-                          color: AppColor.gray800), // AppTextStyles 사용
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * (3 / 852),
-                    ),
-                    ProfileText(
-                      information: userData != null
-                          ? '${userData!.email}'
-                          : '이메일 로딩 중...',
-                    )
-                  ],
-                ),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '이메일',
+                    style: AppTextStyles.medium22
+                        .copyWith(color: AppColor.gray800), // AppTextStyles 사용
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * (3 / 852),
+                  ),
+                  ProfileText(
+                    information:
+                        userData != null ? '${userData!.email}' : '이메일 로딩 중...',
+                  ),
+                ],
               ),
             ),
+            const SizedBox(height: 25),
             Padding(
-              padding: EdgeInsets.only(top: 25),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '호실',
-                      style: AppTextStyles.medium14.copyWith(
-                          color: AppColor.gray800), // AppTextStyles 사용
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * (3 / 852),
-                    ),
-                    ProfileText(
-                      information: userData != null
-                          ? '${userData!.roomNum}'
-                          : '호실 로딩 중...',
-                    )
-                  ],
-                ),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '호실',
+                    style: AppTextStyles.medium22
+                        .copyWith(color: AppColor.gray800), // AppTextStyles 사용
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * (3 / 852),
+                  ),
+                  ProfileText(
+                    information: userData != null
+                        ? '${userData!.roomNum}'
+                        : '호실 로딩 중...',
+                  ),
+                ],
               ),
             ),
+            const Spacer(), // 호실과 하단 버튼 사이 간격 반응형 조정
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 80),
+                padding: const EdgeInsets.only(bottom: 80),
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * (200 / 852),
-                    ),
                     GestureDetector(
                       onTap: () {
                         showDialog(
@@ -161,13 +154,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                       child: Text(
                         '로그아웃',
-                        style: AppTextStyles.regular14.copyWith(
+                        style: AppTextStyles.regular20.copyWith(
                             color: AppColor.gray600), // AppTextStyles 사용
                       ),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     GestureDetector(
                       onTap: () {
                         showDialog(
@@ -179,14 +170,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                       child: Text(
                         '탈퇴하기',
-                        style: AppTextStyles.regular14.copyWith(
+                        style: AppTextStyles.regular20.copyWith(
                             color: AppColor.red100), // AppTextStyles 사용
                       ),
                     ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
