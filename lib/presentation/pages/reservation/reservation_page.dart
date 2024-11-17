@@ -103,6 +103,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                         onTap: () {
                                           setState(() {
                                             selectedIndex = 0;
+                                            selectedMachine=-1;
                                           });
                                         },
                                       ),
@@ -115,6 +116,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                         onTap: () {
                                           setState(() {
                                             selectedIndex = 1;
+                                            selectedMachine=-1;
                                           });
                                         },
                                       ),
@@ -131,6 +133,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                         onTap: () {
                                           setState(() {
                                             selectedIndex = 2;
+                                            selectedMachine=-1;
                                           });
                                         },
                                       ),
@@ -143,6 +146,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                         onTap: () {
                                           setState(() {
                                             selectedIndex = 3;
+                                            selectedMachine=-1;
                                           });
                                         },
                                       ),
@@ -179,6 +183,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                         onTap: () {
                                           setState(() {
                                             selectedMachine = 0;
+                                            
                                           });
                                         },
                                       ),
