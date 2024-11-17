@@ -65,241 +65,237 @@ class _ReservationPageState extends State<ReservationPage> {
                     children: [
                       SideHeader(text: "예약"),
                       const SizedBox(height: 17),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            
-
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                              '세탁실을 이용한 날짜와\n기기를 선택하세요!',
-                              style: AppTextStyles.semiBold24
-                                  .copyWith(color: AppColor.gray800),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              '1가지만 선택이 가능해요.',
-                              style: AppTextStyles.medium16
-                                  .copyWith(color: AppColor.blue400),
-                            ),
-                            const SizedBox(height: 24),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
                                   Text(
-                                    '희망하는 날짜 선택',
+                            '세탁실을 이용한 날짜와\n기기를 선택하세요!',
+                            style: AppTextStyles.semiBold24
+                                .copyWith(color: AppColor.gray800),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            '1가지만 선택이 가능해요.',
+                            style: AppTextStyles.medium16
+                                .copyWith(color: AppColor.blue400),
+                          ),
+                          const SizedBox(height: 24),
+                                Text(
+                                  '희망하는 날짜 선택',
+                                  style: AppTextStyles.semiBold18
+                                      .copyWith(color: AppColor.gray800),
+                                ),
+                                const SizedBox(height: 16),
+                                  Row(
+                                    children: [
+                                      ReservationWeekbox(
+                                        day: reservations[0]
+                                            .date, // Access the data here
+                                        week: "월",
+                                        isActive: selectedIndex == 0,
+                                        onTap: () {
+                                          setState(() {
+                                            selectedIndex = 0;
+                                          });
+                                        },
+                                      ),
+                                      const SizedBox(width: 20),
+                                      ReservationWeekbox(
+                                        day: reservations[1]
+                                            .date, // Access the data here
+                                        week: "화",
+                                        isActive: selectedIndex == 1,
+                                        onTap: () {
+                                          setState(() {
+                                            selectedIndex = 1;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Row(
+                                    children: [
+                                      ReservationWeekbox(
+                                        day: reservations[2]
+                                            .date, // Access the data here
+                                        week: "수",
+                                        isActive: selectedIndex == 2,
+                                        onTap: () {
+                                          setState(() {
+                                            selectedIndex = 2;
+                                          });
+                                        },
+                                      ),
+                                      const SizedBox(width: 20),
+                                      ReservationWeekbox(
+                                        day: reservations[3]
+                                            .date, // Access the data here
+                                        week: "목",
+                                        isActive: selectedIndex == 3,
+                                        onTap: () {
+                                          setState(() {
+                                            selectedIndex = 3;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height *
+                                (40 / 852),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '희망하는 세탁기 선택',
                                     style: AppTextStyles.semiBold18
                                         .copyWith(color: AppColor.gray800),
                                   ),
                                   const SizedBox(height: 16),
-                                    Row(
-                                      children: [
-                                        ReservationWeekbox(
-                                          day: reservations[0]
-                                              .date, // Access the data here
-                                          week: "월",
-                                          isActive: selectedIndex == 0,
-                                          onTap: () {
-                                            setState(() {
-                                              selectedIndex = 0;
-                                            });
-                                          },
-                                        ),
-                                        const SizedBox(width: 20),
-                                        ReservationWeekbox(
-                                          day: reservations[1]
-                                              .date, // Access the data here
-                                          week: "화",
-                                          isActive: selectedIndex == 1,
-                                          onTap: () {
-                                            setState(() {
-                                              selectedIndex = 1;
-                                            });
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 20),
-                                    Row(
-                                      children: [
-                                        ReservationWeekbox(
-                                          day: reservations[2]
-                                              .date, // Access the data here
-                                          week: "수",
-                                          isActive: selectedIndex == 2,
-                                          onTap: () {
-                                            setState(() {
-                                              selectedIndex = 2;
-                                            });
-                                          },
-                                        ),
-                                        const SizedBox(width: 20),
-                                        ReservationWeekbox(
-                                          day: reservations[3]
-                                              .date, // Access the data here
-                                          week: "목",
-                                          isActive: selectedIndex == 3,
-                                          onTap: () {
-                                            setState(() {
-                                              selectedIndex = 3;
-                                            });
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height *
-                                  (40 / 852),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '희망하는 세탁기 선택',
-                                      style: AppTextStyles.semiBold18
-                                          .copyWith(color: AppColor.gray800),
-                                    ),
-                                    const SizedBox(height: 16),
-                                    Row(
-                                      children: [
-                                        ReservationMachinebox(
-                                          machine: "1",
-                                          machine_state:
-                                              reservations[selectedIndex].userCount[0],
-                                          isActive: selectedMachine == 0,
-                                          onTap: () {
-                                            setState(() {
-                                              selectedMachine = 0;
-                                            });
-                                          },
-                                        ),
-                                        const SizedBox(width: 20),
-                                        ReservationMachinebox(
-                                          machine: "2",
-                                          machine_state:
-                                              reservations[selectedIndex].userCount[1],
-                                          isActive: selectedMachine == 1,
-                                          onTap: () {
-                                            setState(() {
-                                              selectedMachine = 1;
-                                            });
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 20),
-                                    Row(
-                                      children: [
-                                        ReservationMachinebox(
-                                          machine: "3",
-                                          machine_state:
-                                              reservations[selectedIndex].userCount[2],
-                                          isActive: selectedMachine == 2,
-                                          onTap: () {
-                                            setState(() {
-                                              selectedMachine = 2;
-                                            });
-                                          },
-                                        ),
-                                        const SizedBox(width: 20),
-                                        ReservationMachinebox(
-                                          machine: "4",
-                                          machine_state:
-                                              reservations[selectedIndex].userCount[3],
-                                          isActive: selectedMachine == 3,
-                                          onTap: () {
-                                            setState(() {
-                                              selectedMachine = 3;
-                                            });
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height > 740
-                                  ? MediaQuery.of(context).size.height *
-                                      (118 / 852)
-                                  : MediaQuery.of(context).size.height *
-                                      (20 / 852),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      '빨간색은 선택이 불가능합니다.',
-                                      style: AppTextStyles.medium16
-                                          .copyWith(color: AppColor.red100),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 8),
-                                GestureDetector(
-                                  onTap: () => {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Dialog(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                          ),
-                                          child: ReservationCheckModal(
-                                            date: reservations[selectedIndex]
-                                                .date,
-                                            onConfirm: () async {
-                                              print(
-                                                  '${reservations[selectedIndex].date}');
-                                              print(
-                                                  "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
-                                              ReservationPostApi postApi =
-                                                  ReservationPostApi(
-                                                      date:
-                                                          '${reservations[selectedIndex].date}',
-                                                      machine:
-                                                          "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
-                                              postApi.reservationDate();
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                        );
-                                      },
-                                    )
-                                  },
-                                  child: NextButton(
-                                    text: '예약하기',
-                                    onPressed: () {
-                                      // 버튼 클릭 시 로직 추가
-                                    },
+                                  Row(
+                                    children: [
+                                      ReservationMachinebox(
+                                        machine: "1",
+                                        machine_state:
+                                            reservations[selectedIndex].userCount[0],
+                                        isActive: selectedMachine == 0,
+                                        onTap: () {
+                                          setState(() {
+                                            selectedMachine = 0;
+                                          });
+                                        },
+                                      ),
+                                      const SizedBox(width: 20),
+                                      ReservationMachinebox(
+                                        machine: "2",
+                                        machine_state:
+                                            reservations[selectedIndex].userCount[1],
+                                        isActive: selectedMachine == 1,
+                                        onTap: () {
+                                          setState(() {
+                                            selectedMachine = 1;
+                                          });
+                                        },
+                                      ),
+                                    ],
                                   ),
+                                  const SizedBox(height: 20),
+                                  Row(
+                                    children: [
+                                      ReservationMachinebox(
+                                        machine: "3",
+                                        machine_state:
+                                            reservations[selectedIndex].userCount[2],
+                                        isActive: selectedMachine == 2,
+                                        onTap: () {
+                                          setState(() {
+                                            selectedMachine = 2;
+                                          });
+                                        },
+                                      ),
+                                      const SizedBox(width: 20),
+                                      ReservationMachinebox(
+                                        machine: "4",
+                                        machine_state:
+                                            reservations[selectedIndex].userCount[3],
+                                        isActive: selectedMachine == 3,
+                                        onTap: () {
+                                          setState(() {
+                                            selectedMachine = 3;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                                            SizedBox(
+                            height: MediaQuery.of(context).size.height > 740
+                                ? MediaQuery.of(context).size.height *
+                                    (118 / 852)
+                                : MediaQuery.of(context).size.height *
+                                    (20 / 852),
+                          ),
+                          Column(
+                            
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '빨간색은 선택이 불가능합니다.',
+                                    style: AppTextStyles.medium16
+                                        .copyWith(color: AppColor.red100),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              GestureDetector(
+                                onTap: () => {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Dialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: ReservationCheckModal(
+                                          date: reservations[selectedIndex]
+                                              .date,
+                                          onConfirm: () async {
+                                            print(
+                                                '${reservations[selectedIndex].date}');
+                                            print(
+                                                "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
+                                            ReservationPostApi postApi =
+                                                ReservationPostApi(
+                                                    date:
+                                                        '${reservations[selectedIndex].date}',
+                                                    machine:
+                                                        "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
+                                            postApi.reservationDate();
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  )
+                                },
+                                child: NextButton(
+                                  text: '예약하기',
+                                  onPressed: () {
+                                    // 버튼 클릭 시 로직 추가
+                                  },
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                )
-                              ],
-                            )
-                          ],
-                        ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              )
+                            ],
+                          )
+                                ],
+                              ),
+                            ],
+                          ),
+                          
+
+                        ],
                       ),
                     ],
                   ),

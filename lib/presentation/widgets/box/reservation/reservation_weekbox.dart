@@ -28,7 +28,7 @@ class _ReservationWeekboxState extends State<ReservationWeekbox> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        width: MediaQuery.of(context).size.width*(150/393),
+        width: MediaQuery.of(context).size.width*(160/393),
         height: MediaQuery.of(context).size.height*(59/852),
         decoration: BoxDecoration(
           boxShadow: [

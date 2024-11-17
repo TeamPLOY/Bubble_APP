@@ -26,7 +26,7 @@ class _ReservationMachineboxState extends State<ReservationMachinebox> {
     return 
     widget.machine_state? 
     Container(
-        width: MediaQuery.of(context).size.width*(150/393),
+        width: MediaQuery.of(context).size.width*(160/393),
         height: MediaQuery.of(context).size.height*(59/852),
         decoration: BoxDecoration(
           boxShadow: [

@@ -23,7 +23,7 @@ class _MainNoticeBoxState extends State<MainNoticeBox> {
       child: Text(
         "세탁기 섬유유연제는 두통을 유발하니 자제해주세요.",
         style: AppTextStyles.medium14.copyWith(color: AppColor.gray600),
-      ),
+      ), 
     );
   }
 }
