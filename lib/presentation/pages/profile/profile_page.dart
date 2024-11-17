@@ -101,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Text(
                     '이메일',
-                    style: AppTextStyles.medium22
+                    style: AppTextStyles.medium18
                         .copyWith(color: AppColor.gray800), // AppTextStyles 사용
                   ),
                   SizedBox(
@@ -122,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Text(
                     '호실',
-                    style: AppTextStyles.medium22
+                    style: AppTextStyles.medium18
                         .copyWith(color: AppColor.gray800), // AppTextStyles 사용
                   ),
                   SizedBox(

@@ -50,7 +50,7 @@ class _BottomState extends State<Bottom> {
                 setState(() {
                   get_user_state();
                 });
-                if (check_user == true) {
+                if (check_user == false) {
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
