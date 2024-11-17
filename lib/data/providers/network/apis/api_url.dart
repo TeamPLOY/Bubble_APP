@@ -16,6 +16,7 @@ class ApiUrls {
   static String get maching_save_url => '$baseUrl/notification/save';
   static String get maching_check_url => '$baseUrl/notification/check';
   static String get notification_detail_url => '$baseUrl/notification/detail';
+  static String get notification_notification_url => '$baseUrl/notification/notification';
   static String get notification_url => '$baseUrl/notification';
   static String get refresh_post_url => '$baseUrl/refresh-token';
   static String get reservation_get_url => '$baseUrl/reservation';
