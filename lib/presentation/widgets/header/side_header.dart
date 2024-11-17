@@ -25,16 +25,16 @@ class SideHeader extends StatelessWidget {
             child: GestureDetector(
                 onTap: () {
                   Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        HomePage(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return child;
-                    },
-                  ),
-                );
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          HomePage(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        return child;
+                      },
+                    ),
+                  );
                 },
                 child: SvgPicture.asset(
                   'assets/img/back.svg',
@@ -48,7 +48,8 @@ class SideHeader extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 28),
                 child: Text(
                   '${text}',
-                  style: AppTextStyles.medium16.copyWith(color: AppColor.gray800),
+                  style:
+                      AppTextStyles.medium18.copyWith(color: AppColor.gray800),
                 ),
               ),
             ),

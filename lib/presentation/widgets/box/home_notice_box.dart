@@ -22,7 +22,7 @@ class _MainNoticeBoxState extends State<MainNoticeBox> {
       padding: EdgeInsets.only(left: 13, top: 14),
       child: Text(
         "세탁기 섬유유연제는 두통을 유발하니 자제해주세요.",
-        style: AppTextStyles.medium14.copyWith(color: AppColor.gray600),
+        style: AppTextStyles.medium16.copyWith(color: AppColor.gray600),
       ),
     );
   }
