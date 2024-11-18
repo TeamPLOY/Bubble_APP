@@ -12,18 +12,43 @@ class MainNoticeBox extends StatefulWidget {
 class _MainNoticeBoxState extends State<MainNoticeBox> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width - 48,
-      height: 57,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: AppColor.gray200,
-      ),
-      padding: EdgeInsets.only(left: 10, top: 10,right: 10),
-      child: Text(
-        "세탁기 섬유유연제는 두통을 유발하니 자제해주세요.",
-        style: AppTextStyles.medium14.copyWith(color: AppColor.gray600),
-      ), 
+    const String message =
+        "세탁기 섬유유연제는 두통을 유발하니 자제해주세요.";
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+  final double availableWidth = MediaQuery.of(context).size.width - 48;
+  
+  final TextPainter textPainter = TextPainter(
+    text: TextSpan(
+      text: message,
+      style: AppTextStyles.medium14.copyWith(color: AppColor.gray600),
+    ),
+    maxLines: 2,
+    textDirection: TextDirection.ltr,
+  )..layout(maxWidth: availableWidth);
+
+  final bool isOverflow = textPainter.didExceedMaxLines;
+
+  final double containerHeight = isOverflow ? 57 : 37;
+
+  return Container(
+    width: availableWidth,
+    height: containerHeight,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      color: AppColor.gray200,
+    ),
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    child: Text(
+      message,
+      style: AppTextStyles.medium14.copyWith(color: AppColor.gray600),
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+    ),
+  );
+}
+
     );
   }
 }
