@@ -6,9 +6,7 @@ import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/pages/alarm/alarm_page.dart';
 
 class FinishPage extends StatefulWidget {
-  final String title;
-  const FinishPage({required this.title, Key? key})
-      : super(key: key); // title과 Key 설정
+  const FinishPage({super.key});
 
   @override
   State<FinishPage> createState() => _FinishState();
@@ -16,7 +14,7 @@ class FinishPage extends StatefulWidget {
 
 class _FinishState extends State<FinishPage> {
   Timer? _timer;
-  int count = 3; // 변수명을 count로 변경
+  int count = 3;
 
   @override
   void initState() {
@@ -70,7 +68,7 @@ class _FinishState extends State<FinishPage> {
                 height: 20,
               ),
               Text(
-                "${widget.title}이 완료되었습니다!",
+                "예약이 완료되었습니다!",
                 style: AppTextStyles.bold28
                     .copyWith(color: AppColor.gray800), // 색상 수정
               ),

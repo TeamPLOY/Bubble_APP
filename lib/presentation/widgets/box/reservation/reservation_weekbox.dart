@@ -19,6 +19,7 @@ class ReservationWeekbox extends StatefulWidget {
   @override
   State<ReservationWeekbox> createState() => _ReservationWeekboxState();
 }
+
 class _ReservationWeekboxState extends State<ReservationWeekbox> {
   @override
   Widget build(BuildContext context) {
@@ -28,24 +29,26 @@ class _ReservationWeekboxState extends State<ReservationWeekbox> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        width: MediaQuery.of(context).size.width*(160/393),
-        height: MediaQuery.of(context).size.height*(59/852),
+        width: MediaQuery.of(context).size.width * (160 / 393),
+        height: MediaQuery.of(context).size.height * (59 / 852),
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.15),
-              offset: const Offset(0, 3),
+              color: Colors.black.withOpacity(0.1),
+              offset: const Offset(0, 2),
               blurRadius: 3,
             ),
           ],
           border: Border.all(
-            color: widget.isActive? AppColor.blue400 : AppColor.gray300
-          ),
+              color: widget.isActive ? AppColor.blue400 : AppColor.gray300),
           borderRadius: BorderRadius.circular(10),
           color: AppColor.gray100,
         ),
         child: Center(
-          child: Text('$day일 ${widget.week}요일', style: AppTextStyles.medium18.copyWith(color: widget.isActive? AppColor.blue400 : AppColor.gray700)),
+          child: Text('$day일 ${widget.week}요일',
+              style: AppTextStyles.medium18.copyWith(
+                  color:
+                      widget.isActive ? AppColor.blue400 : AppColor.gray700)),
         ),
       ),
     );

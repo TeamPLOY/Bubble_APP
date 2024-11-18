@@ -3,20 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
-import 'package:bubble_app/presentation/pages/reservation/finish_page.dart';
+
 
 class ReservationCheckModal extends StatelessWidget {
   final Function onConfirm;
   final String date;
 
-  ReservationCheckModal(
-      {required this.onConfirm, required this.date, Key? key})
+  ReservationCheckModal({required this.onConfirm, required this.date, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width >= 450
+      width: MediaQuery.of(context).size.width >= 400
           ? MediaQuery.of(context).size.width * (210 / 393)
           : 210,
       height: MediaQuery.of(context).size.width >= 700 ? 350 : 250,
@@ -78,7 +77,8 @@ class ReservationCheckModal extends StatelessWidget {
                     child: Center(
                       child: Text(
                         '아니오',
-                        style: AppTextStyles.semiBold10.copyWith(color: AppColor.gray500),
+                        style: AppTextStyles.semiBold10
+                            .copyWith(color: AppColor.gray500),
                       ),
                     ),
                   ),
@@ -90,10 +90,8 @@ class ReservationCheckModal extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    // 날짜를 전달하는 onConfirm 함수 호출
                     await onConfirm();
 
-                    // 데이터 전송 후 화면 이동
                     Navigator.pushReplacement(
                       context,
                       PageRouteBuilder(
@@ -121,7 +119,8 @@ class ReservationCheckModal extends StatelessWidget {
                     child: Center(
                       child: Text(
                         '네',
-                        style: AppTextStyles.semiBold10.copyWith(color: AppColor.white100),
+                        style: AppTextStyles.semiBold10
+                            .copyWith(color: AppColor.white100),
                       ),
                     ),
                   ),
