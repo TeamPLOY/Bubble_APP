@@ -154,8 +154,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                     ],
                                   ),
                                   SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height * (40 / 852),
+                                    height: MediaQuery.of(context).size.height *
+                                        (40 / 852),
                                   ),
                                   Text(
                                     '희망하는 세탁기 선택',
@@ -228,8 +228,7 @@ class _ReservationPageState extends State<ReservationPage> {
                             ],
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height >
-                                    740
+                            height: MediaQuery.of(context).size.height > 740
                                 ? MediaQuery.of(context).size.height *
                                     (118 / 852)
                                 : MediaQuery.of(context).size.height *
@@ -238,14 +237,12 @@ class _ReservationPageState extends State<ReservationPage> {
                           Column(
                             children: [
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     '빨간색은 선택이 불가능합니다.',
                                     style: AppTextStyles.medium16
-                                        .copyWith(
-                                            color: AppColor.red100),
+                                        .copyWith(color: AppColor.red100),
                                   ),
                                 ],
                               ),
@@ -261,9 +258,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                               BorderRadius.circular(15),
                                         ),
                                         child: ReservationCheckModal(
-                                          date: reservations[
-                                                  selectedIndex]
-                                              .date,
+                                          date:
+                                              reservations[selectedIndex].date,
                                           onConfirm: () async {
                                             print(
                                                 '${reservations[selectedIndex].date}');
@@ -289,8 +285,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              FinishPage()),
+                                          builder: (context) => FinishPage()),
                                     );
                                   },
                                 ),
