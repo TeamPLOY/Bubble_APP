@@ -33,22 +33,28 @@ class _CancelState extends State<Cancel> {
     _cancel = widget.cancel;
   }
 
-  bool checkDate(String backendDate) {
-    String formattedDate = backendDate
-        .replaceAll('년 ', '-')
-        .replaceAll('월 ', '-')
-        .replaceAll('일', '');
-    DateTime parsedDate = DateTime.parse(formattedDate);
+bool checkDate(String backendDate) {
+  String formattedDate = backendDate
+      .replaceAll('년 ', '-')
+      .replaceAll('월 ', '-')
+      .replaceAll('일', '');
+  DateTime parsedDate = DateTime.parse(formattedDate);
 
-    DateTime today = DateTime.now();
+  DateTime today = DateTime.now();
+  DateTime onlyToday = DateTime(today.year, today.month, today.day);
+  DateTime onlyParsedDate = DateTime(parsedDate.year, parsedDate.month, parsedDate.day);
 
-    if (parsedDate.isBefore(today)) {
-      return true;
-    } else if (parsedDate.isAfter(today)) {
-      return false;
-    }
-    throw ();
+  if (onlyParsedDate == onlyToday) {
+    return false;
+  } else if (onlyParsedDate.isBefore(onlyToday)) {
+    return true;
+  } else if (onlyParsedDate.isAfter(onlyToday)) {
+    return false;
   }
+
+  throw Exception("Invalid date format");
+}
+
 
   @override
   Widget build(BuildContext context) {
