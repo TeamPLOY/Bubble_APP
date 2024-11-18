@@ -12,8 +12,8 @@ class NextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        width: MediaQuery.of(context).size.width - 48,
-        height: 44,
+        width: MediaQuery.of(context).size.width - MediaQuery.of(context).size.width*(48/393),
+        height: MediaQuery.of(context).size.width >=470? 55:44,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: AppColor.blue400,
@@ -21,7 +21,7 @@ class NextButton extends StatelessWidget {
         child: Center(
           child: Text(
             '${text}',
-            style: AppTextStyles.bold16.copyWith(color: AppColor.white100),
+            style: MediaQuery.of(context).size.width >=470? AppTextStyles.bold20.copyWith(color: AppColor.white100) :  AppTextStyles.bold16.copyWith(color: AppColor.white100),
           ),
         ),
       ),

@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   String? washingroom_text;
   Timer? _machineTimer;
   StreamSubscription<RemoteMessage>? _messageSubscription;
+  bool isAlarmActive = false;
 
   @override
   void initState() {
@@ -68,6 +69,7 @@ class _HomePageState extends State<HomePage> {
         // 상태 업데이트 및 데이터 새로고침
         setState(() {
           messageString = message.notification?.body ?? '';
+          isAlarmActive = true;
         });
       }
     });
@@ -78,6 +80,7 @@ class _HomePageState extends State<HomePage> {
       if (message.notification != null) {
         setState(() {
           messageString = message.notification?.body ?? '';
+          isAlarmActive = true;
         });
       }
     });
@@ -89,6 +92,7 @@ class _HomePageState extends State<HomePage> {
       print('Terminated state Message: ${initialMessage.notification?.body}');
       setState(() {
         messageString = initialMessage.notification?.body ?? '';
+        isAlarmActive = true;
       });
     }
   }
@@ -172,7 +176,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             Column(
               children: [
-                MainHeader(hasAlarm: true),
+                MainHeader(hasAlarm: isAlarmActive),
                 Padding(
                   padding:
                       EdgeInsets.only(left: paddingValue, top: paddingValue),
