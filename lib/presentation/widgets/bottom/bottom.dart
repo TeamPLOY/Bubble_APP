@@ -21,7 +21,7 @@ class _BottomState extends State<Bottom> {
 
     bool result = await reservationCheckApi.fetchData();
     setState(() {
-      check_user = result; // 결과를 check_user에 저장
+      check_user = result;
     });
     print(check_user);
   }
