@@ -47,7 +47,7 @@ class _MainHeaderState extends State<MainHeader> {
               child: SvgPicture.asset(
                 'assets/img/home_logo.svg',
                 width: 71,
-                height: 14,
+                height: 20,
               ),
             ),
           ),
