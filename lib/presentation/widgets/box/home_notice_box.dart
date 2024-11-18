@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-imort 'package:bubble_app/app/config/app_color.dart';
+import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
 
 class MainNoticeBox extends StatefulWidget {
@@ -10,7 +10,7 @@ class MainNoticeBox extends StatefulWidget {
 }
 
 class _MainNoticeBoxState extends State<MainNoticeBox> {
-  @overrid
+  @override
   Widget build(BuildContext context) {
     const String message =
         "세탁기 섬유유연제는 두통을 유발하니 자제해주세요.";
@@ -34,7 +34,7 @@ class _MainNoticeBoxState extends State<MainNoticeBox> {
 
   return Container(
     width: availableWidth,
-    height: containerHe
+    height: containerHeight,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
       color: AppColor.gray200,
@@ -46,8 +46,9 @@ class _MainNoticeBoxState extends State<MainNoticeBox> {
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
     ),
-  )
-    );
+  );
+}
 
+    );
   }
 }

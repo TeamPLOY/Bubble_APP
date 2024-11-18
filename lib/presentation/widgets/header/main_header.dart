@@ -3,10 +3,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/presentation/pages/alarm/alarm_page.dart';
 
-class MainHeader extends StatelessWidget {
+class MainHeader extends StatefulWidget {
   final bool hasAlarm;
 
   const MainHeader({super.key, required this.hasAlarm});
+
+  @override
+  State<MainHeader> createState() => _MainHeaderState();
+}
+
+class _MainHeaderState extends State<MainHeader> {
+  late bool Alram_state=widget.hasAlarm;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +56,9 @@ class MainHeader extends StatelessWidget {
             padding: EdgeInsets.only(right: 24),
             child: GestureDetector(
               onTap: () {
+                 setState(() {
+                    Alram_state=false;
+                  });
                 Navigator.push(
                   context,
                   PageRouteBuilder(
@@ -62,7 +72,7 @@ class MainHeader extends StatelessWidget {
                 );
               },
               child: SvgPicture.asset(
-                hasAlarm
+                Alram_state
                     ? 'assets/img/alarm_yes.svg'
                     : 'assets/img/alarm_no.svg',
                 width: 24,
