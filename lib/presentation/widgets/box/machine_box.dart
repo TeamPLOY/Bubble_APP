@@ -77,7 +77,7 @@ class _MachineBoxState extends State<MachineBox> {
 
     return Container(
       width: size.width * 0.8, // 너비를 반응형으로 설정
-      height: size.height * 0.14, // 높이도 반응형으로 설정
+      height: size.height * 0.155, // 높이도 반응형으로 설정
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
           border: Border.all(width: 1, color: AppColor.gray300)),
