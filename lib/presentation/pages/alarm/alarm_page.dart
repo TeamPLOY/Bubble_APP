@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart'; // 날짜 형식 변환을 위한 패키지
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/pages/alarm/notice_page.dart';
@@ -15,10 +16,9 @@ class AlarmPage extends StatefulWidget {
 
 class _AlarmPageState extends State<AlarmPage> {
   int _selectedButtonIndex = 0;
-
-
   List<NotificationNotificationModel> noticelist = [];
-  bool isLoading = true; // 초기 로딩 상태
+  Map<String, List<NotificationNotificationModel>> groupedNotices = {};
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -29,11 +29,33 @@ class _AlarmPageState extends State<AlarmPage> {
   void getnotice() async {
     NoticeNoticeApi notice = NoticeNoticeApi();
     noticelist = await notice.fetnotification();
+
+    // 데이터를 날짜별로 그룹화
+    groupedNotices = groupByDate(noticelist);
+
     setState(() {
-      isLoading = false; // 데이터 로드 완료 후 상태 변경
+      isLoading = false;
     });
   }
 
+  Map<String, List<NotificationNotificationModel>> groupByDate(
+      List<NotificationNotificationModel> notices) {
+    Map<String, List<NotificationNotificationModel>> grouped = {};
+    for (var notice in notices) {
+      String formattedDate = formatDate(notice.date); // 날짜 형식 변환
+      if (grouped.containsKey(formattedDate)) {
+        grouped[formattedDate]!.add(notice);
+      } else {
+        grouped[formattedDate] = [notice];
+      }
+    }
+    return grouped;
+  }
+
+  String formatDate(String date) {
+    DateTime parsedDate = DateTime.parse(date); // "2024-11-11" 문자열을 DateTime으로 변환
+    return DateFormat('yyyy년 MM월 dd일').format(parsedDate); // 원하는 형식으로 변환
+  }
 
   void _handleButtonPress(int index) {
     setState(() {
@@ -42,94 +64,98 @@ class _AlarmPageState extends State<AlarmPage> {
 
     if (index == 1) {
       Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        NoticePage(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return child;
-                    },
-                  ),
-                );
-      
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => NoticePage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return child;
+          },
+        ),
+      );
     } else if (index == 2) {
-            Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        ReservationListPage(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return child;
-                    },
-                  ),
-                );
-
+      Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              ReservationListPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return child;
+          },
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.white100, // AppColor에서 색상 가져오기
+      backgroundColor: AppColor.white100,
       body: SafeArea(
-        child: isLoading? Text('로딩중'):Column(
-          children: [
-            SideHeader(text: "알림"),
-            SizedBox(height: 30),
-            AlarmButton(
-              selectedButtonIndex: _selectedButtonIndex,
-              onButtonPressed: _handleButtonPress,
-            ),
-            SizedBox(height: 26),
-            Expanded(
-              // Expand로 공간을 확보
-              child: ListView.builder(
-                itemCount: noticelist.length, // 원하는 알림 개수 설정
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 5.0),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * (345 / 393),
-                        height: 92,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: AppColor.white100,
-                          border: Border.all(color: AppColor.gray300, width: 1),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 17.0, top: 16),
-                              child: Text(
-                                '${noticelist[index].name }님, ${noticelist[index].machine}가 완료되었습니다.\n어서 건조기를 돌리세요!',
-                                style: AppTextStyles.semiBold14
-                                    .copyWith(color: AppColor.gray800),
+        child: isLoading
+            ? Center(child: Text('로딩중', style: AppTextStyles.semiBold14))
+            : Column(
+                children: [
+                  SideHeader(text: "알림"),
+                  SizedBox(height: 30),
+                  AlarmButton(
+                    selectedButtonIndex: _selectedButtonIndex,
+                    onButtonPressed: _handleButtonPress,
+                  ),
+                  SizedBox(height: 26),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: groupedNotices.keys.length,
+                      itemBuilder: (context, index) {
+                        String dateKey = groupedNotices.keys.elementAt(index);
+                        List<NotificationNotificationModel> notices =
+                            groupedNotices[dateKey]!;
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // 날짜 헤더
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                child: Text(
+                                  dateKey,
+                                  style: AppTextStyles.semiBold14
+                                      .copyWith(color: AppColor.gray800),
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 16.0, top: 5),
-                              child: Text(
-                                '${noticelist[index].date}',
-                                style: AppTextStyles.medium12
-                                    .copyWith(color: AppColor.gray600),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                              // 같은 날짜의 알림 리스트
+                              ...notices.map((notice) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        (345 / 393),
+                                    height: 46,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: AppColor.white100,
+                                      border: Border.all(
+                                          color: AppColor.gray300, width: 1),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 16.0, top: 13),
+                                      child: Text(
+                                        '${notice.name}님, ${notice.machine}가 완료되었습니다.',
+                                        style: AppTextStyles.semiBold14
+                                            .copyWith(color: AppColor.gray800),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }
