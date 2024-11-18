@@ -153,20 +153,10 @@ class _ReservationPageState extends State<ReservationPage> {
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height:
-                                MediaQuery.of(context).size.height * (40 / 852),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                                  SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.height * (40 / 852),
+                                  ),
                                   Text(
                                     '희망하는 세탁기 선택',
                                     style: AppTextStyles.semiBold18
@@ -174,6 +164,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                   ),
                                   const SizedBox(height: 16),
                                   Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       ReservationMachinebox(
                                         machine: "1",
@@ -232,81 +223,81 @@ class _ReservationPageState extends State<ReservationPage> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height >
-                                            740
-                                        ? MediaQuery.of(context).size.height *
-                                            (118 / 852)
-                                        : MediaQuery.of(context).size.height *
-                                            (20 / 852),
-                                  ),
-                                  Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            '빨간색은 선택이 불가능합니다.',
-                                            style: AppTextStyles.medium16
-                                                .copyWith(
-                                                    color: AppColor.red100),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 8),
-                                      GestureDetector(
-                                        onTap: () => {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return Dialog(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(15),
-                                                ),
-                                                child: ReservationCheckModal(
-                                                  date: reservations[
-                                                          selectedIndex]
-                                                      .date,
-                                                  onConfirm: () async {
-                                                    print(
-                                                        '${reservations[selectedIndex].date}');
-                                                    print(
-                                                        "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
-                                                    ReservationPostApi postApi =
-                                                        ReservationPostApi(
-                                                            date:
-                                                                '${reservations[selectedIndex].date}',
-                                                            machine:
-                                                                "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
-                                                    postApi.reservationDate();
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                ),
-                                              );
-                                            },
-                                          )
-                                        },
-                                        child: NextButton(
-                                          text: '예약하기',
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      FinishPage()),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      )
-                                    ],
-                                  )
                                 ],
                               ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height >
+                                    740
+                                ? MediaQuery.of(context).size.height *
+                                    (118 / 852)
+                                : MediaQuery.of(context).size.height *
+                                    (20 / 852),
+                          ),
+                          Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '빨간색은 선택이 불가능합니다.',
+                                    style: AppTextStyles.medium16
+                                        .copyWith(
+                                            color: AppColor.red100),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              GestureDetector(
+                                onTap: () => {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Dialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: ReservationCheckModal(
+                                          date: reservations[
+                                                  selectedIndex]
+                                              .date,
+                                          onConfirm: () async {
+                                            print(
+                                                '${reservations[selectedIndex].date}');
+                                            print(
+                                                "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
+                                            ReservationPostApi postApi =
+                                                ReservationPostApi(
+                                                    date:
+                                                        '${reservations[selectedIndex].date}',
+                                                    machine:
+                                                        "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
+                                            postApi.reservationDate();
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  )
+                                },
+                                child: NextButton(
+                                  text: '예약하기',
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              FinishPage()),
+                                    );
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              )
                             ],
                           ),
                         ],
