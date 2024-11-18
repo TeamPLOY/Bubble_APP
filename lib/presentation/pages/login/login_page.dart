@@ -137,42 +137,14 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     },
                     child: NextButton(
-                      text: '로그인 하기',
-                      onPressed: () {}, 
+                      text: '로그인',
+                      onPressed: () {},
                     ),
                   ),
                   SizedBox(height: 14),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center, // 수평 중앙 정렬
                     children: [
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     Navigator.push(
-                      //       context,
-                      //       PageRouteBuilder(
-                      //         pageBuilder:
-                      //             (context, animation, secondaryAnimation) =>
-                      //                 ProfilePage(),
-                      //         transitionsBuilder: (context, animation,
-                      //             secondaryAnimation, child) {
-                      //           return child;
-                      //         },
-                      //       ),
-                      //     );
-                      //   },
-                      //   child: Text(
-                      //     '비밀번호 찾기',
-                      //     style: AppTextStyles.bold12.copyWith(
-                      //         color: AppColor.gray800), // AppTextStyles 사용
-                      //   ),
-                      // ),
-                      // SizedBox(width: 10),
-                      // Container(
-                      //   width: 1,
-                      //   height: 13.5,
-                      //   color: AppColor.gray500, // AppColor 사용
-                      // ),
-                      SizedBox(width: 10),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -190,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         child: Text(
                           '회원가입',
-                          style: AppTextStyles.bold12.copyWith(
+                          style: AppTextStyles.bold16.copyWith(
                               color: AppColor.gray800), // AppTextStyles 사용
                         ),
                       ),

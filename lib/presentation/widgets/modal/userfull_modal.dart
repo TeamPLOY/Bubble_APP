@@ -24,10 +24,10 @@ class _UserfullModalState extends State<UserfullModal> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 16, left: 16),
+              padding: EdgeInsets.only(top: 14, left: 16),
               child: Text(
                 '이미 예약이 하셨습니다.\n다음 주에 진행해주세요!',
-                style: AppTextStyles.medium14.copyWith(color: AppColor.gray800),
+                style: AppTextStyles.medium16.copyWith(color: AppColor.gray800),
               ),
             ),
             Expanded(
