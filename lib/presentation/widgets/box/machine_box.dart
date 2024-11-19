@@ -77,7 +77,7 @@ class _MachineBoxState extends State<MachineBox> {
 
     return Container(
       width: size.width * 0.8, // 너비를 반응형으로 설정
-      height: size.height * 0.155, // 높이도 반응형으로 설정
+      height: MediaQuery.of(context).size.width>=600?size.height * 0.2:size.height * 0.155, // 높이도 반응형으로 설정
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
           border: Border.all(width: 1, color: AppColor.gray300)),
@@ -136,7 +136,7 @@ class _MachineBoxState extends State<MachineBox> {
                 children: [
                   Container(
                     width: width * 0.9,
-                    height: height * 0.25,
+                    height: MediaQuery.of(context).size.width>=600?height * 0.3:height * 0.25,
                     decoration: BoxDecoration(
                       color: widget.hour == 0 && widget.minute == 0
                           ? AppColor.gray200 // 작동 중이지 않을 때 배경 설정

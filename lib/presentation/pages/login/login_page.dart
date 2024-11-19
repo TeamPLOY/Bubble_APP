@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController = TextEditingController();
 
   List<bool> loginstate = [false, false];
-  double pad = 42;
+  double pad = 12;
   bool logcheck = true;
 
   @override
@@ -118,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                             pad = 8;
                             logcheck = false;
                           } else {
-                            pad = 42;
+                            pad = 12;
                             logcheck = true;
                             Navigator.push(
                               context,
