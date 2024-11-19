@@ -13,7 +13,13 @@ class MainHeader extends StatefulWidget {
 }
 
 class _MainHeaderState extends State<MainHeader> {
-  late bool Alram_state=widget.hasAlarm;
+  late bool alarmState;
+
+  @override
+  void initState() {
+    super.initState();
+    alarmState = widget.hasAlarm;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,52 +33,41 @@ class _MainHeaderState extends State<MainHeader> {
         ),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 24),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        AlarmPage(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return child;
-                    },
-                  ),
-                );
-              },
-              child: SvgPicture.asset(
-                'assets/img/home_logo.svg',
-                width: 71,
-                height: 20,
-              ),
+            child: SvgPicture.asset(
+              'assets/img/home_logo.svg',
+              width: 71,
+              height: 20,
             ),
           ),
-          Spacer(),
           Padding(
-            padding: EdgeInsets.only(right: 24),
+            padding: const EdgeInsets.only(right: 24),
             child: GestureDetector(
-              onTap: () {
-                 setState(() {
-                    Alram_state=false;
-                  });
-                Navigator.push(
+              onTap: () async {
+                setState(() {
+                  alarmState = false;
+                });
+
+                await Navigator.push(
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) =>
                         AlarmPage(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
-                      return child;
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
                     },
                   ),
                 );
               },
               child: SvgPicture.asset(
-                Alram_state
+                alarmState
                     ? 'assets/img/alarm_yes.svg'
                     : 'assets/img/alarm_no.svg',
                 width: 24,
