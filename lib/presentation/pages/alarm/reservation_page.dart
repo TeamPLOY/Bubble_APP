@@ -74,7 +74,7 @@ class _ReservationStatePage extends State<ReservationListPage> {
         child: Column(
           children: [
             SideHeader(text: "예약 목록"),
-            SizedBox(height: 30),
+            SizedBox(height: 22),
             AlarmButton(
               selectedButtonIndex: _selectedButtonIndex,
               onButtonPressed: _handleButtonPress,

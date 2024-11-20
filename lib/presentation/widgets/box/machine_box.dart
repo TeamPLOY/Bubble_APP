@@ -97,7 +97,7 @@ class _MachineBoxState extends State<MachineBox> {
                       Text(
                         // 가공된 머신 이름을 표시
                         extractMachineName(widget.device),
-                        style: MediaQuery.of(context).size.width<=350?AppTextStyles.medium14.copyWith(
+                        style: MediaQuery.of(context).size.width<=400?AppTextStyles.medium14.copyWith(
                             color: AppColor.gray800, fontSize: titleSize*1.6):AppTextStyles.medium14.copyWith(
                             color: AppColor.gray800, fontSize: titleSize),
                       ),
@@ -113,7 +113,7 @@ class _MachineBoxState extends State<MachineBox> {
                 children: [
                   Text(
                     '작동중',
-                    style: MediaQuery.of(context).size.width<=350?AppTextStyles.medium10.copyWith(
+                    style: MediaQuery.of(context).size.width<=400?AppTextStyles.medium10.copyWith(
                         color: AppColor.gray800, fontSize: subtitleSize*1.6):AppTextStyles.medium10.copyWith(
                         color: AppColor.gray800, fontSize: subtitleSize),
                   ),
@@ -138,7 +138,7 @@ class _MachineBoxState extends State<MachineBox> {
                 children: [
                   Container(
                     width: width * 0.9,
-                    height: MediaQuery.of(context).size.width>=600?height * 0.3:MediaQuery.of(context).size.width<=350?height * 0.35:height * 0.25,
+                    height: MediaQuery.of(context).size.width>=600?height * 0.3:MediaQuery.of(context).size.width<=400?height * 0.30:height * 0.25,
                     decoration: BoxDecoration(
                       color: widget.hour == 0 && widget.minute == 0
                           ? AppColor.gray200 // 작동 중이지 않을 때 배경 설정
@@ -158,7 +158,7 @@ class _MachineBoxState extends State<MachineBox> {
                           padding: EdgeInsets.only(left: width * 0.05),
                           child: Text(
                             '${formattime(widget.hour)} : ${formattime(widget.minute)}',
-                            style: MediaQuery.of(context).size.width<=350?AppTextStyles.medium22.copyWith(
+                            style: MediaQuery.of(context).size.width<=400?AppTextStyles.medium22.copyWith(
                                 color: AppColor.gray600, fontSize: timeSize*1.6):AppTextStyles.medium14.copyWith(
                                 color: AppColor.gray600, fontSize: timeSize),
                           ),
