@@ -40,15 +40,21 @@ class _ReservationWeekboxState extends State<ReservationWeekbox> {
             ),
           ],
           border: Border.all(
-              color: widget.isActive ? AppColor.blue400 : AppColor.gray300),
+            color: widget.isActive ? AppColor.blue400 : AppColor.gray300,
+            width: 1, // 테두리 굵기 설정
+          ),
           borderRadius: BorderRadius.circular(10),
-          color: AppColor.gray100,
+          color: widget.isActive
+              ? AppColor.blue400
+              : AppColor.white100, // 기본 배경색 흰색
         ),
         child: Center(
-          child: Text('$day일 ${widget.week}요일',
-              style: AppTextStyles.medium18.copyWith(
-                  color:
-                      widget.isActive ? AppColor.blue400 : AppColor.gray700)),
+          child: Text(
+            '$day일 ${widget.week}요일',
+            style: AppTextStyles.medium18.copyWith(
+              color: widget.isActive ? AppColor.white100 : AppColor.gray700,
+            ),
+          ),
         ),
       ),
     );

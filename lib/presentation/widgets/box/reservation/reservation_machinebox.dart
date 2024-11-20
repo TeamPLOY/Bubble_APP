@@ -23,57 +23,47 @@ class ReservationMachinebox extends StatefulWidget {
 class _ReservationMachineboxState extends State<ReservationMachinebox> {
   @override
   Widget build(BuildContext context) {
-    return widget.machine_state
-        ? Container(
-            width: MediaQuery.of(context).size.width * (160 / 393),
-            height: MediaQuery.of(context).size.height * (59 / 852),
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1), // #000000 15%
-                  offset: const Offset(0, 3), // x: 0, y: 3
-                  blurRadius: 3, // blur: 3
-                ),
-              ],
-              border: Border.all(color: AppColor.red200),
-              borderRadius: BorderRadius.circular(10),
-              color: AppColor.gray100,
+    // Box decoration and text style setup
+    final backgroundColor = widget.machine_state
+        ? AppColor.gray400
+        : widget.isActive
+            ? AppColor.blue400
+            : Colors.white;
+    final borderColor = widget.machine_state
+        ? AppColor.gray300
+        : widget.isActive
+            ? AppColor.blue400
+            : AppColor.gray300;
+    final textColor = widget.machine_state
+        ? AppColor.gray600
+        : widget.isActive
+            ? AppColor.white100
+            : AppColor.gray700;
+
+    return GestureDetector(
+      onTap: widget.machine_state ? null : widget.onTap,
+      child: Container(
+        width: MediaQuery.of(context).size.width * (160 / 393),
+        height: MediaQuery.of(context).size.height * (59 / 852),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          border: Border.all(color: borderColor, width: 1),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1), // 그림자
+              offset: const Offset(0, 2),
+              blurRadius: 3,
             ),
-            child: Center(
-              child: Text(
-                '예약불가',
-                style: AppTextStyles.medium18.copyWith(color: AppColor.red200),
-              ),
-            ))
-        : GestureDetector(
-            onTap: widget.onTap,
-            child: Container(
-              width: MediaQuery.of(context).size.width * (160 / 393),
-              height: MediaQuery.of(context).size.height * (59 / 852),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1), // #000000 15%
-                    offset: const Offset(0, 2), // x: 0, y: 3
-                    blurRadius: 3, // blur: 3
-                  ),
-                ],
-                border: Border.all(
-                    color:
-                        widget.isActive ? AppColor.blue400 : AppColor.gray300),
-                borderRadius: BorderRadius.circular(10),
-                color: AppColor.gray100,
-              ),
-              child: Center(
-                child: Text(
-                  '세탁기 ${widget.machine}',
-                  style: AppTextStyles.medium18.copyWith(
-                      color: widget.isActive
-                          ? AppColor.blue400
-                          : AppColor.gray700),
-                ),
-              ),
-            ),
-          );
+          ],
+        ),
+        child: Center(
+          child: Text(
+            widget.machine_state ? '예약불가' : '세탁기 ${widget.machine}',
+            style: AppTextStyles.medium18.copyWith(color: textColor),
+          ),
+        ),
+      ),
+    );
   }
 }

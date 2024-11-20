@@ -51,13 +51,12 @@ class _ReservationPageState extends State<ReservationPage> {
       backgroundColor: AppColor.white100,
       body: SafeArea(
         child: FutureBuilder<List<ReservationModel>>(
-          future: reservationsFuture, // 데이터가 준비된 경우에만 호출
+          future: reservationsFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData) {
-              List<ReservationModel> reservations =
-                  snapshot.data!; // Access the data here
+              List<ReservationModel> reservations = snapshot.data!;
               return ListView(
                 children: [
                   Column(
@@ -97,8 +96,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                   Row(
                                     children: [
                                       ReservationWeekbox(
-                                        day: reservations[0]
-                                            .date, // Access the data here
+                                        day: reservations[0].date,
                                         week: "월",
                                         isActive: selectedIndex == 0,
                                         onTap: () {
@@ -110,8 +108,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                       ),
                                       const SizedBox(width: 20),
                                       ReservationWeekbox(
-                                        day: reservations[1]
-                                            .date, // Access the data here
+                                        day: reservations[1].date,
                                         week: "화",
                                         isActive: selectedIndex == 1,
                                         onTap: () {
@@ -127,8 +124,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                   Row(
                                     children: [
                                       ReservationWeekbox(
-                                        day: reservations[2]
-                                            .date, // Access the data here
+                                        day: reservations[2].date,
                                         week: "수",
                                         isActive: selectedIndex == 2,
                                         onTap: () {
@@ -140,8 +136,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                       ),
                                       const SizedBox(width: 20),
                                       ReservationWeekbox(
-                                        day: reservations[3]
-                                            .date, // Access the data here
+                                        day: reservations[3].date,
                                         week: "목",
                                         isActive: selectedIndex == 3,
                                         onTap: () {
@@ -234,67 +229,47 @@ class _ReservationPageState extends State<ReservationPage> {
                                 : MediaQuery.of(context).size.height *
                                     (20 / 852),
                           ),
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '빨간색은 선택이 불가능합니다.',
-                                    style: AppTextStyles.medium16
-                                        .copyWith(color: AppColor.red100),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              GestureDetector(
-                                onTap: () => {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Dialog(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: ReservationCheckModal(
-                                          date:
-                                              reservations[selectedIndex].date,
-                                          onConfirm: () async {
-                                            print(
-                                                '${reservations[selectedIndex].date}');
-                                            print(
+                          GestureDetector(
+                            onTap: () => {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: ReservationCheckModal(
+                                      date: reservations[selectedIndex].date,
+                                      onConfirm: () async {
+                                        print(
+                                            '${reservations[selectedIndex].date}');
+                                        print(
+                                            "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
+                                        ReservationPostApi postApi = ReservationPostApi(
+                                            date:
+                                                '${reservations[selectedIndex].date}',
+                                            machine:
                                                 "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
-                                            ReservationPostApi postApi =
-                                                ReservationPostApi(
-                                                    date:
-                                                        '${reservations[selectedIndex].date}',
-                                                    machine:
-                                                        "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
-                                            postApi.reservationDate();
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      );
-                                    },
-                                  )
+                                        postApi.reservationDate();
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  );
                                 },
-                                child: NextButton(
-                                  text: '예약하기',
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => FinishPage()),
-                                    );
-                                  },
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
                               )
-                            ],
+                            },
+                            child: NextButton(
+                              text: '예약하기',
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FinishPage()),
+                                );
+                              },
+                            ),
                           ),
+                          const SizedBox(height: 10),
                         ],
                       ),
                     ],
