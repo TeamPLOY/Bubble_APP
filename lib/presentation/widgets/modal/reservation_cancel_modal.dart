@@ -46,7 +46,7 @@ class ReservationCancelModal extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 6),
                 child: Text('예약을 취소하시겠습니까?',
-                    style: AppTextStyles.medium14
+                    style: AppTextStyles.medium16
                         .copyWith(color: AppColor.gray800)),
               ),
               SizedBox(height: 20),

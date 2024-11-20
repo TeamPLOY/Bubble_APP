@@ -71,13 +71,13 @@ class _MachineBoxState extends State<MachineBox> {
     final height = size.height * 0.15; // 15% 높이로 설정
 
     // 글자 크기 설정 (크기를 더 크게 조정)
-    final titleSize = width * 0.09; // 제목 글자 크기
-    final subtitleSize = width * 0.07; // 부제목 글자 크기
+    final titleSize = width * 0.07; // 제목 글자 크기
+    final subtitleSize = width * 0.05; // 부제목 글자 크기
     final timeSize = width * 0.07; // 시간 글자 크기
 
     return Container(
       width: size.width * 0.8, // 너비를 반응형으로 설정
-      height: MediaQuery.of(context).size.width>=600?size.height * 0.2:size.height * 0.155, // 높이도 반응형으로 설정
+      height: size.height * 0.16, // 높이도 반응형으로 설정
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
           border: Border.all(width: 1, color: AppColor.gray300)),
@@ -131,12 +131,14 @@ class _MachineBoxState extends State<MachineBox> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: height * 0.07),
+              padding: EdgeInsets.only(top: height * 0.1),
               child: Row(
                 children: [
                   Container(
                     width: width * 0.9,
-                    height: MediaQuery.of(context).size.width>=600?height * 0.3:height * 0.25,
+                    height: MediaQuery.of(context).size.width >= 600
+                        ? height * 0.3
+                        : height * 0.25,
                     decoration: BoxDecoration(
                       color: widget.hour == 0 && widget.minute == 0
                           ? AppColor.gray200 // 작동 중이지 않을 때 배경 설정
