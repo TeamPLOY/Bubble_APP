@@ -35,7 +35,7 @@ class SideHeader extends StatelessWidget {
                     ),
                   );
                 },
-              child: Container(
+              child: Container( 
                 width: 50,
                 height: 18,
                 child: SvgPicture.asset(
