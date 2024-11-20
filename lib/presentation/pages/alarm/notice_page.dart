@@ -91,7 +91,7 @@ class _NoticePageState extends State<NoticePage> {
               selectedButtonIndex: _selectedButtonIndex,
               onButtonPressed: _handleButtonPress,
             ),
-            SizedBox(height: 46),
+            SizedBox(height: 16),
             Expanded(
               child: isLoading // 로딩 상태에 따라 UI 변경
                   ? Center(child: CircularProgressIndicator())

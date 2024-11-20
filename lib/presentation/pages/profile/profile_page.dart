@@ -155,7 +155,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Text(
                         '로그아웃',
                         style: MediaQuery.of(context).size.width>=500?AppTextStyles.regular20.copyWith(
-                            color: AppColor.gray600):AppTextStyles.regular16.copyWith(
+                            color: AppColor.gray600):AppTextStyles.regular14.copyWith(
                             color: AppColor.gray600), // AppTextStyles 사용
                       ),
                     ),
@@ -172,7 +172,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Text(
                         '탈퇴하기',
                         style: MediaQuery.of(context).size.width>=500?AppTextStyles.regular20.copyWith(
-                            color: AppColor.red100):AppTextStyles.regular16.copyWith(
+                            color: AppColor.red100):AppTextStyles.regular14.copyWith(
                             color: AppColor.red100), // AppTextStyles 사용
                       ),
                     ),

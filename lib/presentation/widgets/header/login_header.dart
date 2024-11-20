@@ -24,29 +24,7 @@ class LoginHeader extends StatelessWidget {
           Stack(
           
             children: [
-              Positioned(child: Padding(
-            padding: const EdgeInsets.only(left: 24),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        LoginPage(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      return child;
-                    },
-                  ),
-                );
-              },
-              child: SvgPicture.asset(
-                'assets/img/back.svg',
-                width: 71,
-                height: 20,
-              ),
-            ),
-          ),),
+              
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
