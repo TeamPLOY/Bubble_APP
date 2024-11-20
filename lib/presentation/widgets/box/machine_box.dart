@@ -138,7 +138,9 @@ class _MachineBoxState extends State<MachineBox> {
                     width: width * 0.9,
                     height: MediaQuery.of(context).size.width >= 600
                         ? height * 0.3
-                        : height * 0.25,
+                        : MediaQuery.of(context).size.width <= 200
+                            ? height * 0.4
+                            : height * 0.25,
                     decoration: BoxDecoration(
                       color: widget.hour == 0 && widget.minute == 0
                           ? AppColor.gray200 // 작동 중이지 않을 때 배경 설정

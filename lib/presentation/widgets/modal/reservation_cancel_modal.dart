@@ -4,10 +4,11 @@ import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/data/providers/network/apis/reservation/reservation_cancel_api.dart';
 
 class ReservationCancelModal extends StatelessWidget {
-  final String roomnumber, date;
+  final String roomnumber, date,machine;
   final bool cancel;
   const ReservationCancelModal(
       {required this.roomnumber,
+      required this.machine,
       required this.date,
       required this.cancel,
       super.key});
@@ -16,8 +17,8 @@ class ReservationCancelModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       child: Container(
-        width: MediaQuery.of(context).size.width * (332 / 393),
-        height: 109,
+        width: MediaQuery.of(context).size.width * (359 / 393),
+        height: 114,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8), color: AppColor.white100),
         child: Padding(
@@ -36,7 +37,7 @@ class ReservationCancelModal extends StatelessWidget {
                       borderRadius: BorderRadius.circular(3)),
                   alignment: Alignment.center,
                   child: Text(
-                    "세탁실 ${roomnumber}",
+                    "${machine}",
                     style: AppTextStyles.medium10.copyWith(
                       color: AppColor.white100,
                     ),
@@ -66,7 +67,7 @@ class ReservationCancelModal extends StatelessWidget {
                         child: Container(
                           width: MediaQuery.of(context).size.width * (50 / 393),
                           height:
-                              MediaQuery.of(context).size.height * (20 / 893),
+                              MediaQuery.of(context).size.height * (24 / 893),
                           decoration: BoxDecoration(
                               color: AppColor.gray200,
                               borderRadius: BorderRadius.circular(5)),
@@ -88,7 +89,7 @@ class ReservationCancelModal extends StatelessWidget {
                         child: Container(
                           width: MediaQuery.of(context).size.width * (50 / 393),
                           height:
-                              MediaQuery.of(context).size.height * (20 / 893),
+                              MediaQuery.of(context).size.height * (24 / 893),
                           decoration: BoxDecoration(
                               color: AppColor.gray200,
                               borderRadius: BorderRadius.circular(5)),

@@ -115,7 +115,7 @@ bool checkDate(String backendDate) {
                           ),
                           child: Center(
                             child: Text(
-                              '예약 취소',
+                              '취소 완료',
                               style: AppTextStyles.medium14
                                   .copyWith(color: AppColor.gray500),
                             ),
@@ -146,6 +146,7 @@ bool checkDate(String backendDate) {
                                       roomnumber: widget.roomnumber,
                                       date: widget.resDate,
                                       cancel: widget.cancel,
+                                      machine : widget.machine
                                     );
                                   },
                                 );

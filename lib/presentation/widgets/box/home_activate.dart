@@ -27,9 +27,9 @@ class _HomeActivateState extends State<HomeActivate> {
       setState(() {
         if (machineData.isNotEmpty) {
           isWasherRunning = machineData.any(
-              (machine) => machine.name.contains('Washer') && machine.time > 0);
+              (machine) => machine.name.contains('세탁기') && machine.time > 0);
           isDryerRunning = machineData.any(
-              (machine) => machine.name.contains('Dryer') && machine.time > 0);
+              (machine) => machine.name.contains('건조기') && machine.time > 0);
         }
       });
     } catch (e) {
