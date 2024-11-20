@@ -20,10 +20,9 @@ class SideHeader extends StatelessWidget {
           )),
       child: Row(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
+          Container(
             child: GestureDetector(
-                onTap: () {
+              onTap: () {
                   Navigator.push(
                     context,
                     PageRouteBuilder(
@@ -36,11 +35,16 @@ class SideHeader extends StatelessWidget {
                     ),
                   );
                 },
+              child: Container(
+                width: 50,
+                height: 18,
                 child: SvgPicture.asset(
-                  'assets/img/back.svg',
-                  width: 8,
-                  height: 18,
-                )),
+                    'assets/img/back.svg',
+                    width: 8,
+                    height: 18,
+                  ),
+              ),
+            ),
           ),
           Expanded(
             child: Center(
