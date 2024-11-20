@@ -101,7 +101,7 @@ class _AlarmPageState extends State<AlarmPage> {
                     selectedButtonIndex: _selectedButtonIndex,
                     onButtonPressed: _handleButtonPress,
                   ),
-                  SizedBox(height: 26),
+                  SizedBox(height: 10),
                   Expanded(
                     child: ListView.builder(
                       itemCount: groupedNotices.keys.length,
