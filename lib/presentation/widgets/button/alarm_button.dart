@@ -70,7 +70,7 @@ class CustomButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+        padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 19.0),
         decoration: BoxDecoration(
           color: isSelected ? AppColor.blue400 : AppColor.white100,
           borderRadius: BorderRadius.circular(30),
@@ -81,7 +81,7 @@ class CustomButton extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: AppTextStyles.regular14.copyWith(
+          style: AppTextStyles.regular16.copyWith(
             color: isSelected ? AppColor.white100 : AppColor.gray600,
             decoration: TextDecoration.none,
           ),
