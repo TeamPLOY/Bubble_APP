@@ -13,7 +13,7 @@ class _MainNoticeBoxState extends State<MainNoticeBox> {
   @override
   Widget build(BuildContext context) {
     const String message =
-        "세탁기 섬유유연제는 두통을 유발하니 자제해주세요.";
+        "세탁실 깨끗하게 사용하세요!";
 
     return LayoutBuilder(
       builder: (context, constraints) {

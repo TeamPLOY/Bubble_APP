@@ -38,7 +38,7 @@ class _MainHeaderState extends State<MainHeader> {
           Padding(
             padding: const EdgeInsets.only(left: 24),
             child: SvgPicture.asset(
-              'assets/img/home_logo.svg',
+              'assets/img/B.svg',
               width: 71,
               height: 20,
             ),
