@@ -16,6 +16,7 @@ class ReservationCancelModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      backgroundColor: Colors.transparent,
       child: Container(
         width: MediaQuery.of(context).size.width * (359 / 393),
         height: 114,
@@ -54,7 +55,7 @@ class ReservationCancelModal extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('예약을 취소하시면 사용하실 수 없습니다.',
+                  Text('예약을 취소하시면\n사용하실 수 없습니다.',
                       style: AppTextStyles.medium10
                           .copyWith(color: AppColor.gray600)),
                   Row(

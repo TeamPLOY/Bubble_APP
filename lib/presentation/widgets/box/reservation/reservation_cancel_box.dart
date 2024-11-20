@@ -98,7 +98,8 @@ bool checkDate(String backendDate) {
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     "${widget.resDate} ${widget.dayOfWeek} 예약",
-                    style: AppTextStyles.medium14.copyWith(
+                    style: MediaQuery.of(context).size.width<=350?AppTextStyles.medium12.copyWith(
+                      color: AppColor.gray800):AppTextStyles.medium14.copyWith(
                       color: AppColor.gray800,
                     ),
                   ),
@@ -107,8 +108,8 @@ bool checkDate(String backendDate) {
                   padding: const EdgeInsets.only(right: 10, top: 5),
                   child: _cancel == true
                       ? Container(
-                          width: 70,
-                          height: 26,
+                          width: MediaQuery.of(context).size.width * (70 / 393),
+                          height: MediaQuery.of(context).size.height * (26 / 893),
                           decoration: BoxDecoration(
                             color: AppColor.gray200,
                             borderRadius: BorderRadius.circular(10),
@@ -116,15 +117,16 @@ bool checkDate(String backendDate) {
                           child: Center(
                             child: Text(
                               '취소 완료',
-                              style: AppTextStyles.medium14
+                              style: MediaQuery.of(context).size.width<=350?AppTextStyles.medium12
+                                  .copyWith(color: AppColor.gray500):AppTextStyles.medium14
                                   .copyWith(color: AppColor.gray500),
                             ),
                           ),
                         )
                       : checkDate(widget.resDate)
                           ? Container(
-                              width: 70,
-                              height: 26,
+                          width: MediaQuery.of(context).size.width * (70 / 393),
+                          height: MediaQuery.of(context).size.height * (26 / 893),
                               decoration: BoxDecoration(
                                 color: AppColor.gray200,
                                 borderRadius: BorderRadius.circular(10),
@@ -132,7 +134,8 @@ bool checkDate(String backendDate) {
                               child: Center(
                                 child: Text(
                                   '사용 완료',
-                                  style: AppTextStyles.medium14
+                                  style: MediaQuery.of(context).size.width<=350?AppTextStyles.medium12
+                                      .copyWith(color: AppColor.gray500):AppTextStyles.medium14
                                       .copyWith(color: AppColor.gray500),
                                 ),
                               ),
@@ -159,8 +162,8 @@ bool checkDate(String backendDate) {
                                 }
                               },
                               child: Container(
-                                width: 70,
-                                height: 26,
+                          width: MediaQuery.of(context).size.width * (70 / 393),
+                          height: MediaQuery.of(context).size.height * (26 / 893),
                                 decoration: BoxDecoration(
                                   color: AppColor.gray200,
                                   borderRadius: BorderRadius.circular(10),
@@ -168,7 +171,8 @@ bool checkDate(String backendDate) {
                                 child: Center(
                                   child: Text(
                                     '예약 취소',
-                                    style: AppTextStyles.semiBold14
+                                    style: MediaQuery.of(context).size.width<=350?AppTextStyles.semiBold12
+                                        .copyWith(color: AppColor.blue400):AppTextStyles.semiBold14
                                         .copyWith(color: AppColor.blue400),
                                   ),
                                 ),

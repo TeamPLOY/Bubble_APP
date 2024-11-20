@@ -97,7 +97,8 @@ class _MachineBoxState extends State<MachineBox> {
                       Text(
                         // 가공된 머신 이름을 표시
                         extractMachineName(widget.device),
-                        style: AppTextStyles.medium14.copyWith(
+                        style: MediaQuery.of(context).size.width<=350?AppTextStyles.medium14.copyWith(
+                            color: AppColor.gray800, fontSize: titleSize*1.6):AppTextStyles.medium14.copyWith(
                             color: AppColor.gray800, fontSize: titleSize),
                       ),
                       Lightbox(selectedIndex: widget.place),
@@ -112,11 +113,12 @@ class _MachineBoxState extends State<MachineBox> {
                 children: [
                   Text(
                     '작동중',
-                    style: AppTextStyles.medium10.copyWith(
+                    style: MediaQuery.of(context).size.width<=350?AppTextStyles.medium10.copyWith(
+                        color: AppColor.gray800, fontSize: subtitleSize*1.6):AppTextStyles.medium10.copyWith(
                         color: AppColor.gray800, fontSize: subtitleSize),
                   ),
                   SizedBox(
-                    width: width * 0.02,
+                    width: MediaQuery.of(context).size.width<=350?width * 0.04:width * 0.02,
                   ),
                   Container(
                     width: width * 0.04,
@@ -157,7 +159,7 @@ class _MachineBoxState extends State<MachineBox> {
                           child: Text(
                             '${formattime(widget.hour)} : ${formattime(widget.minute)}',
                             style: MediaQuery.of(context).size.width<=350?AppTextStyles.medium22.copyWith(
-                                color: AppColor.gray600, fontSize: timeSize*1.4):AppTextStyles.medium14.copyWith(
+                                color: AppColor.gray600, fontSize: timeSize*1.6):AppTextStyles.medium14.copyWith(
                                 color: AppColor.gray600, fontSize: timeSize),
                           ),
                         ),

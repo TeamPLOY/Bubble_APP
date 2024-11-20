@@ -1,4 +1,5 @@
 import 'package:bubble_app/presentation/pages/home/home_page.dart';
+import 'package:bubble_app/presentation/pages/reservation/finish_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/app/config/app_color.dart';
@@ -96,7 +97,7 @@ class ReservationCheckModal extends StatelessWidget {
                       context,
                       PageRouteBuilder(
                         pageBuilder: (context, animation, secondaryAnimation) =>
-                            HomePage(),
+                            FinishPage(),
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) {
                           return child;

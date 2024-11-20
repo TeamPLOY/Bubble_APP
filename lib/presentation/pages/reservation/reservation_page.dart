@@ -229,45 +229,50 @@ class _ReservationPageState extends State<ReservationPage> {
                                 : MediaQuery.of(context).size.height *
                                     (20 / 852),
                           ),
-                          GestureDetector(
-                            onTap: () => {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Dialog(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: ReservationCheckModal(
-                                      date: reservations[selectedIndex].date,
-                                      onConfirm: () async {
-                                        print(
-                                            '${reservations[selectedIndex].date}');
-                                        print(
-                                            "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
-                                        ReservationPostApi postApi = ReservationPostApi(
-                                            date:
-                                                '${reservations[selectedIndex].date}',
-                                            machine:
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () => {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Dialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(15),
+                                        ),
+                                        child: ReservationCheckModal(
+                                          date: reservations[selectedIndex].date,
+                                          onConfirm: () async {
+                                            print(
+                                                '${reservations[selectedIndex].date}');
+                                            print(
                                                 "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
-                                        postApi.reservationDate();
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  );
+                                            ReservationPostApi postApi = ReservationPostApi(
+                                                date:
+                                                    '${reservations[selectedIndex].date}',
+                                                machine:
+                                                    "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
+                                            postApi.reservationDate();
+                                            
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  )
                                 },
-                              )
-                            },
-                            child: NextButton(
-                              text: '예약하기',
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => FinishPage()),
-                                );
-                              },
-                            ),
+                                child: NextButton(
+                                  text: '예약하기',
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => FinishPage()),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 10),
                         ],
