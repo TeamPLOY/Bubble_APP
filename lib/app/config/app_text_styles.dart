@@ -10,7 +10,10 @@ class AppTextStyles {
       fontFamily: 'PretendardRegular',
       fontSize: 14,
       fontWeight: FontWeight.w400);
-
+  static TextStyle regular16 = TextStyle(
+      fontFamily: 'PretendardRegular',
+      fontSize: 16,
+      fontWeight: FontWeight.w400);
   static TextStyle regular20 = TextStyle(
       fontFamily: 'PretendardRegular',
       fontSize: 20,

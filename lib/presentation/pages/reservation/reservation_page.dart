@@ -77,7 +77,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '세탁실을 이용한 날짜와\n기기를 선택하세요!',
+                                    '세탁실을 이용할 날짜와\n기기를 선택하세요!',
                                     style: AppTextStyles.semiBold24
                                         .copyWith(color: AppColor.gray800),
                                   ),
