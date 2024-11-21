@@ -51,7 +51,7 @@ class _HomeActivateState extends State<HomeActivate> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
             child: Text(
               '세탁기',
-              style: AppTextStyles.bold12.copyWith(color: AppColor.white100),
+              style: MediaQuery.of(context).size.width>=600?AppTextStyles.bold20.copyWith(color: AppColor.white100):MediaQuery.of(context).size.width>=500?AppTextStyles.bold16.copyWith(color: AppColor.white100):MediaQuery.of(context).size.width>=400?AppTextStyles.bold14.copyWith(color: AppColor.white100):AppTextStyles.bold14.copyWith(color: AppColor.white100),
             ),
           ),
         ),
@@ -70,7 +70,7 @@ class _HomeActivateState extends State<HomeActivate> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
             child: Text(
               '건조기',
-              style: AppTextStyles.bold12.copyWith(color: AppColor.white100),
+              style:  MediaQuery.of(context).size.width>=600?AppTextStyles.bold20.copyWith(color: AppColor.white100):MediaQuery.of(context).size.width>=500?AppTextStyles.bold16.copyWith(color: AppColor.white100):MediaQuery.of(context).size.width>=400?AppTextStyles.bold14.copyWith(color: AppColor.white100):AppTextStyles.bold14.copyWith(color: AppColor.white100),
             ),
           ),
         ),

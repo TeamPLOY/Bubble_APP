@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:bubble_app/data/models/token_model.dart';
 import 'package:bubble_app/data/providers/network/apis/api_url.dart';
+import 'package:bubble_app/data/providers/network/security_storage.dart';
 
 class LoginApi {
   final String email;
@@ -24,11 +25,6 @@ class LoginApi {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        // final response = await http.post(
-        //   Uri.parse(ApiUrls.login_post_url),
-        //   headers: <String, String>{
-        //     'Content-Type': 'application/json; charset=UTF-8',
-        //   },
         body: jsonEncode(postData),
       );
       if (response.statusCode == 200) {
@@ -37,11 +33,14 @@ class LoginApi {
 
         var accessToken = tokens['accessToken'];
         var refreshToken = tokens['refreshToken'];
-        TokenModel Token =
-            TokenModel(access_token: accessToken, refresh_token: refreshToken);
+        SecurityStorage storage = SecurityStorage();
+        await storage.clearUserData();
+        await storage.saveSecureToken('accessToken', accessToken);
+        await storage.saveSecureToken('refreshToken', refreshToken);
+        
+        TokenModel token =TokenModel(access_token: accessToken, refresh_token: refreshToken);
 
-        //print('포스트 성공');
-        return Token;
+        return token;
       } else {
         print('실패 : ${response.statusCode}');
         return TokenModel(access_token: null, refresh_token: null);

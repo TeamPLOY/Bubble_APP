@@ -76,8 +76,8 @@ class _MachineBoxState extends State<MachineBox> {
     final timeSize = width * 0.07; // 시간 글자 크기
 
     return Container(
-      width: width,
-      height: size.height * 0.16, // 높이도 반응형으로 설정
+      width: size.width * 0.8, // 너비를 반응형으로 설정
+      height:  MediaQuery.of(context).size.width>=700? size.height * 0.2:size.height * 0.16, // 높이도 반응형으로 설정
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
           border: Border.all(width: 1, color: AppColor.gray300)),
@@ -139,14 +139,14 @@ class _MachineBoxState extends State<MachineBox> {
                   )
                 ],
               ),
-            ),
+            ), 
             Padding(
               padding: EdgeInsets.only(top: height * 0.1),
-              child: Row(
+              child: Row( 
                 children: [
                   Container(
-                    width: width * 0.9,
-                    height: MediaQuery.of(context).size.width >= 600
+                    width: MediaQuery.of(context).size.width<=320?width * 0.8:width * 0.9,
+                    height: MediaQuery.of(context).size.width>=700?height * 0.4:MediaQuery.of(context).size.width >= 600
                         ? height * 0.3
                         : MediaQuery.of(context).size.width <= 400
                             ? height * 0.30
