@@ -1,3 +1,4 @@
+import 'package:bubble_app/data/models/token_model.dart';
 import 'package:bubble_app/presentation/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
@@ -5,7 +6,7 @@ import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/presentation/pages/login/login_page.dart';
 import 'package:bubble_app/data/providers/network/security_storage.dart';
-import 'package:bubble_app/data/providers/network/apis/token/refresh_api.dart';
+import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 
 class OnboardingPage extends StatelessWidget {
   OnboardingPage({super.key});
@@ -69,13 +70,9 @@ class OnboardingPage extends StatelessWidget {
               GestureDetector(
                 onTap: () async {
                   try {
-                    var accesstoken =
-                        await storage.readSecureToken('accessToken');
-                    var refreshtoken =
-                        await storage.readSecureToken('refreshToken');
-                    if (accesstoken!.isNotEmpty && refreshtoken!.isNotEmpty) {
-                      RefreshApi refreshApi = RefreshApi();
-                      await refreshApi.get_tokens();
+                    TokenModel logintoken=TokenModel(access_token: await storage.readSecureToken('accessToken'), refresh_token: await storage.readSecureToken('refreshToken'));
+                    if (logintoken.access_token=='' && logintoken.refresh_token=='') {
+                      globalTokens=logintoken;
                       Navigator.push(
                         context,
                         PageRouteBuilder(
