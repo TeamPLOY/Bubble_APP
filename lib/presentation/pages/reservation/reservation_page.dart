@@ -33,8 +33,8 @@ class _ReservationPageState extends State<ReservationPage> {
   @override
   void initState() {
     super.initState();
-    reservationsFuture = fetchReservations();
     fetchUser();
+    reservationsFuture = fetchReservations();
   }
 
   Future<List<ReservationModel>> fetchReservations() async {
@@ -69,7 +69,8 @@ class _ReservationPageState extends State<ReservationPage> {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData) {
               List<ReservationModel> reservations = snapshot.data!;
-              return ListView(
+              return 
+              ListView(
                 children: [
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -212,7 +213,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                         machine: "1",
                                         machine_state:
                                             reservations[selectedIndex]
-                                                .userCount[0],
+                                                .userCount[0]||parseNumberFromString(user_profile.roomNum)>=418&&parseNumberFromString(user_profile.roomNum)<=423,
                                         isActive: selectedMachine == 0,
                                         onTap: () {
                                           setState(() {
