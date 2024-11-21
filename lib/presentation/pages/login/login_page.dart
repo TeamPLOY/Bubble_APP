@@ -45,8 +45,10 @@ class _LoginPageState extends State<LoginPage> {
                       Text(
                         '안녕하세요 \n버블에 오신 것을 환영합니다!',
                         style: MediaQuery.of(context).size.width>=750?AppTextStyles.bold30.copyWith(fontSize: 38)
-                            .copyWith(color: AppColor.gray800): AppTextStyles.bold30
-                            .copyWith(color: AppColor.gray800),
+                            .copyWith(color: AppColor.gray800):MediaQuery.of(context).size.width<=400?AppTextStyles.bold20
+                            .copyWith(color: AppColor.gray800):MediaQuery.of(context).size.width<=300?
+                            AppTextStyles.bold20.copyWith(color: AppColor.gray800):
+                            AppTextStyles.bold30.copyWith(color: AppColor.gray800),
                         textAlign: TextAlign.left,
                       ),
                     ],
