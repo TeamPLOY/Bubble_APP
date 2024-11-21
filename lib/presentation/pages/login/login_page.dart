@@ -108,6 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Text(
                           '이메일 혹은 비밀번호가 비어있습니다.',
+
                           style: MediaQuery.of(context).size.width >= 750
                               ? AppTextStyles.medium18
                                   .copyWith(color: AppColor.red100)

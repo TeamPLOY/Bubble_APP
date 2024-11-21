@@ -37,8 +37,9 @@ class LoginApi {
         await storage.clearUserData();
         await storage.saveSecureToken('accessToken', accessToken);
         await storage.saveSecureToken('refreshToken', refreshToken);
-        
-        TokenModel token =TokenModel(access_token: accessToken, refresh_token: refreshToken);
+
+        TokenModel token =
+            TokenModel(access_token: accessToken, refresh_token: refreshToken);
 
         return token;
       } else {
