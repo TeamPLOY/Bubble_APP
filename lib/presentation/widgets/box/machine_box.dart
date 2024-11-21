@@ -59,15 +59,15 @@ class _MachineBoxState extends State<MachineBox> {
 
   /// 머신 이름 가공 함수
   String extractMachineName(String fullName) {
-    List<String> parts = fullName.split(' '); // 공백 기준으로 나누기
-    return parts.length > 1 ? parts.last : fullName; // 마지막 단어 반환
+    List<String> parts = fullName.split(' ');
+    return parts.length > 1 ? parts.last : fullName;
   }
 
   @override
   Widget build(BuildContext context) {
     // 화면 크기 가져오기
     final size = MediaQuery.of(context).size;
-    final width = size.width * 0.4; // 40% 너비로 설정
+    final width = size.width * 0.8; // 40% 너비로 설정
     final height = size.height * 0.15; // 15% 높이로 설정
 
     // 글자 크기 설정 (크기를 더 크게 조정)
@@ -76,7 +76,7 @@ class _MachineBoxState extends State<MachineBox> {
     final timeSize = width * 0.07; // 시간 글자 크기
 
     return Container(
-      width: size.width * 0.8, // 너비를 반응형으로 설정
+      width: width,
       height: size.height * 0.16, // 높이도 반응형으로 설정
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
