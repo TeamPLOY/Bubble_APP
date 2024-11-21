@@ -62,7 +62,8 @@ class OnboardingPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.width >= 500
                     ? MediaQuery.of(context).size.height * (300 / 852)
-                    : MediaQuery.of(context).size.height * (200 / 852),
+
+                    : MediaQuery.of(context).size.height * (240 / 852),
                 fit: BoxFit.fill,
               ),
               GestureDetector(
@@ -122,7 +123,9 @@ class OnboardingPage extends StatelessWidget {
                   child: Center(
                     child: Text(
                       '버블 시작',
-                      style: AppTextStyles.semiBold18.copyWith(
+
+                      style: AppTextStyles.bold20.copyWith(
+
                           color: AppColor.blue400,
                           fontSize:
                               MediaQuery.of(context).size.height * (30 / 852)),
