@@ -6,8 +6,8 @@ class SecurityStorage {
   final FlutterSecureStorage storage = FlutterSecureStorage();
 
   AndroidOptions _getAndroidOptions() => const AndroidOptions(
-    encryptedSharedPreferences: true,
-  );
+        encryptedSharedPreferences: true,
+      );
 
   factory SecurityStorage() {
     return _instance;
@@ -17,9 +17,9 @@ class SecurityStorage {
 
   Future<void> saveSecureToken(String key, String value) async {
     await storage.write(
-      key: key, 
+      key: key,
       value: value,
-      aOptions: _getAndroidOptions()
+      aOptions: _getAndroidOptions(),
     );
   }
 
@@ -33,5 +33,10 @@ class SecurityStorage {
 
   Future<void> deleteSecureToken(String key) async {
     await storage.delete(key: key);
+  }
+
+  /// 키 존재 여부 확인 메서드
+  Future<bool> containsKey(String key) async {
+    return await storage.containsKey(key: key);
   }
 }

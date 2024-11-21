@@ -11,7 +11,6 @@ import 'package:bubble_app/presentation/widgets/button/next_button.dart';
 import 'package:bubble_app/presentation/widgets/box/input_box.dart';
 import 'package:bubble_app/data/providers/network/apis/login/login_api.dart';
 import 'package:bubble_app/data/Functions/emailsearch.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -29,7 +28,6 @@ class _LoginPageState extends State<LoginPage> {
   bool logcheck = true;
   String? userInfo;
 
-  static final storage = FlutterSecureStorage(); // flutter_secure_storage 초기화
 
   @override
   void initState() {
@@ -40,7 +38,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _asyncMethod() async {
-    userInfo = await storage.read(key: "login");
 
     if (userInfo != null) {
       Navigator.pushReplacement(
@@ -177,22 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: NextButton(
                       text: '로그인',
-                      onPressed: () async {
-                        await storage.write(
-                          key: "login",
-                          value: "id " +
-                              idController.text +
-                              " " +
-                              "password " +
-                              passwordController.text,
-                        );
-
-                        Navigator.pushReplacement(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => ProfilePage(),
-                          ),
-                        );
+                      onPressed: (){
                       },
                     ),
                   ),

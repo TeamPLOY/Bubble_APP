@@ -69,49 +69,50 @@ class OnboardingPage extends StatelessWidget {
               GestureDetector(
                 onTap: () async {
                   try {
-                    TokenModel logintoken = TokenModel(
-                        access_token:
-                            await storage.readSecureToken('accessToken'),
-                        refresh_token:
-                            await storage.readSecureToken('refreshToken'));
-                    if (logintoken.access_token != '') {
+                    // SecureStorage에서 토큰 읽기
+                    final accessToken = await storage.readSecureToken('accessToken');
+                    final refreshToken = await storage.readSecureToken('refreshToken');
+
+                    // 토큰이 null 또는 빈 문자열인지 확인
+                    if (accessToken != null && accessToken.isNotEmpty) {
+                      // TokenModel로 토큰 저장
+                      TokenModel logintoken = TokenModel(
+                        access_token: accessToken,
+                        refresh_token: refreshToken,
+                      );
+
+                      // 글로벌 변수에 저장
                       globalTokens = logintoken;
+
+                      // 자동 로그인 후 홈 페이지로 이동
                       Navigator.push(
                         context,
                         PageRouteBuilder(
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) =>
-                                  HomePage(),
+                          pageBuilder: (context, animation, secondaryAnimation) => HomePage(),
                           transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            return child; // 애니메이션 없이 바로 화면 전환
-                          },
+                              (context, animation, secondaryAnimation, child) => child,
                         ),
                       );
                     } else {
+                      // 토큰이 없으면 로그인 페이지로 이동
                       Navigator.push(
                         context,
                         PageRouteBuilder(
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) =>
-                                  LoginPage(),
+                          pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
                           transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            return child; // 애니메이션 없이 바로 화면 전환
-                          },
+                              (context, animation, secondaryAnimation, child) => child,
                         ),
                       );
                     }
                   } catch (e) {
+                    // 에러 발생 시 로그인 페이지로 이동
+                    print('자동 로그인 실패: $e');
                     Navigator.push(
                       context,
                       PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            LoginPage(),
+                        pageBuilder: (context, animation, secondaryAnimation) => LoginPage(),
                         transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          return child; // 애니메이션 없이 바로 화면 전환
-                        },
+                            (context, animation, secondaryAnimation, child) => child,
                       ),
                     );
                   }
@@ -124,13 +125,14 @@ class OnboardingPage extends StatelessWidget {
                     child: Text(
                       '버블 시작',
                       style: AppTextStyles.bold20.copyWith(
-                          color: AppColor.blue400,
-                          fontSize:
-                              MediaQuery.of(context).size.height * (30 / 852)),
+                        color: AppColor.blue400,
+                        fontSize: MediaQuery.of(context).size.height * (30 / 852),
+                      ),
                     ),
                   ),
                 ),
               ),
+
             ],
           )
         ],
