@@ -8,6 +8,7 @@ plugins {
 android {
     namespace = "bubble.app"
     compileSdk = flutter.compileSdkVersion
+    compileSdkVersion 33 //자동 로그인
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -21,6 +22,7 @@ android {
 
     defaultConfig {
         applicationId = "bubble.app"
+        minSdkVersion 18 //자동 로그인
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

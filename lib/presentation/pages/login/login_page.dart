@@ -58,24 +58,34 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: AppColor.white100,
       body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                LoginHeader(text: '로그인'),
-                SizedBox(height: 107),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
+            LoginHeader(text: '로그인'),
+            SizedBox(height: 107),
+            Container(
+              width: MediaQuery.of(context).size.width * (345 / 393),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '안녕하세요 \n버블에 오신 것을 환영합니다!',
-                    style: AppTextStyles.semiBold24
-                        .copyWith(color: AppColor.gray800),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        '안녕하세요 \n버블에 오신 것을 환영합니다!',
+                        style: MediaQuery.of(context).size.width >= 750
+                            ? AppTextStyles.bold30
+                                .copyWith(fontSize: 38)
+                                .copyWith(color: AppColor.gray800)
+                            : MediaQuery.of(context).size.width <= 400
+                                ? AppTextStyles.bold20
+                                    .copyWith(color: AppColor.gray800)
+                                : MediaQuery.of(context).size.width <= 300
+                                    ? AppTextStyles.bold20
+                                        .copyWith(color: AppColor.gray800)
+                                    : AppTextStyles.bold30
+                                        .copyWith(color: AppColor.gray800),
+                        textAlign: TextAlign.left,
+                      ),
+                    ],
                   ),
                   SizedBox(height: 24),
                   Inputbox(
@@ -92,14 +102,17 @@ class _LoginPageState extends State<LoginPage> {
                     controller: passwordController,
                     password: true,
                   ),
-                  SizedBox(height: pad),
+                  SizedBox(height: 8),
                   if (loginstate[0] == true || loginstate[1] == true)
                     Column(
                       children: [
                         Text(
                           '이메일 혹은 비밀번호가 비어있습니다.',
-                          style: AppTextStyles.medium12
-                              .copyWith(color: AppColor.red100),
+                          style: MediaQuery.of(context).size.width >= 750
+                              ? AppTextStyles.medium18
+                                  .copyWith(color: AppColor.red100)
+                              : AppTextStyles.medium12.copyWith(
+                                  color: AppColor.red100), // AppTextStyles 사용
                         ),
                         SizedBox(height: 17),
                       ],
@@ -109,8 +122,11 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Text(
                           '이메일 혹은 비밀번호가 일치하지 않습니다.',
-                          style: AppTextStyles.medium12
-                              .copyWith(color: AppColor.red100),
+                          style: MediaQuery.of(context).size.width >= 750
+                              ? AppTextStyles.medium18
+                                  .copyWith(color: AppColor.red100)
+                              : AppTextStyles.medium12.copyWith(
+                                  color: AppColor.red100), // AppTextStyles 사용
                         ),
                         SizedBox(height: 17),
                       ],
@@ -180,35 +196,30 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   SizedBox(height: 14),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      SignupPage(),
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                return child;
-                              },
-                            ),
-                          );
-                        },
-                        child: Text(
-                          '회원가입',
-                          style: AppTextStyles.bold16
-                              .copyWith(color: AppColor.gray800),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  SignupPage(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            return child;
+                          },
                         ),
-                      ),
-                    ],
-                  ),
+                      );
+                    },
+                    child: Text(
+                      '회원가입',
+                      style: AppTextStyles.bold16.copyWith(
+                          color: AppColor.gray800), // AppTextStyles 사용
+                    ),
+                  )
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

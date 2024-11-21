@@ -19,7 +19,7 @@ class Inputbox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * (wsize / 393),
-      height: hsize,
+      height: hsize*1.08,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         border: Border.all(width: 1, color: AppColor.gray300),

@@ -67,7 +67,7 @@ class _MachineBoxState extends State<MachineBox> {
   Widget build(BuildContext context) {
     // 화면 크기 가져오기
     final size = MediaQuery.of(context).size;
-    final width = size.width * 0.8; // 40% 너비로 설정
+    final width = size.width * 0.4; // 40% 너비로 설정
     final height = size.height * 0.15; // 15% 높이로 설정
 
     // 글자 크기 설정 (크기를 더 크게 조정)
@@ -76,8 +76,8 @@ class _MachineBoxState extends State<MachineBox> {
     final timeSize = width * 0.07; // 시간 글자 크기
 
     return Container(
-      width: width,
-      height: size.height * 0.16, // 높이도 반응형으로 설정
+      width: size.width * 0.8, // 너비를 반응형으로 설정
+      height: size.height * 0.16,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
           border: Border.all(width: 1, color: AppColor.gray300)),
@@ -145,12 +145,16 @@ class _MachineBoxState extends State<MachineBox> {
               child: Row(
                 children: [
                   Container(
-                    width: width * 0.9,
-                    height: MediaQuery.of(context).size.width >= 600
-                        ? height * 0.3
-                        : MediaQuery.of(context).size.width <= 400
-                            ? height * 0.30
-                            : height * 0.25,
+                    width: MediaQuery.of(context).size.width <= 320
+                        ? width * 0.8
+                        : width * 0.9,
+                    height: MediaQuery.of(context).size.width >= 700
+                        ? height * 0.4
+                        : MediaQuery.of(context).size.width >= 600
+                            ? height * 0.3
+                            : MediaQuery.of(context).size.width <= 400
+                                ? height * 0.30
+                                : height * 0.25,
                     decoration: BoxDecoration(
                       color: widget.hour == 0 && widget.minute == 0
                           ? AppColor.gray200 // 작동 중이지 않을 때 배경 설정
