@@ -31,29 +31,25 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: AppColor.white100, // AppColor 사용
       body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                LoginHeader(text: '로그인'),
-                SizedBox(height: 107),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
+            LoginHeader(text: '로그인'),
+            SizedBox(height: 107),
+            Container(
+              width: MediaQuery.of(context).size.width * (345 / 393),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '안녕하세요 : )',
-                    style: AppTextStyles.bold30
-                        .copyWith(color: AppColor.gray800), // AppTextStyles 사용
-                  ),
-                  Text(
-                    '버블입니다.',
-                    style: AppTextStyles.bold30
-                        .copyWith(color: AppColor.gray800), // AppTextStyles 사용
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        '안녕하세요 : )\n버블입니다.',
+                        style: MediaQuery.of(context).size.width>=750?AppTextStyles.bold30.copyWith(fontSize: 46)
+                            .copyWith(color: AppColor.gray800): AppTextStyles.bold30
+                            .copyWith(color: AppColor.gray800),
+                        textAlign: TextAlign.left,
+                      ),
+                    ],
                   ),
                   SizedBox(height: 30),
                   Inputbox(
@@ -70,13 +66,14 @@ class _LoginPageState extends State<LoginPage> {
                     controller: passwordController,
                     password: true,
                   ),
-                  SizedBox(height: pad),
+                  SizedBox(height: 8),
                   if (loginstate[0] == true || loginstate[1] == true)
                     Column(
                       children: [
                         Text(
                           '이메일 혹은 비밀번호가 비어있습니다.',
-                          style: AppTextStyles.medium12.copyWith(
+                          style:  MediaQuery.of(context).size.width>=750?AppTextStyles.medium18.copyWith(
+                              color: AppColor.red100):AppTextStyles.medium12.copyWith(
                               color: AppColor.red100), // AppTextStyles 사용
                         ),
                         SizedBox(height: 17),
@@ -87,7 +84,8 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Text(
                           '이메일 혹은 비밀번호가 일치하지 않습니다.',
-                          style: AppTextStyles.medium12.copyWith(
+                          style:  MediaQuery.of(context).size.width>=750?AppTextStyles.medium18.copyWith(
+                              color: AppColor.red100):AppTextStyles.medium12.copyWith(
                               color: AppColor.red100), // AppTextStyles 사용
                         ),
                         SizedBox(height: 17),
@@ -99,19 +97,19 @@ class _LoginPageState extends State<LoginPage> {
                         emailController: idController,
                         comController: passwordController,
                       );
-
+                              
                       setState(() {
                         loginstate = emailsearch.checkForm();
                         pad = loginstate[0] || loginstate[1] ? 8 : 42;
                       });
-
+                              
                       if (!loginstate[0] && !loginstate[1]) {
                         LoginApi login = LoginApi(
                           email: idController.text,
                           password: passwordController.text,
                         );
                         globalTokens = await login.loginpostData();
-
+                              
                         setState(() {
                           if (globalTokens?.access_token == null ||
                               globalTokens?.refresh_token == null) {
@@ -142,35 +140,30 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   SizedBox(height: 14),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center, // 수평 중앙 정렬
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      SignupPage(),
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                return child;
-                              },
-                            ),
-                          );
-                        },
-                        child: Text(
-                          '회원가입',
-                          style: AppTextStyles.bold16.copyWith(
-                              color: AppColor.gray800), // AppTextStyles 사용
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  SignupPage(),
+                          transitionsBuilder: (context, animation,
+                              secondaryAnimation, child) {
+                            return child;
+                          },
                         ),
-                      ),
-                    ],
-                  ),
+                      );
+                    },
+                    child: Text(
+                      '회원가입',
+                      style: AppTextStyles.bold16.copyWith(
+                          color: AppColor.gray800), // AppTextStyles 사용
+                    ),
+                  )
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
