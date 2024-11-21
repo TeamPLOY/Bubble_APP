@@ -45,7 +45,17 @@ class _ReservationPageState extends State<ReservationPage> {
     final userGetapi = ProfileApi(access_token: access_token);
     user_profile = await userGetapi.fetchData();
   }
+  int parseNumberFromString(String input) {
+    // 문자열에서 숫자 부분만 추출
+    RegExp regExp = RegExp(r'\d+');
+    String? numberStr = regExp.firstMatch(input)?.group(0);
 
+    if (numberStr != null) {
+      return int.parse(numberStr);
+    } else {
+      throw FormatException("숫자가 포함된 문자열이 아닙니다.");
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -190,7 +200,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                         machine: "2",
                                         machine_state:
                                             reservations[selectedIndex]
-                                                .userCount[1],
+                                                .userCount[1]||parseNumberFromString(user_profile.roomNum)>=424&&parseNumberFromString(user_profile.roomNum)<=434,
                                         isActive: selectedMachine == 1,
                                         onTap: () {
                                           setState(() {
@@ -207,7 +217,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                         machine: "3",
                                         machine_state:
                                             reservations[selectedIndex]
-                                                .userCount[2],
+                                                .userCount[2]||parseNumberFromString(user_profile.roomNum)>=418&&parseNumberFromString(user_profile.roomNum)<=423,
                                         isActive: selectedMachine == 2,
                                         onTap: () {
                                           setState(() {
@@ -221,7 +231,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                         machine_state:
                                             reservations[selectedIndex]
                                                 .userCount[3],
-                                        isActive: selectedMachine == 3,
+                                        isActive: selectedMachine == 3||parseNumberFromString(user_profile.roomNum)>=424&&parseNumberFromString(user_profile.roomNum)<=434,
                                         onTap: () {
                                           setState(() {
                                             selectedMachine = 3;
