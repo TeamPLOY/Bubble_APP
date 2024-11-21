@@ -63,16 +63,19 @@ class OnboardingPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.width >= 500
                     ? MediaQuery.of(context).size.height * (300 / 852)
-
                     : MediaQuery.of(context).size.height * (240 / 852),
                 fit: BoxFit.fill,
               ),
               GestureDetector(
                 onTap: () async {
                   try {
-                    TokenModel logintoken=TokenModel(access_token: await storage.readSecureToken('accessToken'), refresh_token: await storage.readSecureToken('refreshToken'));
-                    if (logintoken.access_token=='' && logintoken.refresh_token=='') {
-                      globalTokens=logintoken;
+                    TokenModel logintoken = TokenModel(
+                        access_token:
+                            await storage.readSecureToken('accessToken'),
+                        refresh_token:
+                            await storage.readSecureToken('refreshToken'));
+                    if (logintoken.access_token != '') {
+                      globalTokens = logintoken;
                       Navigator.push(
                         context,
                         PageRouteBuilder(
@@ -120,9 +123,7 @@ class OnboardingPage extends StatelessWidget {
                   child: Center(
                     child: Text(
                       '버블 시작',
-
                       style: AppTextStyles.bold20.copyWith(
-
                           color: AppColor.blue400,
                           fontSize:
                               MediaQuery.of(context).size.height * (30 / 852)),
