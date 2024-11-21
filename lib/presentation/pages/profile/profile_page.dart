@@ -44,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.white100, // AppColor 사용
+      backgroundColor: AppColor.white100,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           userData != null
                               ? '${userData!.studentNum}'
                               : '학생 번호 로딩 중...',
-                          style: AppTextStyles.medium12.copyWith(
+                          style: AppTextStyles.medium14.copyWith(
                               color: AppColor.gray600), // AppTextStyles 사용
                         )
                       ],
@@ -93,7 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-            const SizedBox(height: 14), // 상단 정보와 첫 번째 섹션 간 여백
+            const SizedBox(height: 14),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
@@ -105,7 +105,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         .copyWith(color: AppColor.gray800), // AppTextStyles 사용
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * (3 / 852),
+                    height: MediaQuery.of(context).size.height * (5 / 852),
                   ),
                   ProfileText(
                     information:
@@ -126,7 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         .copyWith(color: AppColor.gray800), // AppTextStyles 사용
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * (3 / 852),
+                    height: MediaQuery.of(context).size.height * (4 / 852),
                   ),
                   ProfileText(
                     information: userData != null
@@ -154,9 +154,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                       child: Text(
                         '로그아웃',
-                        style: MediaQuery.of(context).size.width>=500?AppTextStyles.regular20.copyWith(
-                            color: AppColor.gray600):AppTextStyles.regular14.copyWith(
-                            color: AppColor.gray600), // AppTextStyles 사용
+                        style: MediaQuery.of(context).size.width >= 500
+                            ? AppTextStyles.regular20
+                                .copyWith(color: AppColor.gray600)
+                            : AppTextStyles.regular14.copyWith(
+                                color: AppColor.gray600), // AppTextStyles 사용
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -171,9 +173,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                       child: Text(
                         '탈퇴하기',
-                        style: MediaQuery.of(context).size.width>=500?AppTextStyles.regular20.copyWith(
-                            color: AppColor.red100):AppTextStyles.regular14.copyWith(
-                            color: AppColor.red100), // AppTextStyles 사용
+                        style: MediaQuery.of(context).size.width >= 500
+                            ? AppTextStyles.regular20
+                                .copyWith(color: AppColor.red100)
+                            : AppTextStyles.regular14.copyWith(
+                                color: AppColor.red100), // AppTextStyles 사용
                       ),
                     ),
                   ],
