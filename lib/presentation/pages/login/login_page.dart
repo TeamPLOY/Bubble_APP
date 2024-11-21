@@ -43,8 +43,8 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        '안녕하세요 : )\n버블입니다.',
-                        style: MediaQuery.of(context).size.width>=750?AppTextStyles.bold30.copyWith(fontSize: 46)
+                        '안녕하세요 \n버블에 오신 것을 환영합니다!',
+                        style: MediaQuery.of(context).size.width>=750?AppTextStyles.bold30.copyWith(fontSize: 38)
                             .copyWith(color: AppColor.gray800): AppTextStyles.bold30
                             .copyWith(color: AppColor.gray800),
                         textAlign: TextAlign.left,

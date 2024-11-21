@@ -22,17 +22,17 @@ class Inputbox extends StatelessWidget {
       height: hsize,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        border: Border.all(width: 1, color:AppColor.gray300),
+        border: Border.all(width: 1, color: AppColor.gray300),
       ),
       child: TextFormField(
         obscureText: password == true ? true : false,
         controller: controller,
         cursorColor: AppColor.gray600,
-        style: AppTextStyles.medium14.copyWith(color: AppColor.gray800),
+        style: AppTextStyles.medium18.copyWith(color: AppColor.gray800),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(bottom: 11, left: 11),
           hintText: text,
-          hintStyle: AppTextStyles.medium14.copyWith(color: AppColor.gray400),
+          hintStyle: AppTextStyles.medium16.copyWith(color: AppColor.gray400),
           border: InputBorder.none,
         ),
       ),

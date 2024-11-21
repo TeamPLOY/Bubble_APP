@@ -225,7 +225,7 @@ class _ReservationPageState extends State<ReservationPage> {
                           SizedBox(
                             height: MediaQuery.of(context).size.height > 740
                                 ? MediaQuery.of(context).size.height *
-                                    (88 / 852)
+                                    (78 / 852)
                                 : MediaQuery.of(context).size.height *
                                     (20 / 852),
                           ),
@@ -239,22 +239,24 @@ class _ReservationPageState extends State<ReservationPage> {
                                     builder: (BuildContext context) {
                                       return Dialog(
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: ReservationCheckModal(
-                                          date: reservations[selectedIndex].date,
+                                          date:
+                                              reservations[selectedIndex].date,
                                           onConfirm: () async {
                                             print(
                                                 '${reservations[selectedIndex].date}');
                                             print(
                                                 "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
-                                            ReservationPostApi postApi = ReservationPostApi(
-                                                date:
-                                                    '${reservations[selectedIndex].date}',
-                                                machine:
-                                                    "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
+                                            ReservationPostApi postApi =
+                                                ReservationPostApi(
+                                                    date:
+                                                        '${reservations[selectedIndex].date}',
+                                                    machine:
+                                                        "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
                                             postApi.reservationDate();
-                                            
                                           },
                                         ),
                                       );
