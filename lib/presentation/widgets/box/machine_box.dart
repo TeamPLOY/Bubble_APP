@@ -131,10 +131,10 @@ class _MachineBoxState extends State<MachineBox> {
                   )
                 ],
               ),
-            ),
+            ), 
             Padding(
               padding: EdgeInsets.only(top: height * 0.1),
-              child: Row(
+              child: Row( 
                 children: [
                   Container(
                     width: width * 0.9,
