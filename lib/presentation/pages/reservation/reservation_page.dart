@@ -153,14 +153,21 @@ class _ReservationPageState extends State<ReservationPage> {
                                     height: MediaQuery.of(context).size.height *
                                         (40 / 852),
                                   ),
-                                  Text(
-                                    '희망하는 세탁기 선택',
-                                    style: AppTextStyles.semiBold18
-                                        .copyWith(color: AppColor.gray800),
-                                  ),
-                                  const SizedBox(width: 10),
-                                   SvgPicture.asset(
-                                    'assets/img/detail.svg',
+                                   Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '희망하는 세탁기 선택',
+                                        style: AppTextStyles.semiBold18
+                                            .copyWith(color: AppColor.gray800),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      SvgPicture.asset(
+                                        'assets/img/detail.svg',
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                    ],
                                   ),
                                   const SizedBox(height: 16),
                                   Row(
