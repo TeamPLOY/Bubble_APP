@@ -1,11 +1,15 @@
+import 'package:bubble_app/presentation/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/pages/login/login_page.dart';
+import 'package:bubble_app/data/providers/network/security_storage.dart';
+import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
+import 'package:bubble_app/data/providers/network/apis/token/refresh_api.dart';
 
 class OnboardingPage extends StatelessWidget {
-  const OnboardingPage({super.key});
-
+  OnboardingPage({super.key});
+  SecurityStorage storage = SecurityStorage();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,8 +64,27 @@ class OnboardingPage extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
+                onTap: () async{
+                  try{
+                    var accesstoken=await storage.readSecureToken('accessToken');
+                  var refreshtoken=await storage.readSecureToken('refreshToken');
+                  if(accesstoken!.isNotEmpty&&refreshtoken!.isNotEmpty){
+                    RefreshApi refreshApi = RefreshApi();
+                    await refreshApi.get_tokens();
+                    Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          HomePage(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        return child; // 애니메이션 없이 바로 화면 전환
+                      },
+                    ),
+                  );
+                  }
+                  else{
+                    Navigator.push(
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
@@ -72,6 +95,21 @@ class OnboardingPage extends StatelessWidget {
                       },
                     ),
                   );
+                  }
+                  }
+                  catch(e){
+                    Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          LoginPage(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        return child; // 애니메이션 없이 바로 화면 전환
+                      },
+                    ),
+                  );
+                  }
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,

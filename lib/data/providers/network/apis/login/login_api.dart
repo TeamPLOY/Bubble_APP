@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:bubble_app/data/models/token_model.dart';
 import 'package:bubble_app/data/providers/network/apis/api_url.dart';
+import 'package:bubble_app/data/providers/network/security_storage.dart';
 
 class LoginApi {
   final String email;
@@ -37,6 +38,10 @@ class LoginApi {
 
         var accessToken = tokens['accessToken'];
         var refreshToken = tokens['refreshToken'];
+        SecurityStorage storage = SecurityStorage();
+        storage.clearUserData();
+        storage.saveSecureToken('accessToken', accessToken);
+        storage.saveSecureToken('refreshToken', refreshToken);
         TokenModel Token =
             TokenModel(access_token: accessToken, refresh_token: refreshToken);
 

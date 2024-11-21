@@ -4,17 +4,19 @@ import 'dart:async';
 import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 import 'package:bubble_app/data/models/refresh_token_model.dart';
 import 'package:bubble_app/data/providers/network/apis/api_url.dart';
+import 'package:bubble_app/data/providers/network/security_storage.dart';
 
 class RefreshApi {
-  var refresh_token = globalTokens?.refresh_token;
-
   Future<void> get_tokens() async {
+    SecurityStorage storage =SecurityStorage();
+
+    var refresh_tokens = storage.readSecureToken('accessToken');
     try {
       final response = await http.post(
         Uri.parse(ApiUrls.refresh_post_url),
         headers: {
           'Content-Type': 'application/json',
-          'refresh_token': '${refresh_token}'
+          'refresh_token': '${refresh_tokens}'
         },
       );
 
@@ -23,6 +25,10 @@ class RefreshApi {
         RefreshTokenModel tokens = RefreshTokenModel.fromJson(responseData);
         globalTokens?.access_token = tokens.access_token;
         globalTokens?.refresh_token = tokens.refresh_token;
+        storage.clearUserData();
+        storage.saveSecureToken('accessToken', tokens.access_token);
+        storage.saveSecureToken('refreshToken', tokens.refresh_token);
+        
         if (globalTokens?.access_token == tokens.access_token ||
             globalTokens?.refresh_token == tokens.refresh_token) {
           print('포스트 성공 : $responseData');
