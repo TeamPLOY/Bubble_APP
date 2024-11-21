@@ -28,6 +28,7 @@ class _ReservationPageState extends State<ReservationPage> {
   int selectedIndex = 0;
   int selectedMachine = -1;
   var access_token = globalTokens?.access_token ?? '';
+  bool showImage = false; // 이미지 표시 여부를 위한 상태 변수
 
   @override
   void initState() {
@@ -153,8 +154,9 @@ class _ReservationPageState extends State<ReservationPage> {
                                     height: MediaQuery.of(context).size.height *
                                         (40 / 852),
                                   ),
-                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Text(
                                         '희망하는 세탁기 선택',
@@ -162,18 +164,37 @@ class _ReservationPageState extends State<ReservationPage> {
                                             .copyWith(color: AppColor.gray800),
                                       ),
                                       const SizedBox(width: 8),
-                                      SvgPicture.asset(
-                                        'assets/img/detail.svg',
-                                        width: 20,
-                                        height: 20,
+                                      GestureDetector(
+                                        onTapDown: (_) {
+                                          // 터치 시작 시 이미지 표시
+                                          setState(() {
+                                            showImage = true;
+                                          });
+                                        },
+                                        onTapUp: (_) {
+                                          // 터치 끝날 때 이미지 숨김
+                                          setState(() {
+                                            showImage = false;
+                                          });
+                                        },
+                                        child: SvgPicture.asset(
+                                          'assets/img/detail.svg',
+                                          width: 20,
+                                          height: 20,
+                                        ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(width: 10),
-                                  SvgPicture.asset(
-                                    'assets/img/detail.svg',
-                                  ),
                                   const SizedBox(height: 16),
+                                  if (showImage) // 조건부 렌더링
+                                    Center(
+                                      child: Image.asset(
+                                        'assets/img/wash.png',
+                                        width: 150,
+                                        height: 150,
+                                      ),
+                                    ),
+                                  // 이미지가 여기서 바로 위에 오도록 수정
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -300,9 +321,9 @@ class _ReservationPageState extends State<ReservationPage> {
                 ],
               );
             } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
+              return Center(child: Text('데이터를 불러올 수 없습니다.'));
             } else {
-              return const Center(child: Text('No data available.'));
+              return Center(child: Text('예약 내역이 없습니다.'));
             }
           },
         ),
