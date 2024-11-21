@@ -13,6 +13,7 @@ import 'package:bubble_app/presentation/pages/reservation/finish_page.dart';
 import 'package:bubble_app/presentation/widgets/button/next_button.dart';
 import 'package:bubble_app/data/models/reservation_model.dart';
 import 'package:bubble_app/data/models/user_model.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ReservationPage extends StatefulWidget {
   const ReservationPage({super.key});
@@ -156,6 +157,10 @@ class _ReservationPageState extends State<ReservationPage> {
                                     '희망하는 세탁기 선택',
                                     style: AppTextStyles.semiBold18
                                         .copyWith(color: AppColor.gray800),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  SvgPicture.asset(
+                                    'assets/img/detail.svg',
                                   ),
                                   const SizedBox(height: 16),
                                   Row(
