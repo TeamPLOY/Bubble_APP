@@ -40,7 +40,7 @@ class _NotificationDetailState extends State<NoticeDetailPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SideHeader(text: '공지사항'),
-            SizedBox(height: 65),
+            SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: isLoading // 로딩 상태에 따라 UI 변경
@@ -65,7 +65,7 @@ class _NotificationDetailState extends State<NoticeDetailPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('${notifidetaillist[widget.items].title}',
-                                style: AppTextStyles.semiBold14
+                                style: AppTextStyles.semiBold18
                                     .copyWith(color: AppColor.gray800)),
                             SizedBox(height: 4),
                             Text('${notifidetaillist[widget.items].date}',
@@ -73,7 +73,7 @@ class _NotificationDetailState extends State<NoticeDetailPage> {
                                     .copyWith(color: AppColor.gray500)),
                             SizedBox(height: 31),
                             Text('${notifidetaillist[widget.items].detail}',
-                                style: AppTextStyles.regular12
+                                style: AppTextStyles.medium16
                                     .copyWith(color: AppColor.gray800)),
                           ],
                         )

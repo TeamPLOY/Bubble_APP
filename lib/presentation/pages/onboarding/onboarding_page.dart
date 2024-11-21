@@ -62,55 +62,58 @@ class OnboardingPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.width >= 500
                     ? MediaQuery.of(context).size.height * (300 / 852)
+
                     : MediaQuery.of(context).size.height * (240 / 852),
                 fit: BoxFit.fill,
               ),
               GestureDetector(
-                onTap: () async{
-                  try{
-                    var accesstoken=await storage.readSecureToken('accessToken');
-                  var refreshtoken=await storage.readSecureToken('refreshToken');
-                  if(accesstoken!.isNotEmpty&&refreshtoken!.isNotEmpty){
-                    RefreshApi refreshApi = RefreshApi();
-                    await refreshApi.get_tokens();
+                onTap: () async {
+                  try {
+                    var accesstoken =
+                        await storage.readSecureToken('accessToken');
+                    var refreshtoken =
+                        await storage.readSecureToken('refreshToken');
+                    if (accesstoken!.isNotEmpty && refreshtoken!.isNotEmpty) {
+                      RefreshApi refreshApi = RefreshApi();
+                      await refreshApi.get_tokens();
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  HomePage(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            return child; // 애니메이션 없이 바로 화면 전환
+                          },
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  LoginPage(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            return child; // 애니메이션 없이 바로 화면 전환
+                          },
+                        ),
+                      );
+                    }
+                  } catch (e) {
                     Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          HomePage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        return child; // 애니메이션 없이 바로 화면 전환
-                      },
-                    ),
-                  );
-                  }
-                  else{
-                    Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          LoginPage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        return child; // 애니메이션 없이 바로 화면 전환
-                      },
-                    ),
-                  );
-                  }
-                  }
-                  catch(e){
-                    Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          LoginPage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        return child; // 애니메이션 없이 바로 화면 전환
-                      },
-                    ),
-                  );
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            LoginPage(),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          return child; // 애니메이션 없이 바로 화면 전환
+                        },
+                      ),
+                    );
                   }
                 },
                 child: Container(
@@ -120,7 +123,9 @@ class OnboardingPage extends StatelessWidget {
                   child: Center(
                     child: Text(
                       '버블 시작',
+
                       style: AppTextStyles.bold20.copyWith(
+
                           color: AppColor.blue400,
                           fontSize:
                               MediaQuery.of(context).size.height * (30 / 852)),

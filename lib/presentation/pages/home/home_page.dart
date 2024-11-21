@@ -180,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                 MainHeader(hasAlarm: isAlarmActive),
                 Padding(
                   padding:
-                      EdgeInsets.only(left: 24, top: paddingValue),
+                      EdgeInsets.only(left: paddingValue, top: paddingValue),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

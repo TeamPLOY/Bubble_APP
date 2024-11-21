@@ -28,14 +28,14 @@ class NoticeBox extends StatelessWidget {
           children: [
             Text(
               '${text}',
-              style: AppTextStyles.semiBold14.copyWith(color: AppColor.gray800),
+              style: AppTextStyles.semiBold16.copyWith(color: AppColor.gray800),
             ),
             SizedBox(
               height: 5,
             ),
             Text(
               '${ymd}',
-              style: AppTextStyles.medium12.copyWith(color: AppColor.gray600),
+              style: AppTextStyles.medium14.copyWith(color: AppColor.gray600),
             )
           ],
         ),
