@@ -4,7 +4,6 @@ import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/pages/login/login_page.dart';
 import 'package:bubble_app/data/providers/network/security_storage.dart';
-import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 import 'package:bubble_app/data/providers/network/apis/token/refresh_api.dart';
 
 class OnboardingPage extends StatelessWidget {

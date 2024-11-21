@@ -10,14 +10,16 @@ class RefreshApi {
   Future<void> get_tokens() async {
     SecurityStorage storage =SecurityStorage();
 
-    var refresh_tokens = storage.readSecureToken('accessToken');
+    var refresh_tokens =await storage.readSecureToken('refreshToken');
     try {
       final response = await http.post(
         Uri.parse(ApiUrls.refresh_post_url),
         headers: {
           'Content-Type': 'application/json',
-          'refresh_token': '${refresh_tokens}'
         },
+        body: {
+          jsonEncode(refresh_tokens)
+        }
       );
 
       if (response.statusCode == 200) {
@@ -25,10 +27,10 @@ class RefreshApi {
         RefreshTokenModel tokens = RefreshTokenModel.fromJson(responseData);
         globalTokens?.access_token = tokens.access_token;
         globalTokens?.refresh_token = tokens.refresh_token;
-        storage.clearUserData();
-        storage.saveSecureToken('accessToken', tokens.access_token);
-        storage.saveSecureToken('refreshToken', tokens.refresh_token);
-        
+        await storage.clearUserData();
+        await storage.saveSecureToken('accessToken', tokens.access_token);
+        await storage.saveSecureToken('refreshToken', tokens.refresh_token);
+
         if (globalTokens?.access_token == tokens.access_token ||
             globalTokens?.refresh_token == tokens.refresh_token) {
           print('포스트 성공 : $responseData');
