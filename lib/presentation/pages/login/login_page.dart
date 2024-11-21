@@ -46,12 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '안녕하세요 : )',
-                    style: AppTextStyles.bold30
-                        .copyWith(color: AppColor.gray800), // AppTextStyles 사용
-                  ),
-                  Text(
-                    '버블입니다.',
+                    '안녕하세요 \n버블에 오신 것을 환영합니다!',
                     style: AppTextStyles.bold30
                         .copyWith(color: AppColor.gray800), // AppTextStyles 사용
                   ),

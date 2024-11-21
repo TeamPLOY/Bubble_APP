@@ -4,7 +4,7 @@ import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/data/providers/network/apis/reservation/reservation_cancel_api.dart';
 
 class ReservationCancelModal extends StatelessWidget {
-  final String roomnumber, date,machine;
+  final String roomnumber, date, machine;
   final bool cancel;
   const ReservationCancelModal(
       {required this.roomnumber,
@@ -55,7 +55,7 @@ class ReservationCancelModal extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('예약을 취소하시면\n사용하실 수 없습니다.',
+                  Text('예약을 취소하시면 사용하실 수 없습니다.',
                       style: AppTextStyles.medium10
                           .copyWith(color: AppColor.gray600)),
                   Row(
