@@ -10,9 +10,9 @@ class RefreshApi {
   Future<void> get_tokens() async {
     SecurityStorage storage = SecurityStorage();
 
-    String refresh_tokens = await storage.readSecureToken('refreshToken') ?? '';
-    print(refresh_tokens);
-    Map<String, dynamic> postData = {'refreshToken': refresh_tokens};
+    String? refresh_tokens = await storage.readSecureToken('refreshToken');
+    String refresh = refresh_tokens!;
+    Map<String, dynamic> postData = {'refreshToken': refresh};
     try {
       final response = await http.post(
         Uri.parse(ApiUrls.refresh_post_url),
