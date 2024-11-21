@@ -1,13 +1,16 @@
 import 'package:http/http.dart' as http;
 import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 import 'package:bubble_app/data/providers/network/apis/api_url.dart';
+import 'package:bubble_app/data/providers/network/security_storage.dart';
 
 class LogoutApi {
   Future<void> fetchData() async {
+    SecurityStorage storage = SecurityStorage();
     var access_token = globalTokens?.access_token;
     globalTokens?.access_token = null;
     globalTokens?.refresh_token = null;
     try {
+      await storage.clearUserData();
       final response = await http.post(
         Uri.parse(ApiUrls.logout_url),
         headers: {
