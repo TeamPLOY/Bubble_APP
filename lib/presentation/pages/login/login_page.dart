@@ -1,4 +1,8 @@
+import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
+import 'package:bubble_app/presentation/pages/profile/profile_page.dart';
+import 'package:bubble_app/presentation/pages/signup/signup_page.dart';
 import 'package:bubble_app/presentation/widgets/header/login_header.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
@@ -6,9 +10,8 @@ import 'package:bubble_app/presentation/pages/home/home_page.dart';
 import 'package:bubble_app/presentation/widgets/button/next_button.dart';
 import 'package:bubble_app/presentation/widgets/box/input_box.dart';
 import 'package:bubble_app/data/providers/network/apis/login/login_api.dart';
-import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
-import 'package:bubble_app/presentation/pages/signup/signup_page.dart';
 import 'package:bubble_app/data/Functions/emailsearch.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,11 +27,35 @@ class _LoginPageState extends State<LoginPage> {
   List<bool> loginstate = [false, false];
   double pad = 12;
   bool logcheck = true;
+  String? userInfo;
+
+  static final storage = FlutterSecureStorage(); // flutter_secure_storage 초기화
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _asyncMethod();
+    });
+  }
+
+  _asyncMethod() async {
+    userInfo = await storage.read(key: "login");
+
+    if (userInfo != null) {
+      Navigator.pushReplacement(
+        context,
+        CupertinoPageRoute(
+          builder: (context) => ProfilePage(),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.white100, // AppColor 사용
+      backgroundColor: AppColor.white100,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,10 +74,10 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Text(
                     '안녕하세요 \n버블에 오신 것을 환영합니다!',
-                    style: AppTextStyles.bold30
-                        .copyWith(color: AppColor.gray800), // AppTextStyles 사용
+                    style: AppTextStyles.semiBold24
+                        .copyWith(color: AppColor.gray800),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 24),
                   Inputbox(
                     wsize: 345,
                     hsize: 40,
@@ -71,8 +98,8 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Text(
                           '이메일 혹은 비밀번호가 비어있습니다.',
-                          style: AppTextStyles.medium12.copyWith(
-                              color: AppColor.red100), // AppTextStyles 사용
+                          style: AppTextStyles.medium12
+                              .copyWith(color: AppColor.red100),
                         ),
                         SizedBox(height: 17),
                       ],
@@ -82,8 +109,8 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Text(
                           '이메일 혹은 비밀번호가 일치하지 않습니다.',
-                          style: AppTextStyles.medium12.copyWith(
-                              color: AppColor.red100), // AppTextStyles 사용
+                          style: AppTextStyles.medium12
+                              .copyWith(color: AppColor.red100),
                         ),
                         SizedBox(height: 17),
                       ],
@@ -133,12 +160,28 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: NextButton(
                       text: '로그인',
-                      onPressed: () {},
+                      onPressed: () async {
+                        await storage.write(
+                          key: "login",
+                          value: "id " +
+                              idController.text +
+                              " " +
+                              "password " +
+                              passwordController.text,
+                        );
+
+                        Navigator.pushReplacement(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => ProfilePage(),
+                          ),
+                        );
+                      },
                     ),
                   ),
                   SizedBox(height: 14),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center, // 수평 중앙 정렬
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
                         onTap: () {
@@ -157,8 +200,8 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         child: Text(
                           '회원가입',
-                          style: AppTextStyles.bold16.copyWith(
-                              color: AppColor.gray800), // AppTextStyles 사용
+                          style: AppTextStyles.bold16
+                              .copyWith(color: AppColor.gray800),
                         ),
                       ),
                     ],
