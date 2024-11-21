@@ -21,29 +21,21 @@ Future<void> initializeNotification() async {
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  NotificationSettings settings =
-      await FirebaseMessaging.instance.requestPermission(
+  await FirebaseMessaging.instance.requestPermission(
     alert: true,
     badge: true,
     sound: true,
-    provisional: false,
   );
-
-  print('사용자 권한 상태: ${settings.authorizationStatus}');
-
-  // Foreground 메시지 처리
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     if (message.notification != null) {
       print('Foreground Message 수신: ${message.notification?.body}');
     }
   });
 
-  // Background에서 알림 클릭시 처리
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
     print('Background Message 수신: ${message.notification?.body}');
   });
 
-  // 종료된 상태에서 알림 클릭으로 앱 실행 시 처리
   RemoteMessage? initialMessage =
       await FirebaseMessaging.instance.getInitialMessage();
   if (initialMessage != null) {
@@ -63,18 +55,19 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
   try {
-    WidgetsFlutterBinding.ensureInitialized();
     await dotenv.load(fileName: ".env");
 
-    // Firebase 초기화를 먼저 수행
+    // Firebase 초기화
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    // 그 다음 알림 초기화
+    // 알림 초기화
     await initializeNotification();
 
+    // 앱 실행
     runApp(const MyApp());
   } catch (e) {
     print("초기화 중 오류 발생: $e");

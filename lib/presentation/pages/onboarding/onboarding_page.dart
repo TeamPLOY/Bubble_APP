@@ -2,6 +2,7 @@ import 'package:bubble_app/presentation/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:bubble_app/presentation/pages/login/login_page.dart';
 import 'package:bubble_app/data/providers/network/security_storage.dart';
 import 'package:bubble_app/data/providers/network/apis/token/refresh_api.dart';
@@ -27,10 +28,12 @@ class OnboardingPage extends StatelessWidget {
                   children: [
                     SizedBox(
                       height: MediaQuery.of(context).size.height >= 500
-                          ? MediaQuery.of(context).size.height * (80 / 852)
-                          : MediaQuery.of(context).size.height * (60 / 852),
+                          ? MediaQuery.of(context).size.height * (150 / 852)
+                          : MediaQuery.of(context).size.height * (80 / 852),
                     ),
-                    Image.asset('assets/img/BUBBLE.png'),
+                    SvgPicture.asset(
+                      'assets/img/bubble.svg',
+                    ),
                     Text(
                       '한 번의 터치로 세탁 알림과 예약,',
                       style: AppTextStyles.medium18.copyWith(
@@ -58,8 +61,8 @@ class OnboardingPage extends StatelessWidget {
                 'assets/img/kuma.png',
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.width >= 500
-                    ? MediaQuery.of(context).size.height * (350 / 852)
-                    : MediaQuery.of(context).size.height * (258 / 852),
+                    ? MediaQuery.of(context).size.height * (300 / 852)
+                    : MediaQuery.of(context).size.height * (240 / 852),
                 fit: BoxFit.fill,
               ),
               GestureDetector(
@@ -112,16 +115,15 @@ class OnboardingPage extends StatelessWidget {
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * (50 / 852),
-                  decoration:
-                      BoxDecoration(color: AppColor.gray100), // AppColor 사용
+                  height: MediaQuery.of(context).size.height * (80 / 852),
+                  decoration: BoxDecoration(color: AppColor.gray100),
                   child: Center(
                     child: Text(
                       '버블 시작',
-                      style: AppTextStyles.semiBold24.copyWith(
-                          color: AppColor.blue500, // 다른 파란색으로 변경
+                      style: AppTextStyles.bold20.copyWith(
+                          color: AppColor.blue400,
                           fontSize:
-                              MediaQuery.of(context).size.height * (24 / 852)),
+                              MediaQuery.of(context).size.height * (30 / 852)),
                     ),
                   ),
                 ),

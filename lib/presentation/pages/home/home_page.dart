@@ -168,6 +168,7 @@ class _HomePageState extends State<HomePage> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     double paddingValue = screenWidth * 0.07;
+    double paddingValue2 = screenWidth * 0.03;
 
     return Scaffold(
       backgroundColor: AppColor.white100,
@@ -251,9 +252,7 @@ class _HomePageState extends State<HomePage> {
 
                                       return Padding(
                                         padding: EdgeInsets.only(
-                                            right: colIndex == 0
-                                                ? paddingValue
-                                                : 0.0),
+                                            right: paddingValue2),
                                         child: Container(
                                           width: boxWidth,
                                           child: Column(
