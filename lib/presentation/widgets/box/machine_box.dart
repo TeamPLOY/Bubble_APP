@@ -145,7 +145,7 @@ class _MachineBoxState extends State<MachineBox> {
               child: Row( 
                 children: [
                   Container(
-                    width: width * 0.9,
+                    width: MediaQuery.of(context).size.width<=320?width * 0.8:width * 0.9,
                     height: MediaQuery.of(context).size.width>=700?height * 0.4:MediaQuery.of(context).size.width >= 600
                         ? height * 0.3
                         : MediaQuery.of(context).size.width <= 400
