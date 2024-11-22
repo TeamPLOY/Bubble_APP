@@ -77,7 +77,7 @@ class _ReservationPageState extends State<ReservationPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SideHeader(text: "예약"),
-                      const SizedBox(height: 17),
+                      const SizedBox(height: 24),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,

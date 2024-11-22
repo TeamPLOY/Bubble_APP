@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     double paddingValue = screenWidth * 0.07;
-    double paddingValue2 = screenWidth * 0.03;
+    double paddingValue2 = screenWidth * 0.04;
 
     return Scaffold(
       backgroundColor: AppColor.white100,
@@ -198,9 +198,9 @@ class _HomePageState extends State<HomePage> {
                       _buildMessageWidget(),
                       SizedBox(height: screenHeight * 0.012),
                       MainNoticeBox(),
-                      SizedBox(height: screenHeight * 0.025),
+                      SizedBox(height: screenHeight * 0.012),
                       HomeActivate(),
-                      SizedBox(height: screenHeight * 0.016),
+                      SizedBox(height: screenHeight * 0.012),
                       FutureBuilder<List<MachineModel>>(
                         future: machineData,
                         builder: (context, futureResult) {
@@ -216,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                           } else if (futureResult.data == null ||
                               futureResult.data!.isEmpty) {
                             return Center(
-                              child: Text('시간이 날라오고 있어요.',
+                              child: Text('잠시 기다려주세요',
                                   style: AppTextStyles.regular14
                                       .copyWith(color: AppColor.gray500)),
                             );
