@@ -198,9 +198,9 @@ class _HomePageState extends State<HomePage> {
                       _buildMessageWidget(),
                       SizedBox(height: screenHeight * 0.012),
                       MainNoticeBox(),
-                      SizedBox(height: screenHeight * 0.025),
+                      SizedBox(height: screenHeight * 0.012),
                       HomeActivate(),
-                      SizedBox(height: screenHeight * 0.016),
+                      SizedBox(height: screenHeight * 0.012),
                       FutureBuilder<List<MachineModel>>(
                         future: machineData,
                         builder: (context, futureResult) {

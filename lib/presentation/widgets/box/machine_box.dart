@@ -77,7 +77,7 @@ class _MachineBoxState extends State<MachineBox> {
       width: size.width * 0.8,
       height: MediaQuery.of(context).size.width >= 700
           ? size.height * 0.2
-          : size.height * 0.16,
+          : size.height * 0.17,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
           border: Border.all(width: 1, color: AppColor.gray300)),
@@ -97,8 +97,8 @@ class _MachineBoxState extends State<MachineBox> {
                       Text(
                         // 가공된 머신 이름을 표시
                         extractMachineName(widget.device),
-                        style: MediaQuery.of(context).size.width <= 400
-                            ? AppTextStyles.medium14.copyWith(
+                        style: MediaQuery.of(context).size.width <= 450
+                            ? AppTextStyles.medium22.copyWith(
                                 color: AppColor.gray800,
                                 fontSize: titleSize * 1.6)
                             : AppTextStyles.medium14.copyWith(
@@ -116,8 +116,8 @@ class _MachineBoxState extends State<MachineBox> {
                 children: [
                   Text(
                     '작동중',
-                    style: MediaQuery.of(context).size.width <= 400
-                        ? AppTextStyles.medium10.copyWith(
+                    style: MediaQuery.of(context).size.width <= 450
+                        ? AppTextStyles.medium12.copyWith(
                             color: AppColor.gray800,
                             fontSize: subtitleSize * 1.6)
                         : AppTextStyles.medium10.copyWith(
@@ -174,13 +174,13 @@ class _MachineBoxState extends State<MachineBox> {
                           padding: EdgeInsets.only(left: width * 0.05),
                           child: Text(
                             '${formattime(widget.hour)} : ${formattime(widget.minute)}',
-                            style: MediaQuery.of(context).size.width <= 400
+                            style: MediaQuery.of(context).size.width <= 450
                                 ? AppTextStyles.medium22.copyWith(
                                     color: AppColor.gray600,
                                     fontSize: timeSize * 1.6)
                                 : AppTextStyles.medium14.copyWith(
                                     color: AppColor.gray600,
-                                    fontSize: timeSize*1.2),
+                                    fontSize: timeSize * 1.2),
                           ),
                         ),
                       ],
