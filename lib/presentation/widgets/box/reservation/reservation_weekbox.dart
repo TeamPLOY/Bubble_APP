@@ -7,12 +7,14 @@ class ReservationWeekbox extends StatefulWidget {
   final String week;
   final bool isActive;
   final VoidCallback onTap;
+  final bool machine_state;
 
   const ReservationWeekbox({
     required this.day,
     required this.week,
     required this.isActive,
     required this.onTap,
+    required this.machine_state,
     super.key,
   });
 
@@ -27,7 +29,7 @@ class _ReservationWeekboxState extends State<ReservationWeekbox> {
     day = int.parse(day).toString();
 
     return GestureDetector(
-      onTap: widget.onTap,
+      onTap: widget.machine_state? (){}: widget.onTap,
       child: Container(
         width: MediaQuery.of(context).size.width * (160 / 393),
         height: MediaQuery.of(context).size.height * (59 / 852),
@@ -40,11 +42,11 @@ class _ReservationWeekboxState extends State<ReservationWeekbox> {
             ),
           ],
           border: Border.all(
-            color: widget.isActive ? AppColor.blue400 : AppColor.gray300,
+            color:widget.machine_state? AppColor.gray300: widget.isActive ? AppColor.blue400 : AppColor.gray300,
             width: 1, // 테두리 굵기 설정
           ),
           borderRadius: BorderRadius.circular(10),
-          color: widget.isActive
+          color:widget.machine_state? AppColor.gray400:widget.isActive
               ? AppColor.blue400
               : AppColor.white100, // 기본 배경색 흰색
         ),
@@ -52,7 +54,7 @@ class _ReservationWeekboxState extends State<ReservationWeekbox> {
           child: Text(
             '$day일 ${widget.week}요일',
             style: AppTextStyles.medium18.copyWith(
-              color: widget.isActive ? AppColor.white100 : AppColor.gray700,
+              color:widget.machine_state?AppColor.gray600 :widget.isActive ? AppColor.white100 : AppColor.gray700,
             ),
           ),
         ),
