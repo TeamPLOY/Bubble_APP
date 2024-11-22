@@ -46,8 +46,8 @@ class _ReservationPageState extends State<ReservationPage> {
     final userGetapi = ProfileApi(access_token: access_token);
     user_profile = await userGetapi.fetchData();
   }
+
   int parseNumberFromString(String input) {
-    // 문자열에서 숫자 부분만 추출
     RegExp regExp = RegExp(r'\d+');
     String? numberStr = regExp.firstMatch(input)?.group(0);
 
@@ -57,6 +57,7 @@ class _ReservationPageState extends State<ReservationPage> {
       throw FormatException("숫자가 포함된 문자열이 아닙니다.");
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,8 +70,7 @@ class _ReservationPageState extends State<ReservationPage> {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData) {
               List<ReservationModel> reservations = snapshot.data!;
-              return 
-              ListView(
+              return ListView(
                 children: [
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -183,7 +183,6 @@ class _ReservationPageState extends State<ReservationPage> {
                                           });
                                         },
                                         onTapUp: (_) {
-                                          // 터치 끝날 때 이미지 숨김
                                           setState(() {
                                             showImage = false;
                                           });
@@ -196,24 +195,30 @@ class _ReservationPageState extends State<ReservationPage> {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 16),
-                                  if (showImage) // 조건부 렌더링
-                                    Center(
+                                  if (showImage)
+                                    Padding(
+                                      padding: EdgeInsets.zero, // 여백을 완전히 제거
                                       child: Image.asset(
                                         'assets/img/wash.png',
-                                        width: 150,
-                                        height: 150,
+                                        width: 220,
+                                        height: 220,
                                       ),
                                     ),
-                                  // 이미지가 여기서 바로 위에 오도록 수정
+                                  const SizedBox(height: 16),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       ReservationMachinebox(
                                         machine: "1",
-                                        machine_state:
-                                            reservations[selectedIndex]
-                                                .userCount[0]||parseNumberFromString(user_profile.roomNum)>=418&&parseNumberFromString(user_profile.roomNum)<=423,
+                                        machine_state: reservations[
+                                                    selectedIndex]
+                                                .userCount[0] ||
+                                            parseNumberFromString(
+                                                        user_profile.roomNum) >=
+                                                    418 &&
+                                                parseNumberFromString(
+                                                        user_profile.roomNum) <=
+                                                    423,
                                         isActive: selectedMachine == 0,
                                         onTap: () {
                                           setState(() {
@@ -224,9 +229,15 @@ class _ReservationPageState extends State<ReservationPage> {
                                       const SizedBox(width: 20),
                                       ReservationMachinebox(
                                         machine: "2",
-                                        machine_state:
-                                            reservations[selectedIndex]
-                                                .userCount[1]||parseNumberFromString(user_profile.roomNum)>=424&&parseNumberFromString(user_profile.roomNum)<=434,
+                                        machine_state: reservations[
+                                                    selectedIndex]
+                                                .userCount[1] ||
+                                            parseNumberFromString(
+                                                        user_profile.roomNum) >=
+                                                    424 &&
+                                                parseNumberFromString(
+                                                        user_profile.roomNum) <=
+                                                    434,
                                         isActive: selectedMachine == 1,
                                         onTap: () {
                                           setState(() {
@@ -241,9 +252,15 @@ class _ReservationPageState extends State<ReservationPage> {
                                     children: [
                                       ReservationMachinebox(
                                         machine: "3",
-                                        machine_state:
-                                            reservations[selectedIndex]
-                                                .userCount[2]||parseNumberFromString(user_profile.roomNum)>=418&&parseNumberFromString(user_profile.roomNum)<=423,
+                                        machine_state: reservations[
+                                                    selectedIndex]
+                                                .userCount[2] ||
+                                            parseNumberFromString(
+                                                        user_profile.roomNum) >=
+                                                    418 &&
+                                                parseNumberFromString(
+                                                        user_profile.roomNum) <=
+                                                    423,
                                         isActive: selectedMachine == 2,
                                         onTap: () {
                                           setState(() {
@@ -257,7 +274,13 @@ class _ReservationPageState extends State<ReservationPage> {
                                         machine_state:
                                             reservations[selectedIndex]
                                                 .userCount[3],
-                                        isActive: selectedMachine == 3||parseNumberFromString(user_profile.roomNum)>=424&&parseNumberFromString(user_profile.roomNum)<=434,
+                                        isActive: selectedMachine == 3 ||
+                                            parseNumberFromString(
+                                                        user_profile.roomNum) >=
+                                                    424 &&
+                                                parseNumberFromString(
+                                                        user_profile.roomNum) <=
+                                                    434,
                                         onTap: () {
                                           setState(() {
                                             selectedMachine = 3;
@@ -334,7 +357,7 @@ class _ReservationPageState extends State<ReservationPage> {
             } else if (snapshot.hasError) {
               return Center(child: Text('데이터를 불러올 수 없습니다.'));
             } else {
-              return Center(child: Text('예약 내역이 없습니다.'));
+              return const Center(child: Text('예약이 없습니다.'));
             }
           },
         ),
