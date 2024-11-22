@@ -29,8 +29,9 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.debug
-            minifyEnabled false // 디버깅 시 최적화 비활성화
-            shrinkResources false
+            minifyEnabled true  // 디버깅 시 최적화 비활성화
+            shrinkResources true //안되면 이거랑 위에 두개 false로
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
