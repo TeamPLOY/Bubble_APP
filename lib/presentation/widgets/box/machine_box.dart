@@ -72,7 +72,7 @@ class _MachineBoxState extends State<MachineBox> {
 
     // 글자 크기 설정 (크기를 더 크게 조정)
     final titleSize = width * 0.07; // 제목 글자 크기
-    final subtitleSize = width * 0.05; // 부제목 글자 크기
+    final subtitleSize = width * 0.06; // 부제목 글자 크기
     final timeSize = width * 0.07; // 시간 글자 크기
 
     return Container(
