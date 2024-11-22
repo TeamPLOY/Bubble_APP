@@ -152,8 +152,8 @@ class _MachineBoxState extends State<MachineBox> {
                         ? height * 0.4
                         : MediaQuery.of(context).size.width >= 600
                             ? height * 0.3
-                            : MediaQuery.of(context).size.width <= 400
-                                ? height * 0.30
+                            : MediaQuery.of(context).size.width <= 500
+                                ? height * 0.32
                                 : height * 0.25,
                     decoration: BoxDecoration(
                       color: widget.hour == 0 && widget.minute == 0
@@ -180,7 +180,7 @@ class _MachineBoxState extends State<MachineBox> {
                                     fontSize: timeSize * 1.6)
                                 : AppTextStyles.medium14.copyWith(
                                     color: AppColor.gray600,
-                                    fontSize: timeSize),
+                                    fontSize: timeSize*1.2),
                           ),
                         ),
                       ],
