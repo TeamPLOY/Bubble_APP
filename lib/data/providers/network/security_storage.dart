@@ -24,19 +24,19 @@ class SecurityStorage {
   }
 
   Future<void> clearUserData() async {
-    await storage.deleteAll();
+    await storage.deleteAll(aOptions: _getAndroidOptions());
   }
 
   Future<String?> readSecureToken(String key) async {
-    return await storage.read(key: key);
+    return await storage.read(key: key,aOptions: _getAndroidOptions());
   }
 
   Future<void> deleteSecureToken(String key) async {
-    await storage.delete(key: key);
+    await storage.delete(key: key,aOptions: _getAndroidOptions());
   }
 
   /// 키 존재 여부 확인 메서드
   Future<bool> containsKey(String key) async {
-    return await storage.containsKey(key: key);
+    return await storage.containsKey(key: key,aOptions: _getAndroidOptions());
   }
 }
