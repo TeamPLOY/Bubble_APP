@@ -1,3 +1,4 @@
+import 'package:bubble_app/presentation/widgets/modal/isreservation_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
@@ -25,7 +26,8 @@ class ReservationPage extends StatefulWidget {
 class _ReservationPageState extends State<ReservationPage> {
   late Future<List<ReservationModel>> reservationsFuture;
   late UserModel user_profile;
-  int selectedIndex = 0;
+  bool isReservationed=false;
+  int selectedIndex = 4;
   int selectedMachine = -1;
   var access_token = globalTokens?.access_token ?? '';
   bool showImage = false; // 이미지 표시 여부를 위한 상태 변수
@@ -70,6 +72,8 @@ class _ReservationPageState extends State<ReservationPage> {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData) {
               List<ReservationModel> reservations = snapshot.data!;
+              ReservationModel addReservation = ReservationModel(date: reservations.first.date, day: reservations.first.day, userCount: [false,false,false,false]);
+              reservations.add(addReservation);
               return ListView(
                 children: [
                   Column(
@@ -117,6 +121,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                           setState(() {
                                             selectedIndex = 0;
                                             selectedMachine = -1;
+                                            isReservationed=false;
                                           });
                                         },
                                       ),
@@ -130,6 +135,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                           setState(() {
                                             selectedIndex = 1;
                                             selectedMachine = -1;
+                                            isReservationed=false;
                                           });
                                         },
                                       ),
@@ -147,6 +153,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                           setState(() {
                                             selectedIndex = 2;
                                             selectedMachine = -1;
+                                            isReservationed=false;
                                           });
                                         },
                                       ),
@@ -160,6 +167,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                           setState(() {
                                             selectedIndex = 3;
                                             selectedMachine = -1;
+                                            isReservationed=false;
                                           });
                                         },
                                       ),
@@ -218,7 +226,14 @@ class _ReservationPageState extends State<ReservationPage> {
                                         isActive: selectedMachine == 0,
                                         onTap: () {
                                           setState(() {
-                                            selectedMachine = 0;
+                                            if(selectedIndex==4){
+                                              selectedIndex=0;
+                                              isReservationed=false;
+                                            }
+                                            else{
+                                              isReservationed=true;
+                                              selectedMachine = 0;
+                                            }
                                           });
                                         },
                                       ),
@@ -229,7 +244,14 @@ class _ReservationPageState extends State<ReservationPage> {
                                         isActive: selectedMachine == 1,
                                         onTap: () {
                                           setState(() {
-                                            selectedMachine = 1;
+                                            if(selectedIndex==4){
+                                              selectedIndex=0;
+                                              isReservationed=false;
+                                            }
+                                            else{
+                                              isReservationed=true;
+                                              selectedMachine = 1;
+                                            }
                                           });
                                         },
                                       ),
@@ -244,7 +266,15 @@ class _ReservationPageState extends State<ReservationPage> {
                                         isActive: selectedMachine == 2,
                                         onTap: () {
                                           setState(() {
-                                            selectedMachine = 2;
+                                            if(selectedIndex==4){
+                                              selectedIndex=0;
+                                              isReservationed=false;
+                                            }
+                                            else{
+                                              isReservationed=true;
+                                              selectedMachine = 2;
+                                            }
+                                            
                                           });
                                         },
                                       ),
@@ -255,7 +285,14 @@ class _ReservationPageState extends State<ReservationPage> {
                                         isActive: selectedMachine == 3,
                                         onTap: () {
                                           setState(() {
-                                            selectedMachine = 3;
+                                            if(selectedIndex==4){
+                                              selectedIndex=0;
+                                            isReservationed=false;
+                                            }
+                                            else{
+                                              isReservationed=true;
+                                              selectedMachine = 3;
+                                            }
                                           });
                                         },
                                       ),
@@ -277,6 +314,7 @@ class _ReservationPageState extends State<ReservationPage> {
                             children: [
                               GestureDetector(
                                 onTap: () => {
+                                  isReservationed==true?
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -303,6 +341,12 @@ class _ReservationPageState extends State<ReservationPage> {
                                           },
                                         ),
                                       );
+                                    },
+                                  ):
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return IsreservationModal();
                                     },
                                   )
                                 },
