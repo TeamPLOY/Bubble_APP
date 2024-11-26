@@ -34,11 +34,11 @@ class ReservationCancelModal extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '정말 ',
+                  '예약을 ',
                   style: AppTextStyles.bold16.copyWith(color: AppColor.gray800),
                 ),
                 Text(
-                  '로그아웃 ',
+                  '취소',
                   style: AppTextStyles.bold16.copyWith(color: AppColor.blue400),
                 ),
                 Text(
@@ -47,6 +47,10 @@ class ReservationCancelModal extends StatelessWidget {
                 ),
               ],
             ),
+            Text(
+                  '세탁기 이용을 하실 수 없습니다.',
+                  style: AppTextStyles.regular14.copyWith(color: AppColor.gray500),
+                ),
             SizedBox(height: 30,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
