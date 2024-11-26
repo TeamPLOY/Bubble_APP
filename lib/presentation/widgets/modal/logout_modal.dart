@@ -3,6 +3,7 @@ import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/presentation/pages/login/login_page.dart';
 import 'package:bubble_app/data/providers/network/apis/login/logout_api.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LogoutModal extends StatefulWidget {
   const LogoutModal({super.key});
@@ -17,39 +18,60 @@ class _LogoutModalState extends State<LogoutModal> {
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: AppColor.white100,
-        ),
-        width: MediaQuery.of(context).size.width * (360 / 393),
-        height: 80,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: AppColor.white100),
+        width: MediaQuery.of(context).size.width * (346 / 393),
+        height: 227,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsets.only(top: 14, left: 14),
-              child: Text(
-                '정말 로그아웃 하시겠습니까?',
-                style: AppTextStyles.medium16.copyWith(color: AppColor.gray800),
-              ),
+            SizedBox(height: 23,),
+            SvgPicture.asset('assets/img/modal.svg'),
+            SizedBox(height: 16,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '정말 ',
+                  style: AppTextStyles.bold16.copyWith(color: AppColor.gray800),
+                ),
+                Text(
+                  '로그아웃 ',
+                  style: AppTextStyles.bold16.copyWith(color: AppColor.blue400),
+                ),
+                Text(
+                  '하시겠습니까?',
+                  style: AppTextStyles.bold16.copyWith(color: AppColor.gray800),
+                ),
+              ],
             ),
-            Expanded(
-                child: Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
+            SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                
+GestureDetector(
                       onTap: () => {Navigator.of(context).pop()},
-                      child: Text(
-                        '취소',
-                        style: AppTextStyles.semiBold14
-                            .copyWith(color: AppColor.gray600),
+                      child: Container(
+                        width: 90,
+                        height: 45,
+                        decoration: BoxDecoration(
+                          color: AppColor.gray200,
+                          borderRadius: BorderRadius.circular(10)
+                        ),
+                        
+                        child: Center(
+                          child: Text(
+                            '취소',
+                            style: AppTextStyles.regular16
+                                .copyWith(color:AppColor.gray700),
+                                          ),
+                        ),
                       )),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  GestureDetector(
+                      SizedBox(width: 10,)
+,
+                GestureDetector(
                       onTap: () {
                         LogoutApi logout = LogoutApi();
                         logout.fetchData();
@@ -67,17 +89,28 @@ class _LogoutModalState extends State<LogoutModal> {
                           ),
                         );
                       },
-                      child: Text(
-                        '로그아웃',
-                        style: AppTextStyles.semiBold14
-                            .copyWith(color: Color(0xff1C4EFF)),
+                      child: Container(
+                        width: 90,
+                        height: 45,
+                        decoration: BoxDecoration(
+                          color: AppColor.blue400,
+                          borderRadius: BorderRadius.circular(10)
+                        ),
+                        
+                        child: Center(
+                          child: Text(
+                            '확인',
+                            style: AppTextStyles.regular16
+                                .copyWith(color:AppColor.white100),
+                                          ),
+                        ),
                       ))
-                ],
-              ),
-            ))
+              ],
+            )
           ],
         ),
       ),
     );
   }
 }
+
