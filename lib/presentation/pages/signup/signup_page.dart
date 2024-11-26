@@ -1,4 +1,5 @@
 import 'package:bubble_app/presentation/widgets/box/email_box.dart';
+import 'package:bubble_app/presentation/widgets/box/password_box.dart';
 import 'package:bubble_app/presentation/widgets/header/sign_header.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -309,12 +310,11 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       const SizedBox(height: 20),
                       const InputTitle(text: '비밀번호'),
-                      Inputbox(
+                      PasswordBox(
                         wsize: 393 - 48,
                         hsize: 40,
                         text: '6자 이상, 특수문자를 포함해 작성해주세요.',
                         controller: passwordController,
-                        password: true,
                       ),
                       validationResults[0] == true?
                         const Message(text: '비밀번호가 너무 짧습니다.'):validationResults[4]==true?Message(text: '특수문자를 입력해주세요.'):SizedBox(),
@@ -322,12 +322,12 @@ class _SignupPageState extends State<SignupPage> {
                         height: 20,
                       ),
                       const InputTitle(text: '비밀번호 확인'),
-                      Inputbox(
+                      PasswordBox(
                           wsize: 393 - 48,
                           hsize: 40,
                           text: '비밀번호를 다시 입력해주세요.',
                           controller: repasswordController,
-                          password: true),
+                      ),
                       if (validationResults[3] == true)
                         const Message(text: '비밀번호가 틀렸습니다.'),
                       const SizedBox(
