@@ -24,9 +24,9 @@ class _IsreservationModalState extends State<IsreservationModal> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 10, left: 10),
+              padding: EdgeInsets.only(top: 15, left: 15),
               child: Text(
-                '세탁기를 선택해주세요.',
+                '세탁기와 날짜를 선택해주세요.',
                 style: AppTextStyles.medium14.copyWith(color: AppColor.gray800),
               ),
             ),

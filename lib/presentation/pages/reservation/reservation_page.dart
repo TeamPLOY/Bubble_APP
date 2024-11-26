@@ -227,7 +227,6 @@ class _ReservationPageState extends State<ReservationPage> {
                                         onTap: () {
                                           setState(() {
                                             if(selectedIndex==4){
-                                              selectedIndex=0;
                                               isReservationed=false;
                                             }
                                             else{
@@ -245,7 +244,6 @@ class _ReservationPageState extends State<ReservationPage> {
                                         onTap: () {
                                           setState(() {
                                             if(selectedIndex==4){
-                                              selectedIndex=0;
                                               isReservationed=false;
                                             }
                                             else{
@@ -267,7 +265,6 @@ class _ReservationPageState extends State<ReservationPage> {
                                         onTap: () {
                                           setState(() {
                                             if(selectedIndex==4){
-                                              selectedIndex=0;
                                               isReservationed=false;
                                             }
                                             else{
@@ -286,7 +283,6 @@ class _ReservationPageState extends State<ReservationPage> {
                                         onTap: () {
                                           setState(() {
                                             if(selectedIndex==4){
-                                              selectedIndex=0;
                                             isReservationed=false;
                                             }
                                             else{
