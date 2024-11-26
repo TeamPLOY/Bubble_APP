@@ -31,20 +31,22 @@ class _ReservationPageState extends State<ReservationPage> {
   int selectedMachine = -1;
   var access_token = globalTokens?.access_token ?? '';
   bool showImage = false; // 이미지 표시 여부를 위한 상태 변수
+  late Future<UserModel> userFuture;
 
   @override
   void initState() {
     super.initState();
-    fetchUser();
+
     reservationsFuture = fetchReservations();
   }
 
   Future<List<ReservationModel>> fetchReservations() async {
+    await fetchUser();
     final reservationGetApi = ReservationGetApi();
     return await reservationGetApi.fetchData();
   }
 
-  void fetchUser() async {
+  Future<void> fetchUser() async {
     final userGetapi = ProfileApi(access_token: access_token);
     user_profile = await userGetapi.fetchData();
   }
