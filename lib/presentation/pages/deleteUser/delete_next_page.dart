@@ -1,5 +1,6 @@
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
+import 'package:bubble_app/data/providers/network/apis/login/logout_api.dart';
 // import 'package:bubble_app/presentation/pages/profile/profile_page.dart';
 import 'package:bubble_app/presentation/widgets/button/next_button.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,8 @@ class DeleteNextPage extends StatelessWidget {
               SizedBox(height: 25,),
               GestureDetector(
                 onTap: (){
+                  LogoutApi logout = LogoutApi();
+                  logout.fetchData();
                   Navigator.push(
                         context,
                         PageRouteBuilder(
