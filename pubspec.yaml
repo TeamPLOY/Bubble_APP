@@ -20,6 +20,7 @@ dependencies:
   googleapis_auth: ^1.6.0
   http: ^1.2.2
   intl: ^0.19.0
+  override_text_scale_factor: ^1.0.2
   skeleton_loader: ^2.0.0+4
   timer_builder: ^2.0.0
   web_socket_channel: ^3.0.1

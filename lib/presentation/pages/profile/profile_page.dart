@@ -157,7 +157,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         style: MediaQuery.of(context).size.width >= 500
                             ? AppTextStyles.regular20
                                 .copyWith(color: AppColor.gray600)
-                            : AppTextStyles.regular14.copyWith(
+                            : AppTextStyles.regular18.copyWith(
                                 color: AppColor.gray600), // AppTextStyles 사용
                       ),
                     ),
@@ -176,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         style: MediaQuery.of(context).size.width >= 500
                             ? AppTextStyles.regular20
                                 .copyWith(color: AppColor.red100)
-                            : AppTextStyles.regular14.copyWith(
+                            : AppTextStyles.regular18.copyWith(
                                 color: AppColor.red100), // AppTextStyles 사용
                       ),
                     ),

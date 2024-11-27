@@ -360,6 +360,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.15.0"
+  override_text_scale_factor:
+    dependency: "direct main"
+    description:
+      name: override_text_scale_factor
+      sha256: b1afec1ffdc09e1413eb890491d09b5cb0085ce320ce26316cbfdf38e85bb6b4
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   path:
     dependency: transitive
     description:
