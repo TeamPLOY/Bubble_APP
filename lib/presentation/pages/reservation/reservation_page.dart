@@ -31,7 +31,7 @@ class _ReservationPageState extends State<ReservationPage> {
   var access_token = globalTokens?.access_token ?? '';
   bool showImage = false; // 이미지 표시 여부를 위한 상태 변수
   late Future<UserModel> userFuture;
-  bool isClick=false;
+  bool isClick = false;
 
   @override
   void initState() {
@@ -82,7 +82,7 @@ class _ReservationPageState extends State<ReservationPage> {
               return ListView(
                 children: [
                   Stack(
-                    children: [            
+                    children: [
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +97,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         '세탁실을 이용할 날짜와\n기기를 선택하세요!',
@@ -120,18 +121,21 @@ class _ReservationPageState extends State<ReservationPage> {
                                       Row(
                                         children: [
                                           ReservationWeekbox(
-                                            machine_state: parseNumberFromString(
-                                                        user_profile.roomNum) >=
-                                                    424 &&
+                                            machine_state:
                                                 parseNumberFromString(
-                                                        user_profile.roomNum) <=
-                                                    434,
+                                                            user_profile
+                                                                .roomNum) >=
+                                                        424 &&
+                                                    parseNumberFromString(
+                                                            user_profile
+                                                                .roomNum) <=
+                                                        434,
                                             day: reservations[0].date,
                                             week: "월",
                                             isActive: selectedIndex == 0,
                                             onTap: () {
                                               setState(() {
-                                                isClick=false;
+                                                isClick = false;
                                                 selectedIndex = 0;
                                                 selectedMachine = -1;
                                                 isReservationed = false;
@@ -140,18 +144,21 @@ class _ReservationPageState extends State<ReservationPage> {
                                           ),
                                           const SizedBox(width: 20),
                                           ReservationWeekbox(
-                                            machine_state: parseNumberFromString(
-                                                        user_profile.roomNum) >=
-                                                    418 &&
+                                            machine_state:
                                                 parseNumberFromString(
-                                                        user_profile.roomNum) <=
-                                                    423,
+                                                            user_profile
+                                                                .roomNum) >=
+                                                        418 &&
+                                                    parseNumberFromString(
+                                                            user_profile
+                                                                .roomNum) <=
+                                                        423,
                                             day: reservations[1].date,
                                             week: "화",
                                             isActive: selectedIndex == 1,
                                             onTap: () {
                                               setState(() {
-                                                isClick=false;
+                                                isClick = false;
                                                 selectedIndex = 1;
                                                 selectedMachine = -1;
                                                 isReservationed = false;
@@ -164,18 +171,21 @@ class _ReservationPageState extends State<ReservationPage> {
                                       Row(
                                         children: [
                                           ReservationWeekbox(
-                                            machine_state: parseNumberFromString(
-                                                        user_profile.roomNum) >=
-                                                    424 &&
+                                            machine_state:
                                                 parseNumberFromString(
-                                                        user_profile.roomNum) <=
-                                                    434,
+                                                            user_profile
+                                                                .roomNum) >=
+                                                        424 &&
+                                                    parseNumberFromString(
+                                                            user_profile
+                                                                .roomNum) <=
+                                                        434,
                                             day: reservations[2].date,
                                             week: "수",
                                             isActive: selectedIndex == 2,
                                             onTap: () {
                                               setState(() {
-                                                isClick=false;
+                                                isClick = false;
                                                 selectedIndex = 2;
                                                 selectedMachine = -1;
                                                 isReservationed = false;
@@ -184,18 +194,21 @@ class _ReservationPageState extends State<ReservationPage> {
                                           ),
                                           const SizedBox(width: 20),
                                           ReservationWeekbox(
-                                            machine_state: parseNumberFromString(
-                                                        user_profile.roomNum) >=
-                                                    418 &&
+                                            machine_state:
                                                 parseNumberFromString(
-                                                        user_profile.roomNum) <=
-                                                    423,
+                                                            user_profile
+                                                                .roomNum) >=
+                                                        418 &&
+                                                    parseNumberFromString(
+                                                            user_profile
+                                                                .roomNum) <=
+                                                        423,
                                             day: reservations[3].date,
                                             week: "목",
                                             isActive: selectedIndex == 3,
                                             onTap: () {
                                               setState(() {
-                                                isClick=false;
+                                                isClick = false;
                                                 selectedIndex = 3;
                                                 selectedMachine = -1;
                                                 isReservationed = false;
@@ -205,8 +218,9 @@ class _ReservationPageState extends State<ReservationPage> {
                                         ],
                                       ),
                                       SizedBox(
-                                        height: MediaQuery.of(context).size.height *
-                                            (40 / 852),
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                (40 / 852),
                                       ),
                                       Row(
                                         crossAxisAlignment:
@@ -215,7 +229,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                           Text(
                                             '희망하는 세탁기 선택',
                                             style: AppTextStyles.semiBold18
-                                                .copyWith(color: AppColor.gray800),
+                                                .copyWith(
+                                                    color: AppColor.gray800),
                                           ),
                                           const SizedBox(width: 8),
                                           GestureDetector(
@@ -238,10 +253,10 @@ class _ReservationPageState extends State<ReservationPage> {
                                           ),
                                         ],
                                       ),
-                                      
                                       const SizedBox(height: 16),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           ReservationMachinebox(
                                             machine: "1",
@@ -327,50 +342,66 @@ class _ReservationPageState extends State<ReservationPage> {
                               SizedBox(
                                 height: 78,
                               ),
-                              
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Column(
                                     children: [
-                                      isClick&&selectedIndex==4?Text('날짜나 세탁기를 선택해주세요.',style: AppTextStyles.medium14.copyWith(color: AppColor.red200),):SizedBox(height: 20,),
-                                      SizedBox(height: 5,),
+                                      isClick && selectedIndex == 4
+                                          ? Text(
+                                              '날짜 혹은 세탁기를 선택해주세요.',
+                                              style: AppTextStyles.medium14
+                                                  .copyWith(
+                                                      color: AppColor.red200),
+                                            )
+                                          : SizedBox(
+                                              height: 20,
+                                            ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
                                       GestureDetector(
                                         onTap: () => {
                                           setState(() {
-                                            isClick=true;
+                                            isClick = true;
                                           }),
                                           isReservationed == true
                                               ? showDialog(
                                                   context: context,
-                                                  builder: (BuildContext context) {
+                                                  builder:
+                                                      (BuildContext context) {
                                                     return Dialog(
-                                                      shape: RoundedRectangleBorder(
+                                                      shape:
+                                                          RoundedRectangleBorder(
                                                         borderRadius:
-                                                            BorderRadius.circular(15),
+                                                            BorderRadius
+                                                                .circular(15),
                                                       ),
-                                                      child: ReservationCheckModal(
-                                                        date:
-                                                            reservations[selectedIndex]
-                                                                .date,
+                                                      child:
+                                                          ReservationCheckModal(
+                                                        date: reservations[
+                                                                selectedIndex]
+                                                            .date,
                                                         onConfirm: () async {
                                                           print(
                                                               '${reservations[selectedIndex].date}');
                                                           print(
                                                               "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
-                                                          ReservationPostApi postApi =
+                                                          ReservationPostApi
+                                                              postApi =
                                                               ReservationPostApi(
                                                                   date:
                                                                       '${reservations[selectedIndex].date}',
                                                                   machine:
                                                                       "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
-                                                          postApi.reservationDate();
+                                                          postApi
+                                                              .reservationDate();
                                                         },
                                                       ),
                                                     );
                                                   },
                                                 )
-                                                :SizedBox(),
+                                              : SizedBox(),
                                         },
                                         child: NextButton(
                                           text: '예약하기',
@@ -378,7 +409,8 @@ class _ReservationPageState extends State<ReservationPage> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => FinishPage()),
+                                                  builder: (context) =>
+                                                      FinishPage()),
                                             );
                                           },
                                         ),
@@ -393,17 +425,18 @@ class _ReservationPageState extends State<ReservationPage> {
                         ],
                       ),
                       Positioned(
-                        top: 400,
-                        left: MediaQuery.of(context).size.width/2-110,
-                          child: showImage?Padding(
-                          padding: EdgeInsets.zero, // 여백을 완전히 제거
-                          child: Image.asset(
-                            'assets/img/wash.png',
-                          width: 220,
-                          height: 220,
-                        ),
-                      ):SizedBox()),
-                          
+                          top: 400,
+                          left: MediaQuery.of(context).size.width / 2 - 110,
+                          child: showImage
+                              ? Padding(
+                                  padding: EdgeInsets.zero, // 여백을 완전히 제거
+                                  child: Image.asset(
+                                    'assets/img/wash.png',
+                                    width: 220,
+                                    height: 220,
+                                  ),
+                                )
+                              : SizedBox()),
                     ],
                   ),
                 ],
