@@ -20,7 +20,7 @@ class _LogoutModalState extends State<LogoutModal> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             color: AppColor.white100),
-        width: MediaQuery.of(context).size.width * (340 / 393),
+        width: MediaQuery.of(context).size.width * (350 / 393),
         height: 227,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -93,7 +93,7 @@ class _LogoutModalState extends State<LogoutModal> {
                       );
                     },
                     child: Container(
-                      width: 130,
+                      width: MediaQuery.of(context).size.width * (130 / 350),
                       height: 40,
                       decoration: BoxDecoration(
                           color: AppColor.blue400,
