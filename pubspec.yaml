@@ -1,7 +1,7 @@
 name: bubble_app
 description: "A new Flutter project."
 
-version: 1.0.0+1
+version: 1.0.0+3
 
 environment:
   sdk: ">=3.4.1 <4.0.0"
