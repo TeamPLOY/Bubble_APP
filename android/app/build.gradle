@@ -6,6 +6,7 @@ plugins {
 
 android {
     namespace = "bubble.app"
+    compileSdk =33
     compileSdkVersion 34 // FlutterSecureStorage 호환 최신 SDK
     ndkVersion = flutter.ndkVersion
 
@@ -20,6 +21,8 @@ android {
 
     defaultConfig {
         applicationId "bubble.app"
+        minSdk = 24
+        targetSdk = 33
         minSdkVersion 23 // FlutterSecureStorage의 최소 요구사항
         targetSdkVersion 34
         versionCode flutter.versionCode
