@@ -141,7 +141,8 @@ class _ProfilePageState extends State<ProfilePage> {
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 80),
-                child: Column(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
                       onTap: () {
@@ -161,7 +162,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: AppColor.gray600), // AppTextStyles 사용
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(width: 20),
                     GestureDetector(
                       onTap: () {
                         showDialog(
