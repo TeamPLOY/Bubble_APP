@@ -16,14 +16,12 @@ class DelPage extends StatefulWidget {
   @override
   State<DelPage> createState() => _DeletePageState();
 }
- 
+
 class _DeletePageState extends State<DelPage> {
-  List<bool> validationemailResults = [false, false,false];
+  List<bool> validationemailResults = [false, false, false];
 
   final TextEditingController emailController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
-
   final TextEditingController repasswordController = TextEditingController();
 
   late bool delete_state;
@@ -37,9 +35,11 @@ class _DeletePageState extends State<DelPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SideHeader(text: "탈퇴하기"),
-          SizedBox(height: MediaQuery.of(context).size.height*(100/852),),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * (100 / 852),
+          ),
           Padding(
-            padding:EdgeInsets.symmetric(horizontal: 23),
+            padding: const EdgeInsets.symmetric(horizontal: 23),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,54 +48,183 @@ class _DeletePageState extends State<DelPage> {
                   '회원 탈퇴를 위해\n회원정보를 입력해주세요.',
                   style: AppTextStyles.bold20.copyWith(color: AppColor.gray700),
                 ),
-                SizedBox(height: 17,),
-
+                const SizedBox(height: 17),
                 InputTitle(text: '이메일'),
-                Inputbox(wsize: 347, hsize: 40, text: "이메일을 입력해주세요", controller: emailController),
-                validationemailResults[2]==true? Message(text: "이메일을 제대로 입력해주세요."):SizedBox(height: 0,width: 0,),
-                SizedBox(height: 8,),
-
+                Inputbox(
+                  wsize: 347,
+                  hsize: 40,
+                  text: "이메일을 입력해주세요",
+                  controller: emailController,
+                ),
+                validationemailResults[2]
+                    ? Message(text: "이메일을 제대로 입력해주세요.")
+                    : const SizedBox(height: 0, width: 0),
+                const SizedBox(height: 8),
                 InputTitle(text: '비밀번호'),
-                Inputbox(password: true,wsize: 347, hsize: 40, text: "비밀번호를 입력해주세요", controller: passwordController),
-                validationemailResults[0]==true? Message(text: "비밀번호를 제대로 입력해주세요."):SizedBox(height: 0,width: 0,),
-                const SizedBox(height: 8,),
+                Inputbox(
+                  password: true,
+                  wsize: 347,
+                  hsize: 40,
+                  text: "비밀번호를 입력해주세요",
+                  controller: passwordController,
+                ),
+                validationemailResults[0]
+                    ? Message(text: "비밀번호를 제대로 입력해주세요.")
+                    : const SizedBox(height: 0, width: 0),
+                const SizedBox(height: 8),
                 InputTitle(text: '비밀번호 확인'),
-
-                Inputbox(password: true,wsize: 347, hsize: 40, text: "비밀번호를 다시 입력해주세요", controller: repasswordController),
-                validationemailResults[1]==true? Message(text: "비밀번호가 일치하지 않습니다."):SizedBox(height: 0,width: 0,),
-                SizedBox(height: 17,),
-
+                Inputbox(
+                  password: true,
+                  wsize: 347,
+                  hsize: 40,
+                  text: "비밀번호를 다시 입력해주세요",
+                  controller: repasswordController,
+                ),
+                validationemailResults[1]
+                    ? Message(text: "비밀번호가 일치하지 않습니다.")
+                    : const SizedBox(height: 0, width: 0),
+                const SizedBox(height: 17),
                 GestureDetector(
-                  onTap: () async{
-                    Deletesearch formsearch = Deletesearch(
-                              emailController: emailController,
-                              passwordController: passwordController,
-                              repasswordController: repasswordController,
-                    );
-                    setState(() {
-                      validationemailResults=formsearch.checkForm();
-                    });
-                    if(validationemailResults[0]==false&&validationemailResults[1]==false&&validationemailResults[2]==false){
-                      DeleteApi deleteApi = DeleteApi(email: emailController.text,passwrod: passwordController.text);
-                      delete_state= await deleteApi.fetchData();
-                      Navigator.push(
-                        context,
-                        PageRouteBuilder(
-                            pageBuilder:
-                            (context, animation, secondaryAnimation) =>
-                              DeleteNextPage(state: delete_state,),
-                            transitionsBuilder: (context, animation,
-                            secondaryAnimation, child) {
-                            return child; // 애니메이션 없이 바로 화면 전환
-                        },
+                  onTap: () async {
+                                                            Deletesearch formsearch =
+                                            Deletesearch(
+                                          emailController: emailController,
+                                          passwordController:
+                                              passwordController,
+                                          repasswordController:
+                                              repasswordController,
+                                        );
+                                        setState(() {
+                                          validationemailResults =
+                                              formsearch.checkForm();
+                                        });
+                    print(validationemailResults[0]);
+                    print(validationemailResults[1]);
+                    print(validationemailResults[2]);
+                    if (validationemailResults[0]==false&&validationemailResults[1]==false&&validationemailResults[2]==false)
+                    {
+                      showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                      return Dialog(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * (333 / 393),
+                          height: 260,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: AppColor.white100
+                          ),
+                          padding: EdgeInsets.only(
+                            left:20,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height:MediaQuery.of(context).size.height * (29 / 893) ,),
+                              Text(
+                                '회원 탈퇴',
+                                style: AppTextStyles.bold18.copyWith(color: AppColor.gray800),
+                              ),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.height * (24 / 893),
+                              ),
+                              Text(
+                                '회원 탈퇴 시 계정 정보가 삭제되어 복구가 불가해요.',
+                                style: AppTextStyles.regular18.copyWith(color: AppColor.gray600),
+                              ),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.height * (24 / 893),
+                              ),
+                              Text(
+                                '정말로 탈퇴하시겠어요?',
+                                style: AppTextStyles.regular18.copyWith(color: AppColor.gray600),
+                              ),
+                              SizedBox(height:MediaQuery.of(context).size.height * (24 / 893) ,),
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width * (140 / 393),
+                                      height: MediaQuery.of(context).size.height * (45 / 893),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: AppColor.gray200,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          '더 써볼래요',
+                                          style: AppTextStyles.regular18.copyWith(
+                                            color: AppColor.gray700,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width * (12 / 393),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      if (validationemailResults[0] == false &&
+                                          validationemailResults[1] == false &&
+                                          validationemailResults[2] == false) {
+                                        DeleteApi deleteApi = DeleteApi(
+                                          email: emailController.text,
+                                          passwrod: passwordController.text,
+                                        );
+                                        delete_state = await deleteApi.fetchData();
+                                        Navigator.push(
+                                          context,
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation, secondaryAnimation) =>
+                                                DeleteNextPage(state: delete_state),
+                                            transitionsBuilder:
+                                                (context, animation, secondaryAnimation, child) {
+                                              return child;
+                                            },
+                                          ),
+                                        );
+                                      }
+                                    },
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width * (140 / 393),
+                                      height: MediaQuery.of(context).size.height * (45 / 893),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: AppColor.blue400,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          '떠날래요',
+                                          style: AppTextStyles.regular18.copyWith(
+                                            color: AppColor.white100,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       );
+                      },
+                    );                         
                     }
                   },
-                  child: NextButton(text: "탈퇴하기", onPressed: (){}))
+                  child: NextButton(
+                    text: "탈퇴하기",
+                    onPressed: () {},
+                  ),
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

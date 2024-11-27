@@ -49,7 +49,7 @@ class SideHeader extends StatelessWidget {
           Expanded(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.only(right: 60),
+                padding: const EdgeInsets.only(right: 80),
                 child: Text(
                   '${text}',
                   style:

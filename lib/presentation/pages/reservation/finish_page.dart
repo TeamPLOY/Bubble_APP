@@ -1,3 +1,4 @@
+import 'package:bubble_app/presentation/pages/alarm/reservation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:async';
@@ -32,7 +33,7 @@ class _FinishState extends State<FinishPage> {
           context,
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-                AlarmPage(),
+                ReservationListPage(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               return child; // 애니메이션 없이 바로 화면 전환
@@ -76,7 +77,7 @@ class _FinishState extends State<FinishPage> {
                 height: 8,
               ),
               Text(
-                "$count초 후 알림 페이지로 이동합니다.",
+                "$count초 후 예약페이지로 이동합니다.",
                 style: AppTextStyles.medium14
                     .copyWith(color: AppColor.gray600), // 색상 수정
               ),

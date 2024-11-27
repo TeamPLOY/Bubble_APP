@@ -104,6 +104,8 @@ class AppTextStyles {
       fontFamily: 'PretendardBold', fontSize: 14, fontWeight: FontWeight.w700);
   static TextStyle bold16 = TextStyle(
       fontFamily: 'PretendardBold', fontSize: 16, fontWeight: FontWeight.w700);
+    static TextStyle bold18 = TextStyle(
+      fontFamily: 'PretendardBold', fontSize: 18, fontWeight: FontWeight.w700);
   static TextStyle bold20 = TextStyle(
       fontFamily: 'PretendardBold', fontSize: 20, fontWeight: FontWeight.w700);
   static TextStyle bold28 = TextStyle(
