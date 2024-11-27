@@ -82,7 +82,7 @@ class _ReservationPageState extends State<ReservationPage> {
               return ListView(
                 children: [
                   Stack(
-                    children: [
+                    children: [            
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,18 +238,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                           ),
                                         ],
                                       ),
-                                      Positioned(
-                                        left: 200,
-                                        child: showImage?Padding(
-                                          padding: EdgeInsets.zero, // 여백을 완전히 제거
-                                          child: Image.asset(
-                                            'assets/img/wash.png',
-                                            width: 220,
-                                            height: 220,
-                                          ),
-                                        ):SizedBox()),
                                       
-                                        
                                       const SizedBox(height: 16),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
@@ -336,11 +325,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                 ],
                               ),
                               SizedBox(
-                                height: MediaQuery.of(context).size.height > 740
-                                    ? MediaQuery.of(context).size.height *
-                                        (78 / 852)
-                                    : MediaQuery.of(context).size.height *
-                                        (20 / 852),
+                                height: 78,
                               ),
                               
                               Row(
@@ -402,11 +387,23 @@ class _ReservationPageState extends State<ReservationPage> {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 10),
+                              const SizedBox(height: 43),
                             ],
                           ),
                         ],
                       ),
+                      Positioned(
+                        top: 400,
+                        left: MediaQuery.of(context).size.width/2-110,
+                          child: showImage?Padding(
+                          padding: EdgeInsets.zero, // 여백을 완전히 제거
+                          child: Image.asset(
+                            'assets/img/wash.png',
+                          width: 220,
+                          height: 220,
+                        ),
+                      ):SizedBox()),
+                          
                     ],
                   ),
                 ],
