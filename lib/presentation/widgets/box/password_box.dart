@@ -58,7 +58,7 @@ class _PasswordBoxState extends State<PasswordBox> {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: SvgPicture.asset(
-                ispasswrod ? 'assets/img/eye.svg' : 'assets/img/eye-off.svg',
+                ispasswrod ? 'assets/img/eye-off.svg' : 'assets/img/eye.svg',
                 width: 24,
                 height: 24,
               ),
