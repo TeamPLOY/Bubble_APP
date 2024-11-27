@@ -1,96 +1,71 @@
 import 'package:flutter/material.dart';
 
 class Formsearch {
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController repasswordController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController roomController = TextEditingController();
+  TextEditingController passwordController;
+  TextEditingController repasswordController;
+  TextEditingController nameController;
+  TextEditingController roomController;
 
+  Formsearch({
+    required this.passwordController,
+    required this.repasswordController,
+    required this.nameController,
+    required this.roomController,
+  });
 
-  Formsearch({required this.passwordController,required this.repasswordController,required this.nameController,required this.roomController,});
-  List<bool> isState=[false,false,false,false];
+  // Validation states: password, name, room, repassword, special character
+  List<bool> isState = [false, false, false, false, false];
+
+  // Utility methods for validation
   bool containsKorean(String text) {
-    RegExp koreanRegex = RegExp(r'[\uac00-\ud7af]');
-    return koreanRegex.hasMatch(text);
+    return RegExp(r'[\uac00-\ud7af]').hasMatch(text);
   }
 
-  bool checkSpecialCharacter(String text) {
-    RegExp regex = RegExp(r'[!@#\$&*~]');
-    return regex.hasMatch(text);
+  bool containsSpecialCharacter(String text) {
+    return RegExp(r'[!@#\$&*~]').hasMatch(text);
   }
 
   bool isRoomNumberValid(String text) {
-    RegExp regex = RegExp(r'^\d{3}$');
-    return regex.hasMatch(text);
+    return RegExp(r'^\d{3}$').hasMatch(text);
   }
 
   bool isNumericOnly(String text) {
-    RegExp numericRegex = RegExp(r'^[0-9]+$');
-    return numericRegex.hasMatch(text);
+    return RegExp(r'^[0-9]+$').hasMatch(text);
   }
 
-  List<bool> checkForm(){
-    if (passwordController.text.isNotEmpty) {
-      if(passwordController.text.length >= 5){
-        if(checkSpecialCharacter(passwordController.text)){
-          if(!containsKorean(passwordController.text)){
-            print('완료');
-            isState[0] = false;
-          }
-          else {
-            isState[0] = true;
-          }
-        }
-        else {
-          isState[0] = true;
-        }
-      }
-      else {
-        isState[0] = true;
-      }
-    }
-    else {
-      isState[0] = true;
-    }
+  // Validation methods for each field
+  bool validatePassword(String password) {
+    if (password.isEmpty) return false;
+    if (password.length < 5) return false;
+    if (containsKorean(password)) return false;
+    return true;
+  }
 
-    if(passwordController.text.isEmpty){
-      isState[0]=true;
-    }
-    else if(passwordController.text.length<=5){
-      isState[0]=true;
-    }
+  bool validateName(String name) {
+    return name.isNotEmpty && name.length <= 5;
+  }
 
-    if(nameController.text.isEmpty || nameController.text.length>5){
-      isState[1]=true;
-    }
+  bool validateRoom(String room) {
+    return isRoomNumberValid(room);
+  }
 
-    if(roomController.text.isEmpty){
-      isState[1]=true;
-    }
+  bool validateRepassword(String password, String repassword) {
+    return password == repassword;
+  }
 
-    if(roomController.text.length==3){
-      if(isNumericOnly(roomController.text)){
-        isState[2]=false;
-      }
-      else{
-        isState[2]=true;
-      }
-    }
-    else{
-      isState[2]=true;
-    }
+  // Comprehensive form validation
+  List<bool> checkForm() {
+    String password = passwordController.text;
+    String repassword = repasswordController.text;
+    String name = nameController.text;
+    String room = roomController.text;
 
-    if(passwordController.text==repasswordController.text){
-      isState[3]=false;
-    }
-    else{
-      isState[3]=true;
-    }
+    isState[0] = !validatePassword(password); // Password validity
+    isState[1] = !validateName(name);        // Name validity
+    isState[2] = !validateRoom(room);        // Room validity
+    isState[3] = !validateRepassword(password, repassword); // Repassword match
+    isState[4] = !containsSpecialCharacter(password); // True if no special character
 
-    // if(bufferController.text.isEmpty){
-    //   isState[6]=true;
-    // }
     return isState;
   }
 }
-
