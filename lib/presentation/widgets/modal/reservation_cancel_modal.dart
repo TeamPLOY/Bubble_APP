@@ -56,7 +56,7 @@ class ReservationCancelModal extends StatelessWidget {
             ),
             Text(
               '세탁기 이용을 하실 수 없습니다.',
-              style: AppTextStyles.regular18.copyWith(color: AppColor.gray500),
+              style: AppTextStyles.regular18.copyWith(color: AppColor.gray600),
             ),
             SizedBox(
               height: 20,

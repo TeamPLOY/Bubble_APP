@@ -25,7 +25,7 @@ class _UserfullModalState extends State<UserfullModal> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: 32,
+              height: 30,
             ),
             SvgPicture.asset(
               'assets/img/bluemark.svg',
@@ -69,7 +69,7 @@ class _UserfullModalState extends State<UserfullModal> {
                       child: Center(
                         child: Text(
                           '확인',
-                          style: AppTextStyles.regular16
+                          style: AppTextStyles.regular18
                               .copyWith(color: AppColor.white100),
                         ),
                       ),

@@ -36,12 +36,12 @@ class SideHeader extends StatelessWidget {
                 );
               },
               child: Container(
-                width: 80,
+                width: 60,
                 height: 24,
                 child: SvgPicture.asset(
                   'assets/img/back.svg',
                   width: 20,
-                  height: 20,
+                  height: 24,
                 ),
               ),
             ),
@@ -49,7 +49,7 @@ class SideHeader extends StatelessWidget {
           Expanded(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.only(right: 1),
+                padding: const EdgeInsets.only(right: 60),
                 child: Text(
                   '${text}',
                   style:
