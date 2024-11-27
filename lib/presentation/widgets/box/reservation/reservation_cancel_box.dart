@@ -98,8 +98,8 @@ bool checkDate(String backendDate) {
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     "${widget.resDate} ${widget.dayOfWeek} 예약",
-                    style: MediaQuery.of(context).size.width<=350?AppTextStyles.medium12.copyWith(
-                      color: AppColor.gray800):AppTextStyles.medium14.copyWith(
+                    style: MediaQuery.of(context).size.width<=350?AppTextStyles.medium14.copyWith(
+                      color: AppColor.gray800):AppTextStyles.medium16.copyWith(
                       color: AppColor.gray800,
                     ),
                   ),

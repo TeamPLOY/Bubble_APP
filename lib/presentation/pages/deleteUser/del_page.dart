@@ -108,7 +108,7 @@ class _DeletePageState extends State<DelPage> {
                       builder: (BuildContext context) {
                       return Dialog(
                         child: Container(
-                          width: MediaQuery.of(context).size.width * (333 / 393),
+                          width:333,
                           height: 260,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -148,8 +148,8 @@ class _DeletePageState extends State<DelPage> {
                                       Navigator.of(context).pop();
                                     },
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width * (140 / 393),
-                                      height: MediaQuery.of(context).size.height * (45 / 893),
+                                      width: 140,
+                                      height: 45,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: AppColor.gray200,
@@ -191,8 +191,8 @@ class _DeletePageState extends State<DelPage> {
                                       }
                                     },
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width * (140 / 393),
-                                      height: MediaQuery.of(context).size.height * (45 / 893),
+                                      width:140,
+                                      height: 45,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: AppColor.blue400,
