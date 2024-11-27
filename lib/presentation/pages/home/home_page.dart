@@ -1,4 +1,6 @@
+import 'package:bubble_app/data/models/notice_model.dart';
 import 'package:bubble_app/data/providers/network/apis/machine/machine_get_api.dart';
+import 'package:bubble_app/data/providers/network/apis/notice/notice_api.dart';
 import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> {
   Timer? _machineTimer;
   StreamSubscription<RemoteMessage>? _messageSubscription;
   bool isAlarmActive = false;
+  List<Noticemodel> notifications=[];
 
   @override
   void initState() {
@@ -41,8 +44,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _futureMachineData() async {
+    NoticeApi noticeApi = NoticeApi();
     MachineGetApi machine = MachineGetApi();
     try {
+      notifications=await noticeApi.fetchNotice();
       List<MachineModel> fetchedMachine = await machine.fetchData();
       setState(() {
         machineData = Future.value(fetchedMachine);
@@ -197,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       _buildMessageWidget(),
                       SizedBox(height: screenHeight * 0.012),
-                      MainNoticeBox(),
+                      MainNoticeBox(noticemodels: notifications,),
                       SizedBox(height: screenHeight * 0.012),
                       HomeActivate(),
                       SizedBox(height: screenHeight * 0.012),

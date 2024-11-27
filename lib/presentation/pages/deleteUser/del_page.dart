@@ -26,6 +26,139 @@ class _DeletePageState extends State<DelPage> {
 
   late bool delete_state;
 
+  void _showDeleteDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              double screenWidth = constraints.maxWidth;
+              double screenHeight = constraints.maxHeight;
+
+              double titleFontSize = screenWidth > 393 ? 20 : 18;
+              double contentFontSize = screenWidth > 393 ? 18 : 16;
+
+              return Container(
+                width: screenWidth * 0.85,
+                height: screenHeight * 0.35,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: AppColor.white100
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.04, 
+                  vertical: screenHeight * 0.03
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '회원 탈퇴',
+                      style: AppTextStyles.bold18.copyWith(
+                        color: AppColor.gray800, 
+                        fontSize: titleFontSize
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+                    Text(
+                      '회원 탈퇴 시 계정 정보가 삭제되어 복구가 불가해요.',
+                      style: AppTextStyles.regular18.copyWith(
+                        color: AppColor.gray600, 
+                        fontSize: contentFontSize
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+                    Text(
+                      '정말로 탈퇴하시겠어요?',
+                      style: AppTextStyles.regular18.copyWith(
+                        color: AppColor.gray600, 
+                        fontSize: contentFontSize
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.03),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Container(
+                              height: 45,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: AppColor.gray200,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  '더 써볼래요',
+                                  style: AppTextStyles.regular18.copyWith(
+                                    color: AppColor.gray700,
+                                    fontSize: contentFontSize,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: screenWidth * 0.03),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () async {
+                              if (validationemailResults[0] == false &&
+                                  validationemailResults[1] == false &&
+                                  validationemailResults[2] == false) {
+                                DeleteApi deleteApi = DeleteApi(
+                                  email: emailController.text,
+                                  passwrod: passwordController.text,
+                                );
+                                delete_state = await deleteApi.fetchData();
+                                Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                    pageBuilder: (context, animation, secondaryAnimation) =>
+                                        DeleteNextPage(state: delete_state),
+                                    transitionsBuilder:
+                                        (context, animation, secondaryAnimation, child) {
+                                      return child;
+                                    },
+                                  ),
+                                );
+                              }
+                            },
+                            child: Container(
+                              height: 45,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: AppColor.blue400,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  '떠날래요',
+                                  style: AppTextStyles.regular18.copyWith(
+                                    color: AppColor.white100,
+                                    fontSize: contentFontSize,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,135 +219,19 @@ class _DeletePageState extends State<DelPage> {
                 const SizedBox(height: 17),
                 GestureDetector(
                   onTap: () async {
-                                                            Deletesearch formsearch =
-                                            Deletesearch(
-                                          emailController: emailController,
-                                          passwordController:
-                                              passwordController,
-                                          repasswordController:
-                                              repasswordController,
-                                        );
-                                        setState(() {
-                                          validationemailResults =
-                                              formsearch.checkForm();
-                                        });
-                    print(validationemailResults[0]);
-                    print(validationemailResults[1]);
-                    print(validationemailResults[2]);
-                    if (validationemailResults[0]==false&&validationemailResults[1]==false&&validationemailResults[2]==false)
-                    {
-                      showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                      return Dialog(
-                        child: Container(
-                          width:333,
-                          height: 260,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: AppColor.white100
-                          ),
-                          padding: EdgeInsets.only(
-                            left:20,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height:MediaQuery.of(context).size.height * (29 / 893) ,),
-                              Text(
-                                '회원 탈퇴',
-                                style: AppTextStyles.bold18.copyWith(color: AppColor.gray800),
-                              ),
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height * (24 / 893),
-                              ),
-                              Text(
-                                '회원 탈퇴 시 계정 정보가 삭제되어 복구가 불가해요.',
-                                style: AppTextStyles.regular18.copyWith(color: AppColor.gray600),
-                              ),
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height * (24 / 893),
-                              ),
-                              Text(
-                                '정말로 탈퇴하시겠어요?',
-                                style: AppTextStyles.regular18.copyWith(color: AppColor.gray600),
-                              ),
-                              SizedBox(height:MediaQuery.of(context).size.height * (24 / 893) ,),
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Container(
-                                      width: 140,
-                                      height: 45,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: AppColor.gray200,
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          '더 써볼래요',
-                                          style: AppTextStyles.regular18.copyWith(
-                                            color: AppColor.gray700,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width * (12 / 393),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () async {
-                                      if (validationemailResults[0] == false &&
-                                          validationemailResults[1] == false &&
-                                          validationemailResults[2] == false) {
-                                        DeleteApi deleteApi = DeleteApi(
-                                          email: emailController.text,
-                                          passwrod: passwordController.text,
-                                        );
-                                        delete_state = await deleteApi.fetchData();
-                                        Navigator.push(
-                                          context,
-                                          PageRouteBuilder(
-                                            pageBuilder: (context, animation, secondaryAnimation) =>
-                                                DeleteNextPage(state: delete_state),
-                                            transitionsBuilder:
-                                                (context, animation, secondaryAnimation, child) {
-                                              return child;
-                                            },
-                                          ),
-                                        );
-                                      }
-                                    },
-                                    child: Container(
-                                      width:140,
-                                      height: 45,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: AppColor.blue400,
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          '떠날래요',
-                                          style: AppTextStyles.regular18.copyWith(
-                                            color: AppColor.white100,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                      },
-                    );                         
+                    Deletesearch formsearch = Deletesearch(
+                      emailController: emailController,
+                      passwordController: passwordController,
+                      repasswordController: repasswordController,
+                    );
+                    setState(() {
+                      validationemailResults = formsearch.checkForm();
+                    });
+                    
+                    if (validationemailResults[0] == false &&
+                        validationemailResults[1] == false &&
+                        validationemailResults[2] == false) {
+                      _showDeleteDialog();
                     }
                   },
                   child: NextButton(

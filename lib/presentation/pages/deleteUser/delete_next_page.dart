@@ -16,13 +16,12 @@ class DeleteNextPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColor.white100,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           state==true? 
           Column(
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height*(160/852),),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -61,7 +60,6 @@ class DeleteNextPage extends StatelessWidget {
           ):
           Column(
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height*(160/852),),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
