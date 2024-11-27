@@ -77,6 +77,7 @@ class _SignupPageState extends State<SignupPage> {
   late String emails;
   //late EmailGetModels email_checkCode;
   bool openstate = false;
+  bool emailcheck_text=false;
 
   String format(int seconds) {
     var duration = Duration(seconds: seconds);
@@ -220,7 +221,9 @@ class _SignupPageState extends State<SignupPage> {
                                             print('인증 성공 : $emailstate');
                                             openstate = true;
                                             said_email = false;
+                                            emailcheck_text=true;
                                           } else {
+                                            emailcheck_text=false;
                                             print('인증 실패');
                                           }
                                         });
@@ -308,6 +311,16 @@ class _SignupPageState extends State<SignupPage> {
                             ],
                           ),
                         ),
+                        emailcheck_text == true
+                        ? Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Text('인증이 완료 되었습니다.',
+                                style: AppTextStyles.medium12.copyWith(
+                                  color: AppColor.blue500,
+                                ),
+                            ),
+                        )
+                        : SizedBox(),
                       const SizedBox(height: 20),
                       const InputTitle(text: '비밀번호'),
                       PasswordBox(

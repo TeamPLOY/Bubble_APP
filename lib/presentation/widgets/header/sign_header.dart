@@ -48,7 +48,7 @@ class SignHeader extends StatelessWidget {
           Expanded(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.only(right: 28),
+                padding: const EdgeInsets.only(right: 80),
                 child: Text(
                   '${text}',
                   style:
