@@ -1,6 +1,7 @@
 import 'package:bubble_app/data/Functions/deletesearch.dart';
 import 'package:bubble_app/presentation/pages/deleteUser/delete_next_page.dart';
 import 'package:bubble_app/presentation/widgets/box/input_box.dart';
+import 'package:bubble_app/presentation/widgets/box/password_box.dart';
 import 'package:bubble_app/presentation/widgets/button/next_button.dart';
 import 'package:bubble_app/presentation/widgets/text/input_title.dart';
 import 'package:bubble_app/presentation/widgets/text/message.dart';
@@ -24,8 +25,8 @@ class _DeletePageState extends State<DelPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController repasswordController = TextEditingController();
 
-  late bool delete_state;
-
+  late bool delete_state=false;
+  bool isClick=false;
   void _showDeleteDialog() {
     showDialog(
       context: context,
@@ -104,29 +105,41 @@ class _DeletePageState extends State<DelPage> {
                             ),
                           ),
                         ),
+                        
                         SizedBox(width: screenWidth * 0.03),
                         Expanded(
                           child: GestureDetector(
                             onTap: () async {
+                              setState(() {
+                                isClick=true;  
+                              });
+                              
                               if (validationemailResults[0] == false &&
                                   validationemailResults[1] == false &&
                                   validationemailResults[2] == false) {
-                                DeleteApi deleteApi = DeleteApi(
+                                    DeleteApi deleteApi = DeleteApi(
                                   email: emailController.text,
                                   passwrod: passwordController.text,
                                 );
                                 delete_state = await deleteApi.fetchData();
+                                if(delete_state){
+                                  
                                 Navigator.push(
                                   context,
                                   PageRouteBuilder(
                                     pageBuilder: (context, animation, secondaryAnimation) =>
-                                        DeleteNextPage(state: delete_state),
+                                        DeleteNextPage(),
                                     transitionsBuilder:
                                         (context, animation, secondaryAnimation, child) {
                                       return child;
                                     },
                                   ),
                                 );
+                                }
+                                else{
+                                  Navigator.of(context).pop();
+                                }
+                                
                               }
                             },
                             child: Container(
@@ -194,8 +207,7 @@ class _DeletePageState extends State<DelPage> {
                     : const SizedBox(height: 0, width: 0),
                 const SizedBox(height: 8),
                 InputTitle(text: '비밀번호'),
-                Inputbox(
-                  password: true,
+                PasswordBox(
                   wsize: 347,
                   hsize: 40,
                   text: "비밀번호를 입력해주세요",
@@ -206,8 +218,7 @@ class _DeletePageState extends State<DelPage> {
                     : const SizedBox(height: 0, width: 0),
                 const SizedBox(height: 8),
                 InputTitle(text: '비밀번호 확인'),
-                Inputbox(
-                  password: true,
+                PasswordBox(
                   wsize: 347,
                   hsize: 40,
                   text: "비밀번호를 다시 입력해주세요",
@@ -216,7 +227,18 @@ class _DeletePageState extends State<DelPage> {
                 validationemailResults[1]
                     ? Message(text: "비밀번호가 일치하지 않습니다.")
                     : const SizedBox(height: 0, width: 0),
-                const SizedBox(height: 17),
+                
+                SizedBox(height: 10,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    isClick?delete_state==false?Text('이메일과 비밀번호가 일치하지 않습니다.',style: AppTextStyles.regular18.copyWith(
+                        color: AppColor.red200, 
+                        fontSize: 14
+                      ),):SizedBox(height: 16,):SizedBox(height: 16,),
+                  ],
+                ),
+                SizedBox(height: 5,),
                 GestureDetector(
                   onTap: () async {
                     Deletesearch formsearch = Deletesearch(
