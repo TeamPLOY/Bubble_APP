@@ -75,8 +75,8 @@ class _BottomState extends State<Bottom> {
               },
               icon: SvgPicture.asset(
                 'assets/img/calendar.svg',
-                width: 24,
-                height: 24,
+                width: 26,
+                height: 26,
               ),
             ),
             IconButton(
@@ -95,8 +95,8 @@ class _BottomState extends State<Bottom> {
               },
               icon: SvgPicture.asset(
                 'assets/img/home.svg',
-                width: 23,
-                height: 23,
+                width: 26,
+                height: 26,
               ),
             ),
             IconButton(
@@ -115,8 +115,8 @@ class _BottomState extends State<Bottom> {
               },
               icon: SvgPicture.asset(
                 'assets/img/profile.svg',
-                width: 24,
-                height: 24,
+                width: 26,
+                height: 26,
               ),
             ),
           ],
