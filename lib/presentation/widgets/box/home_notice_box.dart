@@ -23,7 +23,7 @@ class _MainNoticeBoxState extends State<MainNoticeBox> {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
       setState(() {
         currentIndex = (currentIndex + 1) % widget.noticemodels.length;
         message = widget.noticemodels[currentIndex].title;
