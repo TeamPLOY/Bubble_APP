@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
 import 'package:bubble_app/data/providers/network/apis/reservation/reservation_cancel_api.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ReservationCancelModal extends StatelessWidget {
   final String roomnumber, date, machine;
@@ -16,100 +17,96 @@ class ReservationCancelModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Colors.transparent,
       child: Container(
-        width: MediaQuery.of(context).size.width * (359 / 393),
-        height: 114,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8), color: AppColor.white100),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 13),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 13),
-                child: Container(
-                  width: 70,
-                  height: 16,
-                  decoration: BoxDecoration(
-                      color: AppColor.blue400,
-                      borderRadius: BorderRadius.circular(3)),
-                  alignment: Alignment.center,
-                  child: Text(
-                    "${machine}",
-                    style: AppTextStyles.medium10.copyWith(
-                      color: AppColor.white100,
-                    ),
-                  ),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: AppColor.white100),
+        width: MediaQuery.of(context).size.width * (340 / 393),
+        height: 227,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 24,
+            ),
+            SvgPicture.asset('assets/img/Mark.svg'),
+            SizedBox(
+              height: 16,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '예약을 ',
+                  style: AppTextStyles.bold20.copyWith(color: AppColor.gray800),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 6),
-                child: Text('예약을 취소하시겠습니까?',
-                    style: AppTextStyles.medium16
-                        .copyWith(color: AppColor.gray800)),
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('예약을 취소하시면 사용하실 수 없습니다.',
-                      style: AppTextStyles.medium10
-                          .copyWith(color: AppColor.gray600)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context, false);
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * (50 / 393),
-                          height:
-                              MediaQuery.of(context).size.height * (24 / 893),
-                          decoration: BoxDecoration(
-                              color: AppColor.gray200,
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Center(
-                            child: Text('아니요',
-                                style: AppTextStyles.medium10
-                                    .copyWith(color: AppColor.gray600)),
-                          ),
+                Text(
+                  '취소',
+                  style: AppTextStyles.bold20.copyWith(color: AppColor.blue400),
+                ),
+                Text(
+                  '하시겠습니까?',
+                  style: AppTextStyles.bold20.copyWith(color: AppColor.gray800),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 4,
+            ),
+            Text(
+              '세탁기 이용을 하실 수 없습니다.',
+              style: AppTextStyles.regular18.copyWith(color: AppColor.gray500),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                    onTap: () => {Navigator.pop(context, false)},
+                    child: Container(
+                      width: 130,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: AppColor.gray200,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: Text(
+                          '취소',
+                          style: AppTextStyles.regular16
+                              .copyWith(color: AppColor.gray700),
                         ),
                       ),
-                      SizedBox(width: 4),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context, true);
-                          ReservationCancelApi cancelPost =
-                              ReservationCancelApi(date: date);
-                          cancelPost.fetchCancel();
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * (50 / 393),
-                          height:
-                              MediaQuery.of(context).size.height * (24 / 893),
-                          decoration: BoxDecoration(
-                              color: AppColor.gray200,
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Center(
-                            child: Text('네',
-                                style: AppTextStyles.medium10
-                                    .copyWith(color: AppColor.gray600)),
-                          ),
+                    )),
+                SizedBox(
+                  width: 12,
+                ),
+                GestureDetector(
+                    onTap: () {
+                      ReservationCancelApi cancelPost =
+                          ReservationCancelApi(date: date);
+                      cancelPost.fetchCancel();
+                      Navigator.pop(context, true);
+                    },
+                    child: Container(
+                      width: 130,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: AppColor.blue400,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: Text(
+                          '확인',
+                          style: AppTextStyles.regular16
+                              .copyWith(color: AppColor.white100),
                         ),
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * (14 / 393),
-                      )
-                    ],
-                  )
-                ],
-              )
-            ],
-          ),
+                    ))
+              ],
+            )
+          ],
         ),
       ),
     );

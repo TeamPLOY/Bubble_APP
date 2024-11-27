@@ -33,11 +33,11 @@ class ReservationCheckModal extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 39),
+            padding: EdgeInsets.only(top: 10),
             child: SvgPicture.asset(
               'assets/img/checkicon.svg',
-              width: MediaQuery.of(context).size.width >= 700 ? 100 : 70,
-              height: MediaQuery.of(context).size.width >= 700 ? 100 : 70,
+              width: MediaQuery.of(context).size.width >= 700 ? 120 : 90,
+              height: MediaQuery.of(context).size.width >= 700 ? 120 : 90,
             ),
           ),
           Padding(
@@ -45,11 +45,19 @@ class ReservationCheckModal extends StatelessWidget {
             child: Column(
               children: [
                 Text(
+                  '선택하신 날짜가 ${date.split('-')[1]}월 ${date.split('-')[2]}일입니다.',
+                  style: TextStyle(
+                    fontFamily: "PretendardMedium",
+                    fontSize:
+                        MediaQuery.of(context).size.width >= 700 ? 24 :MediaQuery.of(context).size.width >= 400 ? 18 : 12,
+                  ),
+                ),
+                Text(
                   '이대로 진행 하시겠습니까?',
                   style: TextStyle(
                     fontFamily: "PretendardMedium",
                     fontSize:
-                        MediaQuery.of(context).size.width >= 700 ? 24 : 12,
+                        MediaQuery.of(context).size.width >= 700 ? 24 :MediaQuery.of(context).size.width >= 400 ? 18 : 12,
                   ),
                 ),
               ],
@@ -66,10 +74,10 @@ class ReservationCheckModal extends StatelessWidget {
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width >= 393
-                        ? MediaQuery.of(context).size.width * (55 / 393)
+                        ? MediaQuery.of(context).size.width * (65 / 393)
                         : 55,
                     height: MediaQuery.of(context).size.width >= 700
-                        ? MediaQuery.of(context).size.height * (50 / 893)
+                        ? MediaQuery.of(context).size.height * (60 / 893)
                         : 25,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(3),
@@ -78,7 +86,7 @@ class ReservationCheckModal extends StatelessWidget {
                     child: Center(
                       child: Text(
                         '아니오',
-                        style: AppTextStyles.semiBold10
+                        style: AppTextStyles.semiBold12
                             .copyWith(color: AppColor.gray500),
                       ),
                     ),
@@ -107,10 +115,10 @@ class ReservationCheckModal extends StatelessWidget {
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width >= 393
-                        ? MediaQuery.of(context).size.width * (55 / 393)
+                        ? MediaQuery.of(context).size.width * (65 / 393)
                         : 55,
                     height: MediaQuery.of(context).size.width >= 700
-                        ? MediaQuery.of(context).size.height * (50 / 893)
+                        ? MediaQuery.of(context).size.height * (60 / 893)
                         : 25,
                     decoration: BoxDecoration(
                       color: AppColor.blue400,
@@ -120,7 +128,7 @@ class ReservationCheckModal extends StatelessWidget {
                     child: Center(
                       child: Text(
                         '네',
-                        style: AppTextStyles.semiBold10
+                        style: AppTextStyles.semiBold12
                             .copyWith(color: AppColor.white100),
                       ),
                     ),

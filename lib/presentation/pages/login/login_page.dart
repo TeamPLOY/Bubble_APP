@@ -1,6 +1,7 @@
 import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 import 'package:bubble_app/presentation/pages/profile/profile_page.dart';
 import 'package:bubble_app/presentation/pages/signup/signup_page.dart';
+import 'package:bubble_app/presentation/widgets/box/password_box.dart';
 import 'package:bubble_app/presentation/widgets/header/login_header.dart';
 import 'package:bubble_app/presentation/widgets/text/input_title.dart';
 import 'package:flutter/cupertino.dart';
@@ -93,12 +94,11 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 12),
                   const InputTitle(text: '비밀번호'),
-                  Inputbox(
+                  PasswordBox(
                     wsize: 345,
                     hsize: 40,
                     text: '비밀번호',
                     controller: passwordController,
-                    password: true,
                   ),
                   SizedBox(height: 20),
                   if (loginstate[0] == true || loginstate[1] == true)

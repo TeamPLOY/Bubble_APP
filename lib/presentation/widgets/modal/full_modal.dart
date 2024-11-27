@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class FullModal extends StatefulWidget {
   const FullModal({super.key});
@@ -15,37 +16,58 @@ class _FullModalState extends State<FullModal> {
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: AppColor.white100
-        ),
-        width: MediaQuery.of(context).size.width*(360/393),
-        height: 80,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: AppColor.white100),
+        width: MediaQuery.of(context).size.width * (346 / 393),
+        height: 227,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsets.only(top: 17, left: 18),
-              child: Text(
-                '해당 날짜의 예약은 현재 모두 마감되었습니다.',
-                style: AppTextStyles.medium14.copyWith(color: AppColor.gray800),
-              ),
+            SizedBox(height: 23,),
+            SvgPicture.asset('assets/img/modal.svg'),
+            SizedBox(height: 16,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '현재 ',
+                  style: AppTextStyles.bold16.copyWith(color: AppColor.gray800),
+                ),
+                Text(
+                  '날짜',
+                  style: AppTextStyles.bold16.copyWith(color: AppColor.blue400),
+                ),
+                Text(
+                  '의 예약은 모두 완료되었습니다.',
+                  style: AppTextStyles.bold16.copyWith(color: AppColor.gray800),
+                ),
+              ],
             ),
-            Expanded(
-                child: Padding(
-              padding: const EdgeInsets.only( right: 21),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
+            SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
                       onTap: () => {Navigator.of(context).pop()},
-                      child: Text(
-                        '확인',
-                        style: AppTextStyles.semiBold12.copyWith(color: Color(0xff1C4EFF)),
+                      child: Container(
+                        width: 140,
+                        height: 45,
+                        decoration: BoxDecoration(
+                          color: AppColor.blue400,
+                          borderRadius: BorderRadius.circular(10)
+                        ),
+                        
+                        child: Center(
+                          child: Text(
+                            '확인',
+                            style: AppTextStyles.regular16
+                                .copyWith(color:AppColor.white100),
+                                          ),
+                        ),
                       ))
-                ],
-              ),
-            ))
+              ],
+            )
           ],
         ),
       ),

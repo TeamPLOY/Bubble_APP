@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class UserfullModal extends StatefulWidget {
   const UserfullModal({super.key});
@@ -17,35 +18,64 @@ class _UserfullModalState extends State<UserfullModal> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             color: AppColor.white100),
-        width: MediaQuery.of(context).size.width * (340 / 393),
-        height: 100,
+        width: MediaQuery.of(context).size.width * (300 / 393),
+        height: 278,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsets.only(top: 14, left: 16),
-              child: Text(
-                '이미 예약 하셨습니다.\n다음 주에 진행해주세요!',
-                style: AppTextStyles.medium16.copyWith(color: AppColor.gray800),
-              ),
+            SizedBox(
+              height: 32,
             ),
-            Expanded(
-                child: Padding(
-              padding: const EdgeInsets.only(right: 21, bottom: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                      onTap: () => {Navigator.of(context).pop()},
-                      child: Text(
-                        '확인',
-                        style: AppTextStyles.semiBold14
-                            .copyWith(color: Color(0xff1C4EFF)),
-                      ))
-                ],
-              ),
-            ))
+            SvgPicture.asset(
+              'assets/img/bluemark.svg',
+              width: 70,
+              height: 70,
+            ),
+            SizedBox(
+              height: 24,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '이미 예약하셨습니다.',
+                  style:
+                      AppTextStyles.medium20.copyWith(color: AppColor.gray800),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 4,
+            ),
+            Text(
+              '다음주에 예약해주세요.',
+              style: AppTextStyles.medium20.copyWith(color: AppColor.gray800),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                    onTap: () => {Navigator.of(context).pop()},
+                    child: Container(
+                      width: 254,
+                      height: 45,
+                      decoration: BoxDecoration(
+                          color: AppColor.blue400,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: Text(
+                          '확인',
+                          style: AppTextStyles.regular16
+                              .copyWith(color: AppColor.white100),
+                        ),
+                      ),
+                    ))
+              ],
+            )
           ],
         ),
       ),

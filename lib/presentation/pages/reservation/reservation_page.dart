@@ -1,3 +1,4 @@
+import 'package:bubble_app/presentation/widgets/modal/isreservation_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
@@ -25,24 +26,27 @@ class ReservationPage extends StatefulWidget {
 class _ReservationPageState extends State<ReservationPage> {
   late Future<List<ReservationModel>> reservationsFuture;
   late UserModel user_profile;
-  int selectedIndex = -1;
+  bool isReservationed = false;
+  int selectedIndex = 4;
   int selectedMachine = -1;
   var access_token = globalTokens?.access_token ?? '';
-  bool showImage = false;
+  bool showImage = false; // 이미지 표시 여부를 위한 상태 변수
+  late Future<UserModel> userFuture;
 
   @override
   void initState() {
     super.initState();
-    fetchUser();
+
     reservationsFuture = fetchReservations();
   }
 
   Future<List<ReservationModel>> fetchReservations() async {
+    await fetchUser();
     final reservationGetApi = ReservationGetApi();
     return await reservationGetApi.fetchData();
   }
 
-  void fetchUser() async {
+  Future<void> fetchUser() async {
     final userGetapi = ProfileApi(access_token: access_token);
     user_profile = await userGetapi.fetchData();
   }
@@ -70,6 +74,11 @@ class _ReservationPageState extends State<ReservationPage> {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData) {
               List<ReservationModel> reservations = snapshot.data!;
+              ReservationModel addReservation = ReservationModel(
+                  date: reservations.first.date,
+                  day: reservations.first.day,
+                  userCount: [false, false, false, false]);
+              reservations.add(addReservation);
               return ListView(
                 children: [
                   Column(
@@ -93,6 +102,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                     style: AppTextStyles.semiBold24
                                         .copyWith(color: AppColor.gray800),
                                   ),
+                                  const SizedBox(height: 8),
                                   Text(
                                     '1가지만 선택이 가능해요.',
                                     style: AppTextStyles.medium16
@@ -121,6 +131,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                           setState(() {
                                             selectedIndex = 0;
                                             selectedMachine = -1;
+                                            isReservationed = false;
                                           });
                                         },
                                       ),
@@ -139,6 +150,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                           setState(() {
                                             selectedIndex = 1;
                                             selectedMachine = -1;
+                                            isReservationed = false;
                                           });
                                         },
                                       ),
@@ -161,6 +173,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                           setState(() {
                                             selectedIndex = 2;
                                             selectedMachine = -1;
+                                            isReservationed = false;
                                           });
                                         },
                                       ),
@@ -179,6 +192,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                           setState(() {
                                             selectedIndex = 3;
                                             selectedMachine = -1;
+                                            isReservationed = false;
                                           });
                                         },
                                       ),
@@ -239,7 +253,12 @@ class _ReservationPageState extends State<ReservationPage> {
                                         isActive: selectedMachine == 0,
                                         onTap: () {
                                           setState(() {
-                                            selectedMachine = 0;
+                                            if (selectedIndex == 4) {
+                                              isReservationed = false;
+                                            } else {
+                                              isReservationed = true;
+                                              selectedMachine = 0;
+                                            }
                                           });
                                         },
                                       ),
@@ -252,7 +271,12 @@ class _ReservationPageState extends State<ReservationPage> {
                                         isActive: selectedMachine == 1,
                                         onTap: () {
                                           setState(() {
-                                            selectedMachine = 1;
+                                            if (selectedIndex == 4) {
+                                              isReservationed = false;
+                                            } else {
+                                              isReservationed = true;
+                                              selectedMachine = 1;
+                                            }
                                           });
                                         },
                                       ),
@@ -269,7 +293,12 @@ class _ReservationPageState extends State<ReservationPage> {
                                         isActive: selectedMachine == 2,
                                         onTap: () {
                                           setState(() {
-                                            selectedMachine = 2;
+                                            if (selectedIndex == 4) {
+                                              isReservationed = false;
+                                            } else {
+                                              isReservationed = true;
+                                              selectedMachine = 2;
+                                            }
                                           });
                                         },
                                       ),
@@ -282,7 +311,12 @@ class _ReservationPageState extends State<ReservationPage> {
                                         isActive: selectedMachine == 3,
                                         onTap: () {
                                           setState(() {
-                                            selectedMachine = 3;
+                                            if (selectedIndex == 4) {
+                                              isReservationed = false;
+                                            } else {
+                                              isReservationed = true;
+                                              selectedMachine = 3;
+                                            }
                                           });
                                         },
                                       ),
@@ -304,34 +338,42 @@ class _ReservationPageState extends State<ReservationPage> {
                             children: [
                               GestureDetector(
                                 onTap: () => {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Dialog(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: ReservationCheckModal(
-                                          date:
-                                              reservations[selectedIndex].date,
-                                          onConfirm: () async {
-                                            print(
-                                                '${reservations[selectedIndex].date}');
-                                            print(
-                                                "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
-                                            ReservationPostApi postApi =
-                                                ReservationPostApi(
-                                                    date:
-                                                        '${reservations[selectedIndex].date}',
-                                                    machine:
-                                                        "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
-                                            postApi.reservationDate();
+                                  isReservationed == true
+                                      ? showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Dialog(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                              ),
+                                              child: ReservationCheckModal(
+                                                date:
+                                                    reservations[selectedIndex]
+                                                        .date,
+                                                onConfirm: () async {
+                                                  print(
+                                                      '${reservations[selectedIndex].date}');
+                                                  print(
+                                                      "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
+                                                  ReservationPostApi postApi =
+                                                      ReservationPostApi(
+                                                          date:
+                                                              '${reservations[selectedIndex].date}',
+                                                          machine:
+                                                              "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
+                                                  postApi.reservationDate();
+                                                },
+                                              ),
+                                            );
                                           },
-                                        ),
-                                      );
-                                    },
-                                  )
+                                        )
+                                      : showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return IsreservationModal();
+                                          },
+                                        )
                                 },
                                 child: NextButton(
                                   text: '예약하기',
