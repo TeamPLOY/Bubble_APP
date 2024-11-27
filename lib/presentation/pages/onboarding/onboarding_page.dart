@@ -29,12 +29,13 @@ class OnboardingPage extends StatelessWidget {
                   children: [
                     SizedBox(
                       height: MediaQuery.of(context).size.height >= 500
-                          ? MediaQuery.of(context).size.height * (150 / 852)
+                          ? MediaQuery.of(context).size.height * (100 / 852)
                           : MediaQuery.of(context).size.height * (80 / 852),
                     ),
-                    SvgPicture.asset(
-                      'assets/img/bubble.svg',
+                    Image.asset(
+                      'assets/img/bubble.png',
                     ),
+                    SizedBox(height: 10,),
                     Text(
                       '한 번의 터치로 세탁 알림과 예약,',
                       style: AppTextStyles.medium18.copyWith(
@@ -62,8 +63,8 @@ class OnboardingPage extends StatelessWidget {
                 'assets/img/kuma.png',
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.width >= 500
-                    ? MediaQuery.of(context).size.height * (300 / 852)
-                    : MediaQuery.of(context).size.height * (240 / 852),
+                    ? MediaQuery.of(context).size.height * (290 / 852)
+                    : MediaQuery.of(context).size.height * (230 / 852),
                 fit: BoxFit.fill,
               ),
               GestureDetector(
