@@ -21,8 +21,7 @@ class PasswordBox extends StatefulWidget {
 }
 
 class _PasswordBoxState extends State<PasswordBox> {
-  bool ispasswrod=true;
-
+  bool ispasswrod = true;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,8 @@ class _PasswordBoxState extends State<PasswordBox> {
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(bottom: 11, left: 11),
                 hintText: widget.text,
-                hintStyle: AppTextStyles.medium16.copyWith(color: AppColor.gray400),
+                hintStyle:
+                    AppTextStyles.medium16.copyWith(color: AppColor.gray400),
                 border: InputBorder.none,
               ),
             ),
@@ -52,15 +52,15 @@ class _PasswordBoxState extends State<PasswordBox> {
           GestureDetector(
             onTap: () {
               setState(() {
-                ispasswrod=!ispasswrod;
+                ispasswrod = !ispasswrod;
               });
             },
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: SvgPicture.asset(
-                ispasswrod?'assets/img/no_see.svg':'assets/img/yes_see.svg',
-                width: 16,
-                height: 16,
+                ispasswrod ? 'assets/img/eye.svg' : 'assets/img/eye-off.svg',
+                width: 24,
+                height: 24,
               ),
             ),
           ),

@@ -39,9 +39,12 @@ class _BottomState extends State<Bottom> {
       height: 50,
       decoration: BoxDecoration(
         color: AppColor.white100,
+        border: Border(
+          top: BorderSide(color: AppColor.gray200, width: 1),
+        ),
       ),
       child: Padding(
-        padding: EdgeInsets.only(left: 40, right: 40),
+        padding: EdgeInsets.only(left: 30, right: 30),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
