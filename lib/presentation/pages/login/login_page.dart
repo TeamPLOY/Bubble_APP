@@ -2,6 +2,7 @@ import 'package:bubble_app/data/providers/network/apis/token/token_api.dart';
 import 'package:bubble_app/presentation/pages/profile/profile_page.dart';
 import 'package:bubble_app/presentation/pages/signup/signup_page.dart';
 import 'package:bubble_app/presentation/widgets/header/login_header.dart';
+import 'package:bubble_app/presentation/widgets/text/input_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
@@ -28,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
   bool logcheck = true;
   String? userInfo;
 
-
   @override
   void initState() {
     super.initState();
@@ -38,7 +38,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _asyncMethod() async {
-
     if (userInfo != null) {
       Navigator.pushReplacement(
         context,
@@ -67,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        '안녕하세요 \n버블에 오신 것을 환영합니다!',
+                        '안녕하세요:) \n버블에 오신 것을 환영합니다.',
                         style: MediaQuery.of(context).size.width >= 750
                             ? AppTextStyles.bold30
                                 .copyWith(fontSize: 38)
@@ -85,21 +84,23 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   SizedBox(height: 24),
+                  const InputTitle(text: '이메일'),
                   Inputbox(
                     wsize: 345,
                     hsize: 40,
-                    text: '아이디 입력',
+                    text: '이메일',
                     controller: idController,
                   ),
-                  SizedBox(height: 14),
+                  SizedBox(height: 12),
+                  const InputTitle(text: '비밀번호'),
                   Inputbox(
                     wsize: 345,
                     hsize: 40,
-                    text: '비밀번호 입력',
+                    text: '비밀번호',
                     controller: passwordController,
                     password: true,
                   ),
-                  SizedBox(height: 8),
+                  SizedBox(height: 20),
                   if (loginstate[0] == true || loginstate[1] == true)
                     Column(
                       children: [
@@ -112,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                               : AppTextStyles.medium12.copyWith(
                                   color: AppColor.red100), // AppTextStyles 사용
                         ),
-                        SizedBox(height: 17),
+                        SizedBox(height: 18),
                       ],
                     ),
                   if (logcheck == false)
@@ -174,11 +175,10 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: NextButton(
                       text: '로그인',
-                      onPressed: (){
-                      },
+                      onPressed: () {},
                     ),
                   ),
-                  SizedBox(height: 14),
+                  SizedBox(height: 20),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -194,12 +194,21 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       );
                     },
-                    child: Text(
-                      '회원가입',
-                      style: AppTextStyles.bold16.copyWith(
-                          color: AppColor.gray800), // AppTextStyles 사용
+                    child: RichText(
+                      text: TextSpan(
+                        text: '아직 계정이 없으신가요?',
+                        style: AppTextStyles.regular16
+                            .copyWith(color: AppColor.gray600),
+                        children: [
+                          TextSpan(
+                            text: ' 회원가입하기',
+                            style: AppTextStyles.regular16
+                                .copyWith(color: AppColor.gray800),
+                          ),
+                        ],
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

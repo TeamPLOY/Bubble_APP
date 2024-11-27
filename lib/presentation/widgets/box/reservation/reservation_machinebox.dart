@@ -25,7 +25,7 @@ class _ReservationMachineboxState extends State<ReservationMachinebox> {
   Widget build(BuildContext context) {
     // Box decoration and text style setup
     final backgroundColor = widget.machine_state
-        ? AppColor.gray400
+        ? AppColor.gray300
         : widget.isActive
             ? AppColor.blue400
             : Colors.white;
@@ -51,7 +51,7 @@ class _ReservationMachineboxState extends State<ReservationMachinebox> {
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1), // 그림자
+              color: Colors.black.withOpacity(0.1),
               offset: const Offset(0, 2),
               blurRadius: 3,
             ),

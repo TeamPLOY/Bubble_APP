@@ -25,10 +25,10 @@ class ReservationPage extends StatefulWidget {
 class _ReservationPageState extends State<ReservationPage> {
   late Future<List<ReservationModel>> reservationsFuture;
   late UserModel user_profile;
-  int selectedIndex = 0;
+  int selectedIndex = -1;
   int selectedMachine = -1;
   var access_token = globalTokens?.access_token ?? '';
-  bool showImage = false; // 이미지 표시 여부를 위한 상태 변수
+  bool showImage = false;
 
   @override
   void initState() {
@@ -93,7 +93,6 @@ class _ReservationPageState extends State<ReservationPage> {
                                     style: AppTextStyles.semiBold24
                                         .copyWith(color: AppColor.gray800),
                                   ),
-                                  const SizedBox(height: 8),
                                   Text(
                                     '1가지만 선택이 가능해요.',
                                     style: AppTextStyles.medium16
@@ -109,7 +108,12 @@ class _ReservationPageState extends State<ReservationPage> {
                                   Row(
                                     children: [
                                       ReservationWeekbox(
-                                        machine_state:parseNumberFromString(user_profile.roomNum) >=424 &&parseNumberFromString(user_profile.roomNum) <=434,
+                                        machine_state: parseNumberFromString(
+                                                    user_profile.roomNum) >=
+                                                424 &&
+                                            parseNumberFromString(
+                                                    user_profile.roomNum) <=
+                                                434,
                                         day: reservations[0].date,
                                         week: "월",
                                         isActive: selectedIndex == 0,
@@ -122,7 +126,12 @@ class _ReservationPageState extends State<ReservationPage> {
                                       ),
                                       const SizedBox(width: 20),
                                       ReservationWeekbox(
-                                        machine_state:  parseNumberFromString(user_profile.roomNum) >=418 &&parseNumberFromString(user_profile.roomNum) <=423,
+                                        machine_state: parseNumberFromString(
+                                                    user_profile.roomNum) >=
+                                                418 &&
+                                            parseNumberFromString(
+                                                    user_profile.roomNum) <=
+                                                423,
                                         day: reservations[1].date,
                                         week: "화",
                                         isActive: selectedIndex == 1,
@@ -139,7 +148,12 @@ class _ReservationPageState extends State<ReservationPage> {
                                   Row(
                                     children: [
                                       ReservationWeekbox(
-                                        machine_state:parseNumberFromString(user_profile.roomNum) >=424 &&parseNumberFromString(user_profile.roomNum) <=434,
+                                        machine_state: parseNumberFromString(
+                                                    user_profile.roomNum) >=
+                                                424 &&
+                                            parseNumberFromString(
+                                                    user_profile.roomNum) <=
+                                                434,
                                         day: reservations[2].date,
                                         week: "수",
                                         isActive: selectedIndex == 2,
@@ -152,7 +166,12 @@ class _ReservationPageState extends State<ReservationPage> {
                                       ),
                                       const SizedBox(width: 20),
                                       ReservationWeekbox(
-                                        machine_state:  parseNumberFromString(user_profile.roomNum) >=418 &&parseNumberFromString(user_profile.roomNum) <=423,
+                                        machine_state: parseNumberFromString(
+                                                    user_profile.roomNum) >=
+                                                418 &&
+                                            parseNumberFromString(
+                                                    user_profile.roomNum) <=
+                                                423,
                                         day: reservations[3].date,
                                         week: "목",
                                         isActive: selectedIndex == 3,
@@ -214,7 +233,9 @@ class _ReservationPageState extends State<ReservationPage> {
                                     children: [
                                       ReservationMachinebox(
                                         machine: "1",
-                                        machine_state: reservations[selectedIndex].userCount[0],
+                                        machine_state:
+                                            reservations[selectedIndex]
+                                                .userCount[0],
                                         isActive: selectedMachine == 0,
                                         onTap: () {
                                           setState(() {
@@ -225,7 +246,9 @@ class _ReservationPageState extends State<ReservationPage> {
                                       const SizedBox(width: 20),
                                       ReservationMachinebox(
                                         machine: "2",
-                                        machine_state: reservations[selectedIndex].userCount[1],
+                                        machine_state:
+                                            reservations[selectedIndex]
+                                                .userCount[1],
                                         isActive: selectedMachine == 1,
                                         onTap: () {
                                           setState(() {
@@ -240,7 +263,9 @@ class _ReservationPageState extends State<ReservationPage> {
                                     children: [
                                       ReservationMachinebox(
                                         machine: "3",
-                                        machine_state: reservations[selectedIndex].userCount[2],
+                                        machine_state:
+                                            reservations[selectedIndex]
+                                                .userCount[2],
                                         isActive: selectedMachine == 2,
                                         onTap: () {
                                           setState(() {
@@ -251,7 +276,9 @@ class _ReservationPageState extends State<ReservationPage> {
                                       const SizedBox(width: 20),
                                       ReservationMachinebox(
                                         machine: "4",
-                                        machine_state:reservations[selectedIndex].userCount[3],
+                                        machine_state:
+                                            reservations[selectedIndex]
+                                                .userCount[3],
                                         isActive: selectedMachine == 3,
                                         onTap: () {
                                           setState(() {
