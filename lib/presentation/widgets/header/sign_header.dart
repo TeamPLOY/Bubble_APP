@@ -24,26 +24,24 @@ class SignHeader extends StatelessWidget {
           Container(
             child: GestureDetector(
               onTap: () {
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          LoginPage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        return child;
-                      },
-                    ),
-                  );
-                },
-              child: Container( 
-                width: 50,
-                height: 18,
-                child: SvgPicture.asset(
-                    'assets/img/back.svg',
-                    width: 8,
-                    height: 18,
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        LoginPage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return child;
+                    },
                   ),
+                );
+              },
+              child: Container(
+                width: 80,
+                height: 24,
+                child: SvgPicture.asset(
+                  'assets/img/back.svg',
+                ),
               ),
             ),
           ),

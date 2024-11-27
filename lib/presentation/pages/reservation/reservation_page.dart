@@ -26,7 +26,7 @@ class ReservationPage extends StatefulWidget {
 class _ReservationPageState extends State<ReservationPage> {
   late Future<List<ReservationModel>> reservationsFuture;
   late UserModel user_profile;
-  bool isReservationed=false;
+  bool isReservationed = false;
   int selectedIndex = 4;
   int selectedMachine = -1;
   var access_token = globalTokens?.access_token ?? '';
@@ -74,7 +74,10 @@ class _ReservationPageState extends State<ReservationPage> {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData) {
               List<ReservationModel> reservations = snapshot.data!;
-              ReservationModel addReservation = ReservationModel(date: reservations.first.date, day: reservations.first.day, userCount: [false,false,false,false]);
+              ReservationModel addReservation = ReservationModel(
+                  date: reservations.first.date,
+                  day: reservations.first.day,
+                  userCount: [false, false, false, false]);
               reservations.add(addReservation);
               return ListView(
                 children: [
@@ -115,7 +118,12 @@ class _ReservationPageState extends State<ReservationPage> {
                                   Row(
                                     children: [
                                       ReservationWeekbox(
-                                        machine_state:parseNumberFromString(user_profile.roomNum) >=424 &&parseNumberFromString(user_profile.roomNum) <=434,
+                                        machine_state: parseNumberFromString(
+                                                    user_profile.roomNum) >=
+                                                424 &&
+                                            parseNumberFromString(
+                                                    user_profile.roomNum) <=
+                                                434,
                                         day: reservations[0].date,
                                         week: "월",
                                         isActive: selectedIndex == 0,
@@ -123,13 +131,18 @@ class _ReservationPageState extends State<ReservationPage> {
                                           setState(() {
                                             selectedIndex = 0;
                                             selectedMachine = -1;
-                                            isReservationed=false;
+                                            isReservationed = false;
                                           });
                                         },
                                       ),
                                       const SizedBox(width: 20),
                                       ReservationWeekbox(
-                                        machine_state:  parseNumberFromString(user_profile.roomNum) >=418 &&parseNumberFromString(user_profile.roomNum) <=423,
+                                        machine_state: parseNumberFromString(
+                                                    user_profile.roomNum) >=
+                                                418 &&
+                                            parseNumberFromString(
+                                                    user_profile.roomNum) <=
+                                                423,
                                         day: reservations[1].date,
                                         week: "화",
                                         isActive: selectedIndex == 1,
@@ -137,7 +150,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                           setState(() {
                                             selectedIndex = 1;
                                             selectedMachine = -1;
-                                            isReservationed=false;
+                                            isReservationed = false;
                                           });
                                         },
                                       ),
@@ -147,7 +160,12 @@ class _ReservationPageState extends State<ReservationPage> {
                                   Row(
                                     children: [
                                       ReservationWeekbox(
-                                        machine_state:parseNumberFromString(user_profile.roomNum) >=424 &&parseNumberFromString(user_profile.roomNum) <=434,
+                                        machine_state: parseNumberFromString(
+                                                    user_profile.roomNum) >=
+                                                424 &&
+                                            parseNumberFromString(
+                                                    user_profile.roomNum) <=
+                                                434,
                                         day: reservations[2].date,
                                         week: "수",
                                         isActive: selectedIndex == 2,
@@ -155,13 +173,18 @@ class _ReservationPageState extends State<ReservationPage> {
                                           setState(() {
                                             selectedIndex = 2;
                                             selectedMachine = -1;
-                                            isReservationed=false;
+                                            isReservationed = false;
                                           });
                                         },
                                       ),
                                       const SizedBox(width: 20),
                                       ReservationWeekbox(
-                                        machine_state:  parseNumberFromString(user_profile.roomNum) >=418 &&parseNumberFromString(user_profile.roomNum) <=423,
+                                        machine_state: parseNumberFromString(
+                                                    user_profile.roomNum) >=
+                                                418 &&
+                                            parseNumberFromString(
+                                                    user_profile.roomNum) <=
+                                                423,
                                         day: reservations[3].date,
                                         week: "목",
                                         isActive: selectedIndex == 3,
@@ -169,7 +192,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                           setState(() {
                                             selectedIndex = 3;
                                             selectedMachine = -1;
-                                            isReservationed=false;
+                                            isReservationed = false;
                                           });
                                         },
                                       ),
@@ -224,15 +247,16 @@ class _ReservationPageState extends State<ReservationPage> {
                                     children: [
                                       ReservationMachinebox(
                                         machine: "1",
-                                        machine_state: reservations[selectedIndex].userCount[0],
+                                        machine_state:
+                                            reservations[selectedIndex]
+                                                .userCount[0],
                                         isActive: selectedMachine == 0,
                                         onTap: () {
                                           setState(() {
-                                            if(selectedIndex==4){
-                                              isReservationed=false;
-                                            }
-                                            else{
-                                              isReservationed=true;
+                                            if (selectedIndex == 4) {
+                                              isReservationed = false;
+                                            } else {
+                                              isReservationed = true;
                                               selectedMachine = 0;
                                             }
                                           });
@@ -241,15 +265,16 @@ class _ReservationPageState extends State<ReservationPage> {
                                       const SizedBox(width: 20),
                                       ReservationMachinebox(
                                         machine: "2",
-                                        machine_state: reservations[selectedIndex].userCount[1],
+                                        machine_state:
+                                            reservations[selectedIndex]
+                                                .userCount[1],
                                         isActive: selectedMachine == 1,
                                         onTap: () {
                                           setState(() {
-                                            if(selectedIndex==4){
-                                              isReservationed=false;
-                                            }
-                                            else{
-                                              isReservationed=true;
+                                            if (selectedIndex == 4) {
+                                              isReservationed = false;
+                                            } else {
+                                              isReservationed = true;
                                               selectedMachine = 1;
                                             }
                                           });
@@ -262,33 +287,34 @@ class _ReservationPageState extends State<ReservationPage> {
                                     children: [
                                       ReservationMachinebox(
                                         machine: "3",
-                                        machine_state: reservations[selectedIndex].userCount[2],
+                                        machine_state:
+                                            reservations[selectedIndex]
+                                                .userCount[2],
                                         isActive: selectedMachine == 2,
                                         onTap: () {
                                           setState(() {
-                                            if(selectedIndex==4){
-                                              isReservationed=false;
-                                            }
-                                            else{
-                                              isReservationed=true;
+                                            if (selectedIndex == 4) {
+                                              isReservationed = false;
+                                            } else {
+                                              isReservationed = true;
                                               selectedMachine = 2;
                                             }
-                                            
                                           });
                                         },
                                       ),
                                       const SizedBox(width: 20),
                                       ReservationMachinebox(
                                         machine: "4",
-                                        machine_state:reservations[selectedIndex].userCount[3],
+                                        machine_state:
+                                            reservations[selectedIndex]
+                                                .userCount[3],
                                         isActive: selectedMachine == 3,
                                         onTap: () {
                                           setState(() {
-                                            if(selectedIndex==4){
-                                            isReservationed=false;
-                                            }
-                                            else{
-                                              isReservationed=true;
+                                            if (selectedIndex == 4) {
+                                              isReservationed = false;
+                                            } else {
+                                              isReservationed = true;
                                               selectedMachine = 3;
                                             }
                                           });
@@ -312,41 +338,42 @@ class _ReservationPageState extends State<ReservationPage> {
                             children: [
                               GestureDetector(
                                 onTap: () => {
-                                  isReservationed==true?
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Dialog(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: ReservationCheckModal(
-                                          date:
-                                              reservations[selectedIndex].date,
-                                          onConfirm: () async {
-                                            print(
-                                                '${reservations[selectedIndex].date}');
-                                            print(
-                                                "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
-                                            ReservationPostApi postApi =
-                                                ReservationPostApi(
-                                                    date:
-                                                        '${reservations[selectedIndex].date}',
-                                                    machine:
-                                                        "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
-                                            postApi.reservationDate();
+                                  isReservationed == true
+                                      ? showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Dialog(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                              ),
+                                              child: ReservationCheckModal(
+                                                date:
+                                                    reservations[selectedIndex]
+                                                        .date,
+                                                onConfirm: () async {
+                                                  print(
+                                                      '${reservations[selectedIndex].date}');
+                                                  print(
+                                                      "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
+                                                  ReservationPostApi postApi =
+                                                      ReservationPostApi(
+                                                          date:
+                                                              '${reservations[selectedIndex].date}',
+                                                          machine:
+                                                              "${user_profile.washingRoom} 세탁기${selectedMachine + 1}");
+                                                  postApi.reservationDate();
+                                                },
+                                              ),
+                                            );
                                           },
-                                        ),
-                                      );
-                                    },
-                                  ):
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return IsreservationModal();
-                                    },
-                                  )
+                                        )
+                                      : showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return IsreservationModal();
+                                          },
+                                        )
                                 },
                                 child: NextButton(
                                   text: '예약하기',

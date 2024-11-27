@@ -18,58 +18,62 @@ class _UserfullModalState extends State<UserfullModal> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             color: AppColor.white100),
-        width: MediaQuery.of(context).size.width * (346 / 393),
-        height: 227,
+        width: MediaQuery.of(context).size.width * (300 / 393),
+        height: 278,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 23,),
-            SvgPicture.asset('assets/img/modal.svg'),
-            SizedBox(height: 16,),
+            SizedBox(
+              height: 32,
+            ),
+            SvgPicture.asset(
+              'assets/img/bluemark.svg',
+              width: 70,
+              height: 70,
+            ),
+            SizedBox(
+              height: 24,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '이미 ',
-                  style: AppTextStyles.bold16.copyWith(color: AppColor.gray800),
-                ),
-                Text(
-                  '예약 ',
-                  style: AppTextStyles.bold16.copyWith(color: AppColor.blue400),
-                ),
-                Text(
-                  '하셨습니다.',
-                  style: AppTextStyles.bold16.copyWith(color: AppColor.gray800),
+                  '이미 예약하셨습니다.',
+                  style:
+                      AppTextStyles.medium20.copyWith(color: AppColor.gray800),
                 ),
               ],
             ),
+            SizedBox(
+              height: 4,
+            ),
             Text(
-                  '다음주에 예약해주세요.',
-                  style: AppTextStyles.regular14.copyWith(color: AppColor.gray500),
-                ),
-            SizedBox(height: 20,),
+              '다음주에 예약해주세요.',
+              style: AppTextStyles.medium20.copyWith(color: AppColor.gray800),
+            ),
+            SizedBox(
+              height: 30,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                      onTap: () => {Navigator.of(context).pop()},
-                      child: Container(
-                        width: 140,
-                        height: 45,
-                        decoration: BoxDecoration(
+                    onTap: () => {Navigator.of(context).pop()},
+                    child: Container(
+                      width: 254,
+                      height: 45,
+                      decoration: BoxDecoration(
                           color: AppColor.blue400,
-                          borderRadius: BorderRadius.circular(10)
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                        child: Text(
+                          '확인',
+                          style: AppTextStyles.regular16
+                              .copyWith(color: AppColor.white100),
                         ),
-                        
-                        child: Center(
-                          child: Text(
-                            '확인',
-                            style: AppTextStyles.regular16
-                                .copyWith(color:AppColor.white100),
-                                          ),
-                        ),
-                      ))
+                      ),
+                    ))
               ],
             )
           ],

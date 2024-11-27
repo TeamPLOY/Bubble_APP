@@ -14,6 +14,10 @@ class AppTextStyles {
       fontFamily: 'PretendardRegular',
       fontSize: 16,
       fontWeight: FontWeight.w400);
+  static TextStyle regular18 = TextStyle(
+      fontFamily: 'PretendardRegular',
+      fontSize: 18,
+      fontWeight: FontWeight.w400);
   static TextStyle regular20 = TextStyle(
       fontFamily: 'PretendardRegular',
       fontSize: 20,
@@ -46,6 +50,11 @@ class AppTextStyles {
   static TextStyle medium18 = TextStyle(
       fontFamily: 'PretendardMedium',
       fontSize: 18,
+      fontWeight: FontWeight.w500);
+
+  static TextStyle medium20 = TextStyle(
+      fontFamily: 'PretendardMedium',
+      fontSize: 20,
       fontWeight: FontWeight.w500);
 
   static TextStyle medium22 = TextStyle(
