@@ -28,8 +28,8 @@ class DeleteNextPage extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                   'assets/img/finish.svg',
-                  width: MediaQuery.of(context).size.width *(142/393),
-                  height: MediaQuery.of(context).size.width  *(142/393),
+                  width: 100,
+                  height: 100,
                   ),
                 ],
               ),

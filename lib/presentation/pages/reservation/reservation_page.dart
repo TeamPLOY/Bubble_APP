@@ -1,4 +1,3 @@
-import 'package:bubble_app/presentation/widgets/modal/isreservation_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:bubble_app/app/config/app_color.dart';
 import 'package:bubble_app/app/config/app_text_styles.dart';
@@ -368,12 +367,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                             );
                                           },
                                         )
-                                      : showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return IsreservationModal();
-                                          },
-                                        )
+                                        :SizedBox(),
                                 },
                                 child: NextButton(
                                   text: '예약하기',

@@ -1,4 +1,3 @@
-import 'package:bubble_app/presentation/pages/home/home_page.dart';
 import 'package:bubble_app/presentation/pages/reservation/finish_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,10 +15,8 @@ class ReservationCheckModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width >= 400
-          ? MediaQuery.of(context).size.width * (210 / 393)
-          : 210,
-      height: MediaQuery.of(context).size.width >= 700 ? 350 : 250,
+      width:210,
+      height:250,
       decoration: BoxDecoration(
         color: AppColor.white100,
         borderRadius: BorderRadius.circular(15),
@@ -36,8 +33,6 @@ class ReservationCheckModal extends StatelessWidget {
             padding: EdgeInsets.only(top: 10),
             child: SvgPicture.asset(
               'assets/img/checkicon.svg',
-              width: MediaQuery.of(context).size.width >= 700 ? 120 : 90,
-              height: MediaQuery.of(context).size.width >= 700 ? 120 : 90,
             ),
           ),
           Padding(
@@ -73,12 +68,8 @@ class ReservationCheckModal extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                   child: Container(
-                    width: MediaQuery.of(context).size.width >= 393
-                        ? MediaQuery.of(context).size.width * (65 / 393)
-                        : 55,
-                    height: MediaQuery.of(context).size.width >= 700
-                        ? MediaQuery.of(context).size.height * (60 / 893)
-                        : 25,
+                    width: 65,
+                    height:30,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(3),
                       border: Border.all(width: 1, color: AppColor.gray400),
@@ -93,9 +84,7 @@ class ReservationCheckModal extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width >= 600
-                      ? MediaQuery.of(context).size.height * (38 / 893)
-                      : 19,
+                  width: 15,
                 ),
                 GestureDetector(
                   onTap: () async {
@@ -114,12 +103,8 @@ class ReservationCheckModal extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    width: MediaQuery.of(context).size.width >= 393
-                        ? MediaQuery.of(context).size.width * (65 / 393)
-                        : 55,
-                    height: MediaQuery.of(context).size.width >= 700
-                        ? MediaQuery.of(context).size.height * (60 / 893)
-                        : 25,
+                    width: 65,
+                    height:30,
                     decoration: BoxDecoration(
                       color: AppColor.blue400,
                       borderRadius: BorderRadius.circular(3),
