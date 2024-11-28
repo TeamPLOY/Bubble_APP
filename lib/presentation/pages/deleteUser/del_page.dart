@@ -25,8 +25,8 @@ class _DeletePageState extends State<DelPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController repasswordController = TextEditingController();
 
-  late bool delete_state=false;
-  bool isClick=false;
+  late bool delete_state = false;
+  bool isClick = false;
   void _showDeleteDialog() {
     showDialog(
       context: context,
@@ -44,13 +44,11 @@ class _DeletePageState extends State<DelPage> {
                 width: screenWidth * 0.85,
                 height: screenHeight * 0.35,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: AppColor.white100
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: AppColor.white100),
                 padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.04, 
-                  vertical: screenHeight * 0.03
-                ),
+                    horizontal: screenWidth * 0.04,
+                    vertical: screenHeight * 0.03),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,25 +56,19 @@ class _DeletePageState extends State<DelPage> {
                     Text(
                       '회원 탈퇴',
                       style: AppTextStyles.bold18.copyWith(
-                        color: AppColor.gray800, 
-                        fontSize: titleFontSize
-                      ),
+                          color: AppColor.gray800, fontSize: titleFontSize),
                     ),
                     SizedBox(height: screenHeight * 0.03),
                     Text(
                       '회원 탈퇴 시 계정 정보가 삭제되어 복구가 불가해요.',
                       style: AppTextStyles.regular18.copyWith(
-                        color: AppColor.gray600, 
-                        fontSize: contentFontSize
-                      ),
+                          color: AppColor.gray600, fontSize: contentFontSize),
                     ),
                     SizedBox(height: screenHeight * 0.03),
                     Text(
                       '정말로 탈퇴하시겠어요?',
                       style: AppTextStyles.regular18.copyWith(
-                        color: AppColor.gray600, 
-                        fontSize: contentFontSize
-                      ),
+                          color: AppColor.gray600, fontSize: contentFontSize),
                     ),
                     SizedBox(height: screenHeight * 0.03),
                     Row(
@@ -105,41 +97,38 @@ class _DeletePageState extends State<DelPage> {
                             ),
                           ),
                         ),
-                        
                         SizedBox(width: screenWidth * 0.03),
                         Expanded(
                           child: GestureDetector(
                             onTap: () async {
                               setState(() {
-                                isClick=true;  
+                                isClick = true;
                               });
-                              
+
                               if (validationemailResults[0] == false &&
                                   validationemailResults[1] == false &&
                                   validationemailResults[2] == false) {
-                                    DeleteApi deleteApi = DeleteApi(
+                                DeleteApi deleteApi = DeleteApi(
                                   email: emailController.text,
                                   passwrod: passwordController.text,
                                 );
                                 delete_state = await deleteApi.fetchData();
-                                if(delete_state){
-                                  
-                                Navigator.push(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder: (context, animation, secondaryAnimation) =>
-                                        DeleteNextPage(),
-                                    transitionsBuilder:
-                                        (context, animation, secondaryAnimation, child) {
-                                      return child;
-                                    },
-                                  ),
-                                );
-                                }
-                                else{
+                                if (delete_state) {
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, animation,
+                                              secondaryAnimation) =>
+                                          DeleteNextPage(),
+                                      transitionsBuilder: (context, animation,
+                                          secondaryAnimation, child) {
+                                        return child;
+                                      },
+                                    ),
+                                  );
+                                } else {
                                   Navigator.of(context).pop();
                                 }
-                                
                               }
                             },
                             child: Container(
@@ -176,95 +165,110 @@ class _DeletePageState extends State<DelPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white100,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SideHeader(text: "탈퇴하기"),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * (100 / 852),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 23),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '회원 탈퇴를 위해\n회원정보를 입력해주세요.',
-                  style: AppTextStyles.bold20.copyWith(color: AppColor.gray700),
-                ),
-                const SizedBox(height: 17),
-                InputTitle(text: '이메일'),
-                Inputbox(
-                  wsize: 347,
-                  hsize: 40,
-                  text: "이메일을 입력해주세요",
-                  controller: emailController,
-                ),
-                validationemailResults[2]
-                    ? Message(text: "이메일을 제대로 입력해주세요.")
-                    : const SizedBox(height: 0, width: 0),
-                const SizedBox(height: 8),
-                InputTitle(text: '비밀번호'),
-                PasswordBox(
-                  wsize: 347,
-                  hsize: 40,
-                  text: "비밀번호를 입력해주세요",
-                  controller: passwordController,
-                ),
-                validationemailResults[0]
-                    ? Message(text: "비밀번호를 제대로 입력해주세요.")
-                    : const SizedBox(height: 0, width: 0),
-                const SizedBox(height: 8),
-                InputTitle(text: '비밀번호 확인'),
-                PasswordBox(
-                  wsize: 347,
-                  hsize: 40,
-                  text: "비밀번호를 다시 입력해주세요",
-                  controller: repasswordController,
-                ),
-                validationemailResults[1]
-                    ? Message(text: "비밀번호가 일치하지 않습니다.")
-                    : const SizedBox(height: 0, width: 0),
-                
-                SizedBox(height: 10,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    isClick?delete_state==false?Text('이메일과 비밀번호가 일치하지 않습니다.',style: AppTextStyles.regular18.copyWith(
-                        color: AppColor.red200, 
-                        fontSize: 14
-                      ),):SizedBox(height: 16,):SizedBox(height: 16,),
-                  ],
-                ),
-                SizedBox(height: 5,),
-                GestureDetector(
-                  onTap: () async {
-                    Deletesearch formsearch = Deletesearch(
-                      emailController: emailController,
-                      passwordController: passwordController,
-                      repasswordController: repasswordController,
-                    );
-                    setState(() {
-                      validationemailResults = formsearch.checkForm();
-                    });
-                    
-                    if (validationemailResults[0] == false &&
-                        validationemailResults[1] == false &&
-                        validationemailResults[2] == false) {
-                      _showDeleteDialog();
-                    }
-                  },
-                  child: NextButton(
-                    text: "탈퇴하기",
-                    onPressed: () {},
-                  ),
-                ),
-              ],
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SideHeader(text: "탈퇴하기"),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * (100 / 852),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 23),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '회원 탈퇴를 위해\n회원정보를 입력해주세요.',
+                    style:
+                        AppTextStyles.bold20.copyWith(color: AppColor.gray700),
+                  ),
+                  const SizedBox(height: 17),
+                  InputTitle(text: '이메일'),
+                  Inputbox(
+                    wsize: 347,
+                    hsize: 40,
+                    text: "이메일을 입력해주세요",
+                    controller: emailController,
+                  ),
+                  validationemailResults[2]
+                      ? Message(text: "이메일을 제대로 입력해주세요.")
+                      : const SizedBox(height: 0, width: 0),
+                  const SizedBox(height: 8),
+                  InputTitle(text: '비밀번호'),
+                  PasswordBox(
+                    wsize: 347,
+                    hsize: 40,
+                    text: "비밀번호를 입력해주세요",
+                    controller: passwordController,
+                  ),
+                  validationemailResults[0]
+                      ? Message(text: "비밀번호를 제대로 입력해주세요.")
+                      : const SizedBox(height: 0, width: 0),
+                  const SizedBox(height: 8),
+                  InputTitle(text: '비밀번호 확인'),
+                  PasswordBox(
+                    wsize: 347,
+                    hsize: 40,
+                    text: "비밀번호를 다시 입력해주세요",
+                    controller: repasswordController,
+                  ),
+                  validationemailResults[1]
+                      ? Message(text: "비밀번호가 일치하지 않습니다.")
+                      : const SizedBox(height: 0, width: 0),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      isClick
+                          ? delete_state == false
+                              ? Text(
+                                  '이메일과 비밀번호가 일치하지 않습니다.',
+                                  style: AppTextStyles.regular18.copyWith(
+                                      color: AppColor.red200, fontSize: 14),
+                                )
+                              : SizedBox(
+                                  height: 16,
+                                )
+                          : SizedBox(
+                              height: 16,
+                            ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      Deletesearch formsearch = Deletesearch(
+                        emailController: emailController,
+                        passwordController: passwordController,
+                        repasswordController: repasswordController,
+                      );
+                      setState(() {
+                        validationemailResults = formsearch.checkForm();
+                      });
+
+                      if (validationemailResults[0] == false &&
+                          validationemailResults[1] == false &&
+                          validationemailResults[2] == false) {
+                        _showDeleteDialog();
+                      }
+                    },
+                    child: NextButton(
+                      text: "탈퇴하기",
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

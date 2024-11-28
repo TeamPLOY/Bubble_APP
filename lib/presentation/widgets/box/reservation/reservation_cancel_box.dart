@@ -33,34 +33,36 @@ class _CancelState extends State<Cancel> {
     _cancel = widget.cancel;
   }
 
-bool checkDate(String backendDate) {
-  String formattedDate = backendDate
-      .replaceAll('년 ', '-')
-      .replaceAll('월 ', '-')
-      .replaceAll('일', '');
-  DateTime parsedDate = DateTime.parse(formattedDate);
+  bool checkDate(String backendDate) {
+    String formattedDate = backendDate
+        .replaceAll('년 ', '-')
+        .replaceAll('월 ', '-')
+        .replaceAll('일', '');
+    DateTime parsedDate = DateTime.parse(formattedDate);
 
-  DateTime today = DateTime.now();
-  DateTime onlyToday = DateTime(today.year, today.month, today.day);
-  DateTime onlyParsedDate = DateTime(parsedDate.year, parsedDate.month, parsedDate.day);
+    DateTime today = DateTime.now();
+    DateTime onlyToday = DateTime(today.year, today.month, today.day);
+    DateTime onlyParsedDate =
+        DateTime(parsedDate.year, parsedDate.month, parsedDate.day);
 
-  if (onlyParsedDate == onlyToday) {
-    return false;
-  } else if (onlyParsedDate.isBefore(onlyToday)) {
-    return true;
-  } else if (onlyParsedDate.isAfter(onlyToday)) {
-    return false;
+    if (onlyParsedDate == onlyToday) {
+      return false;
+    } else if (onlyParsedDate.isBefore(onlyToday)) {
+      return true;
+    } else if (onlyParsedDate.isAfter(onlyToday)) {
+      return false;
+    }
+
+    throw Exception("Invalid date format");
   }
-
-  throw Exception("Invalid date format");
-}
-
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * (332 / 393),
-      height:MediaQuery.of(context).size.width>=500? MediaQuery.of(context).size.height * (82 / 853):72,
+      height: MediaQuery.of(context).size.width >= 500
+          ? MediaQuery.of(context).size.height * (62 / 853)
+          : 72,
       decoration: BoxDecoration(
         color: AppColor.white100,
         borderRadius: BorderRadius.circular(8),
@@ -76,17 +78,25 @@ bool checkDate(String backendDate) {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              width: 70,
-              height: 16,
+              width: MediaQuery.of(context).size.width <= 500
+                  ? MediaQuery.of(context).size.width * (70 / 393)
+                  : MediaQuery.of(context).size.width * (60 / 393),
+              height: MediaQuery.of(context).size.width <= 500
+                  ? MediaQuery.of(context).size.height * (16 / 853)
+                  : MediaQuery.of(context).size.height * (20 / 853),
               decoration: BoxDecoration(
                   color: AppColor.blue400,
                   borderRadius: BorderRadius.circular(3)),
               child: Center(
                 child: Text(
                   "${widget.machine}",
-                  style: AppTextStyles.medium10.copyWith(
-                    color: AppColor.white100,
-                  ),
+                  style: MediaQuery.of(context).size.width <= 500
+                      ? AppTextStyles.medium10.copyWith(
+                          color: AppColor.white100,
+                        )
+                      : AppTextStyles.medium16.copyWith(
+                          color: AppColor.white100,
+                        ),
                 ),
               ),
             ),
@@ -98,10 +108,11 @@ bool checkDate(String backendDate) {
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     "${widget.resDate} ${widget.dayOfWeek} 예약",
-                    style: MediaQuery.of(context).size.width<=350?AppTextStyles.medium14.copyWith(
-                      color: AppColor.gray800):AppTextStyles.medium16.copyWith(
-                      color: AppColor.gray800,
-                    ),
+                    style: MediaQuery.of(context).size.width <= 500
+                        ? AppTextStyles.medium14
+                            .copyWith(color: AppColor.gray800)
+                        : AppTextStyles.medium22
+                            .copyWith(color: AppColor.gray800, fontSize: 26),
                   ),
                 ),
                 Padding(
@@ -109,7 +120,8 @@ bool checkDate(String backendDate) {
                   child: _cancel == true
                       ? Container(
                           width: MediaQuery.of(context).size.width * (70 / 393),
-                          height: MediaQuery.of(context).size.height * (26 / 893),
+                          height:
+                              MediaQuery.of(context).size.height * (26 / 893),
                           decoration: BoxDecoration(
                             color: AppColor.gray200,
                             borderRadius: BorderRadius.circular(10),
@@ -117,16 +129,23 @@ bool checkDate(String backendDate) {
                           child: Center(
                             child: Text(
                               '취소 완료',
-                              style: MediaQuery.of(context).size.width<=350?AppTextStyles.medium12
-                                  .copyWith(color: AppColor.gray500):AppTextStyles.medium14
-                                  .copyWith(color: AppColor.gray500),
+                              style: MediaQuery.of(context).size.width <= 500
+                                  ? MediaQuery.of(context).size.width <= 350
+                                      ? AppTextStyles.medium12
+                                          .copyWith(color: AppColor.gray500)
+                                      : AppTextStyles.medium14
+                                          .copyWith(color: AppColor.gray500)
+                                  : AppTextStyles.medium22
+                                      .copyWith(color: AppColor.gray500),
                             ),
                           ),
                         )
                       : checkDate(widget.resDate)
                           ? Container(
-                          width: MediaQuery.of(context).size.width * (70 / 393),
-                          height: MediaQuery.of(context).size.height * (26 / 893),
+                              width: MediaQuery.of(context).size.width *
+                                  (70 / 393),
+                              height: MediaQuery.of(context).size.height *
+                                  (26 / 893),
                               decoration: BoxDecoration(
                                 color: AppColor.gray200,
                                 borderRadius: BorderRadius.circular(10),
@@ -134,9 +153,15 @@ bool checkDate(String backendDate) {
                               child: Center(
                                 child: Text(
                                   '사용 완료',
-                                  style: MediaQuery.of(context).size.width<=350?AppTextStyles.medium12
-                                      .copyWith(color: AppColor.gray500):AppTextStyles.medium14
-                                      .copyWith(color: AppColor.gray500),
+                                  style: MediaQuery.of(context).size.width <=
+                                          500
+                                      ? MediaQuery.of(context).size.width <= 350
+                                          ? AppTextStyles.medium12
+                                              .copyWith(color: AppColor.gray500)
+                                          : AppTextStyles.medium14
+                                              .copyWith(color: AppColor.gray500)
+                                      : AppTextStyles.medium22
+                                          .copyWith(color: AppColor.gray500),
                                 ),
                               ),
                             )
@@ -146,11 +171,10 @@ bool checkDate(String backendDate) {
                                   context: context,
                                   builder: (context) {
                                     return ReservationCancelModal(
-                                      roomnumber: widget.roomnumber,
-                                      date: widget.resDate,
-                                      cancel: widget.cancel,
-                                      machine : widget.machine
-                                    );
+                                        roomnumber: widget.roomnumber,
+                                        date: widget.resDate,
+                                        cancel: widget.cancel,
+                                        machine: widget.machine);
                                   },
                                 );
 
@@ -162,8 +186,10 @@ bool checkDate(String backendDate) {
                                 }
                               },
                               child: Container(
-                          width: MediaQuery.of(context).size.width * (70 / 393),
-                          height: MediaQuery.of(context).size.height * (26 / 893),
+                                width: MediaQuery.of(context).size.width *
+                                    (70 / 393),
+                                height: MediaQuery.of(context).size.height *
+                                    (26 / 893),
                                 decoration: BoxDecoration(
                                   color: AppColor.gray200,
                                   borderRadius: BorderRadius.circular(10),
@@ -171,9 +197,16 @@ bool checkDate(String backendDate) {
                                 child: Center(
                                   child: Text(
                                     '예약 취소',
-                                    style: MediaQuery.of(context).size.width<=350?AppTextStyles.semiBold12
-                                        .copyWith(color: AppColor.blue400):AppTextStyles.semiBold14
-                                        .copyWith(color: AppColor.blue400),
+                                    style: MediaQuery.of(context).size.width <=
+                                            500
+                                        ? MediaQuery.of(context).size.width <=
+                                                350
+                                            ? AppTextStyles.semiBold12.copyWith(
+                                                color: AppColor.blue400)
+                                            : AppTextStyles.semiBold14.copyWith(
+                                                color: AppColor.blue400)
+                                        : AppTextStyles.semiBold18
+                                            .copyWith(color: AppColor.blue400),
                                   ),
                                 ),
                               ),
